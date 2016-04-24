@@ -1,0 +1,6 @@
+framework module Pods_Breadit {
+  umbrella header "Pods-Breadit-umbrella.h"
+
+  export *
+  module * { export * }
+}
