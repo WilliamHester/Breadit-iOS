@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import AlamofireImage
+import NSDate_TimeAgo
 
 class MasterViewController: UITableViewController {
 
@@ -77,25 +78,29 @@ class MasterViewController: UITableViewController {
 
     override func tableView(tableView: UITableView,
     		cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("SubmissionCell",
-        		forIndexPath: indexPath) as! SubmissionCell
+        let submission = submissionStore.submissions[indexPath.row]
+        let cell: SubmissionCell
+        if let previewImage = submission.getPreviewImage() {
+            cell = tableView.dequeueReusableCellWithIdentifier("SubmissionImageCell",
+            		forIndexPath: indexPath) as! SubmissionImageCell
+            Alamofire.request(.GET, previewImage).responseImage { response in
+                (cell as! SubmissionImageCell).content.image = response.result.value
+            }
+        } else {
+        	cell = tableView.dequeueReusableCellWithIdentifier("SubmissionCell",
+        			forIndexPath: indexPath) as! SubmissionCell
+        }
 
         if indexPath.item > submissionStore.submissions.count - 5 {
             submissionStore.loadSubmissions(onSubmissionsLoaded)
         }
 
-        let submission = submissionStore.submissions[indexPath.row]
         cell.title.text = submission.title
         cell.author.text = submission.author
-        cell.content.image = nil
-        if let previewImage = submission.getPreviewImage() {
-            cell.content.hidden = false
-            Alamofire.request(.GET, previewImage).responseImage { response in
-                cell.content.image = response.result.value
-            }
-        } else {
-            cell.content.hidden = true
-        }
+        cell.subreddit.text = submission.subreddit.lowercaseString
+        cell.relativeDate.text = NSDate(timeIntervalSince1970: Double(submission.createdUTC))
+            	.timeAgo()
+
         return cell
     }
 

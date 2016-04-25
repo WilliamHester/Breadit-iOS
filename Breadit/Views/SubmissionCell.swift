@@ -10,7 +10,7 @@ class SubmissionCell: UITableViewCell {
 
     @IBOutlet var title: UILabel!
     @IBOutlet var author: UILabel!
-    @IBOutlet var content: UIImageView!
+    @IBOutlet var subreddit: UILabel!
+    @IBOutlet var relativeDate: UILabel!
 
-    @IBOutlet var contentHeight: NSLayoutConstraint!
 }
