@@ -12,7 +12,8 @@ class MoreComment: Comment {
 
     let children: [String]
 
-    init(json: JSON) {
+    init(json: JSON, level: Int) {
+        self.level = level
         if let names = json["children"].arrayObject as? [String] {
             self.children = names
         } else {

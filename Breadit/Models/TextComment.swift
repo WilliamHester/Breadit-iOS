@@ -11,7 +11,7 @@ import SwiftyJSON
 
 class TextComment: Comment {
     
-    var level: Int = 0
+    var level: Int
 
     let subreddit_id: String
     let id: String
@@ -33,9 +33,9 @@ class TextComment: Comment {
     let score_hidden: Bool
     let stickied: Bool
     let likes: Bool?
-    var replies = [Comment]()
+    var replies: [Comment]? = [Comment]()
 
-    init(json: JSON) {
+    init(json: JSON, level: Int) {
         self.subreddit_id = json["subreddit_id"].string!
         self.id = json["id"].string!
         self.author = json["author"].string!
@@ -57,12 +57,14 @@ class TextComment: Comment {
         self.stickied = json["stickied"].bool!
         self.likes = json["likes"].bool
 
+        self.level = level
+
         if json["replies"].string == nil {
             for jsonData in json["replies"]["data"]["children"].array! {
                 if jsonData["kind"] == "more" {
-                    replies.append(MoreComment(json: jsonData["data"]))
+                    replies?.append(MoreComment(json: jsonData["data"], level: level + 1))
                 } else {
-                    replies.append(TextComment(json: jsonData["data"]))
+                    replies?.append(TextComment(json: jsonData["data"], level: level + 1))
                 }
             }
         }

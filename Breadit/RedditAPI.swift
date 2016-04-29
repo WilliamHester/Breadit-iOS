@@ -36,13 +36,30 @@ struct RedditAPI {
             if let commentsJson = json[1]["data"]["children"].array {
                 for commentJson in commentsJson {
                     if commentJson["kind"] == "more" {
-                        comments.append(MoreComment(json: commentJson["data"]))
+                        comments.append(MoreComment(json: commentJson["data"], level: 0))
                     } else {
-                        comments.append(TextComment(json: commentJson["data"]))
+                        comments.append(TextComment(json: commentJson["data"], level: 0))
                     }
                 }
             }
-            callback(submission, comments)
+
+            // Parse the comments into a list of comments with levels
+            var resultComments = [Comment]()
+            for comment in comments {
+                var stack = [Comment]()
+                stack.append(comment)
+                while !stack.isEmpty {
+                    let root = stack.removeFirst()
+                    resultComments.append(root)
+
+                    if let textRoot = root as? TextComment {
+                    	stack = textRoot.replies! + stack
+                        textRoot.replies = nil // remove the replies; they're no longer needed
+                    }
+                }
+            }
+
+            callback(submission, resultComments)
         }
     }
 
