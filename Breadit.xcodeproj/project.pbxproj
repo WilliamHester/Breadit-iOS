@@ -16,7 +16,10 @@
 		3D9CBE281CCC9BF10004EACC /* Mango.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9CBE271CCC9BF10004EACC /* Mango.swift */; };
 		3D9CBE2A1CCD81C90004EACC /* SubmissionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9CBE291CCD81C90004EACC /* SubmissionHeader.swift */; };
 		3D9CBE2C1CCD82900004EACC /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9CBE2B1CCD82900004EACC /* CommentCell.swift */; };
+		3DF4EE641CD3110100985184 /* TextComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF4EE631CD3110100985184 /* TextComment.swift */; };
+		5056F522FCC477BEE6475337 /* MoreComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056F72C1DF74F499B250156 /* MoreComment.swift */; };
 		5056F646C416ADAA6764C5AD /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056FEF8C31C10C595281F16 /* MasterViewController.swift */; };
+		5056F6FD12FB503AA6314F94 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056F7AAA2F11CFCDFA0E5F9 /* Comment.swift */; };
 		5056F8F8C234C697A676DF09 /* Submission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056FD916A6AA73ED01BA73C /* Submission.swift */; };
 		5056F90CD7C987E083B8A6D4 /* SubmissionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056F484BCF5AB43FB1FF8EE /* SubmissionCell.swift */; };
 		5056F9EE31D841816201EEB7 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056FCE017B2DD0B1EC97D0B /* DetailViewController.swift */; };
@@ -36,7 +39,10 @@
 		3D9CBE271CCC9BF10004EACC /* Mango.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mango.swift; sourceTree = "<group>"; };
 		3D9CBE291CCD81C90004EACC /* SubmissionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionHeader.swift; sourceTree = "<group>"; };
 		3D9CBE2B1CCD82900004EACC /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
+		3DF4EE631CD3110100985184 /* TextComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextComment.swift; sourceTree = "<group>"; };
 		5056F484BCF5AB43FB1FF8EE /* SubmissionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionCell.swift; sourceTree = "<group>"; };
+		5056F72C1DF74F499B250156 /* MoreComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreComment.swift; sourceTree = "<group>"; };
+		5056F7AAA2F11CFCDFA0E5F9 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		5056F9DBA33BB2D69C3060CD /* SubmissionStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionStore.swift; sourceTree = "<group>"; };
 		5056FCE017B2DD0B1EC97D0B /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		5056FD916A6AA73ED01BA73C /* Submission.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Submission.swift; sourceTree = "<group>"; };
@@ -118,6 +124,9 @@
 			isa = PBXGroup;
 			children = (
 				5056FD916A6AA73ED01BA73C /* Submission.swift */,
+				3DF4EE631CD3110100985184 /* TextComment.swift */,
+				5056F7AAA2F11CFCDFA0E5F9 /* Comment.swift */,
+				5056F72C1DF74F499B250156 /* MoreComment.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -269,10 +278,13 @@
 				5056F8F8C234C697A676DF09 /* Submission.swift in Sources */,
 				3D9CBE281CCC9BF10004EACC /* Mango.swift in Sources */,
 				3D9CBE261CCC86370004EACC /* SubmissionImageCell.swift in Sources */,
+				3DF4EE641CD3110100985184 /* TextComment.swift in Sources */,
 				5056F646C416ADAA6764C5AD /* MasterViewController.swift in Sources */,
 				5056F9EE31D841816201EEB7 /* DetailViewController.swift in Sources */,
 				5056FE9AC46822F4A2665389 /* SubmissionStore.swift in Sources */,
 				5056F90CD7C987E083B8A6D4 /* SubmissionCell.swift in Sources */,
+				5056F6FD12FB503AA6314F94 /* Comment.swift in Sources */,
+				5056F522FCC477BEE6475337 /* MoreComment.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

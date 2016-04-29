@@ -26,6 +26,25 @@ struct RedditAPI {
             }
         }
     }
+    
+    static func getComments(permalink: String, callback: (Submission, [Comment]) -> ()) {
+        let request = RedditRequest(permalink)
+        request.getJson { json in
+            let submission = Submission(json: json[0]["data"]["children"][0]["data"])
+
+            var comments = [Comment]()
+            if let commentsJson = json[1]["data"]["children"].array {
+                for commentJson in commentsJson {
+                    if commentJson["kind"] == "more" {
+                        comments.append(MoreComment(json: commentJson["data"]))
+                    } else {
+                        comments.append(TextComment(json: commentJson["data"]))
+                    }
+                }
+            }
+            callback(submission, comments)
+        }
+    }
 
 }
 
@@ -35,7 +54,7 @@ private class RedditRequest {
     let path: String
     let queries: [String : String]
     
-    init(_ path: String, queries: [String : String]) {
+    init(_ path: String, queries: [String : String] = [:]) {
         self.path = path
         self.queries = queries
     }
