@@ -11,6 +11,8 @@ import UIKit
 class NavigationDrawerViewController : UIViewController, UIGestureRecognizerDelegate,
 		UINavigationControllerDelegate {
     
+    private static let size: CGFloat = 40
+    
     var contentController: UIViewController!
     var drawerController: UIViewController!
     
@@ -22,6 +24,7 @@ class NavigationDrawerViewController : UIViewController, UIGestureRecognizerDele
     var isOpen: Bool = false {
         didSet {
             animateDrawer(0.3)
+            content.userInteractionEnabled = !isOpen
         }
     }
     var enabled: Bool = true
@@ -57,6 +60,7 @@ class NavigationDrawerViewController : UIViewController, UIGestureRecognizerDele
                 v.topAnchor.constraintEqualToAnchor(self.view.topAnchor).active = true
                 v.bottomAnchor.constraintEqualToAnchor(self.view.bottomAnchor).active = true
             }
+            self.drawer.frame = self.makeDrawerFrame()
 
             v.addSubview(self.contentController.view)
             self.content = self.contentController.view.constrain { v in
@@ -89,12 +93,18 @@ class NavigationDrawerViewController : UIViewController, UIGestureRecognizerDele
         view.addGestureRecognizer(swipeRecognizer)
     }
     
+    private func makeDrawerFrame() -> CGRect {
+        return CGRect(x: 0, y: 0,
+                width: view.frame.width - NavigationDrawerViewController.size,
+        		height: view.frame.height)
+    }
+    
     func toggleDrawer(obj: AnyObject) {
         isOpen = !isOpen
     }
     
     func animateDrawer(duration: Double) {
-        let end = view.frame.width - 40.0
+        let end = view.frame.width - NavigationDrawerViewController.size
         UIView.animateWithDuration(duration) {
             if self.isOpen {
                 self.drawerRightConstraint.constant = end
@@ -110,7 +120,8 @@ class NavigationDrawerViewController : UIViewController, UIGestureRecognizerDele
     // MARK: - UIGestureRecognizerDelegate
     
     func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return enabled && gestureRecognizer.locationInView(view).x < 40 + content.frame.origin.x
+        return enabled && gestureRecognizer.locationInView(view).x <
+            	NavigationDrawerViewController.size + content.frame.origin.x
     }
     
     // MARK: - PanGestureRecognizer
@@ -137,7 +148,7 @@ class NavigationDrawerViewController : UIViewController, UIGestureRecognizerDele
     
     func animateToEnd(translation: CGFloat) {
         let trans = startTranslation + translation
-        let openPercent = trans / (view.frame.width - 40)
+        let openPercent = trans / (view.frame.width - NavigationDrawerViewController.size)
         isOpen = openPercent > 0.5
     }
     
