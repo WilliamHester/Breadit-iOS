@@ -7,46 +7,52 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D13BC951CD54AAF009193C4 /* MangoWritten.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D13BC941CD54AAF009193C4 /* MangoWritten.swift */; };
+		3D13BC971CD55269009193C4 /* SubmissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D13BC961CD55269009193C4 /* SubmissionView.swift */; };
+		3D13BC9B1CD5983C009193C4 /* MoreCommentCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D13BC9A1CD5983C009193C4 /* MoreCommentCellView.swift */; };
+		3D13BC9D1CD59AF6009193C4 /* CommentCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D13BC9C1CD59AF6009193C4 /* CommentCellView.swift */; };
 		3D4EAE391CCB2E2E001C23AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4EAE381CCB2E2E001C23AC /* AppDelegate.swift */; };
-		3D4EAE401CCB2E2E001C23AC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D4EAE3E1CCB2E2E001C23AC /* Main.storyboard */; };
 		3D4EAE421CCB2E2E001C23AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D4EAE411CCB2E2E001C23AC /* Assets.xcassets */; };
 		3D4EAE451CCB2E2E001C23AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D4EAE431CCB2E2E001C23AC /* LaunchScreen.storyboard */; };
 		3D4EAE4D1CCBFFC1001C23AC /* RedditAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4EAE4C1CCBFFC1001C23AC /* RedditAPI.swift */; };
-		3D9CBE261CCC86370004EACC /* SubmissionImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9CBE251CCC86370004EACC /* SubmissionImageCell.swift */; };
+		3D9CBE261CCC86370004EACC /* SubmissionImageCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9CBE251CCC86370004EACC /* SubmissionImageCellView.swift */; };
 		3D9CBE281CCC9BF10004EACC /* Mango.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9CBE271CCC9BF10004EACC /* Mango.swift */; };
 		3D9CBE2A1CCD81C90004EACC /* SubmissionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9CBE291CCD81C90004EACC /* SubmissionHeader.swift */; };
-		3D9CBE2C1CCD82900004EACC /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9CBE2B1CCD82900004EACC /* CommentCell.swift */; };
+		3D9CBE2C1CCD82900004EACC /* TextCommentCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9CBE2B1CCD82900004EACC /* TextCommentCellView.swift */; };
 		3DF4EE641CD3110100985184 /* TextComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF4EE631CD3110100985184 /* TextComment.swift */; };
 		5056F522FCC477BEE6475337 /* MoreComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056F72C1DF74F499B250156 /* MoreComment.swift */; };
-		5056F646C416ADAA6764C5AD /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056FEF8C31C10C595281F16 /* MasterViewController.swift */; };
+		5056F646C416ADAA6764C5AD /* SubmissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056FEF8C31C10C595281F16 /* SubmissionViewController.swift */; };
 		5056F6FD12FB503AA6314F94 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056F7AAA2F11CFCDFA0E5F9 /* Comment.swift */; };
 		5056F8F8C234C697A676DF09 /* Submission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056FD916A6AA73ED01BA73C /* Submission.swift */; };
-		5056F90CD7C987E083B8A6D4 /* SubmissionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056F484BCF5AB43FB1FF8EE /* SubmissionCell.swift */; };
-		5056F9EE31D841816201EEB7 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056FCE017B2DD0B1EC97D0B /* DetailViewController.swift */; };
+		5056F90CD7C987E083B8A6D4 /* SubmissionCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056F484BCF5AB43FB1FF8EE /* SubmissionCellView.swift */; };
+		5056F9EE31D841816201EEB7 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056FCE017B2DD0B1EC97D0B /* CommentViewController.swift */; };
 		5056FE9AC46822F4A2665389 /* SubmissionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056F9DBA33BB2D69C3060CD /* SubmissionStore.swift */; };
 		B6021B0FA50AD19ACB487910 /* Pods_Breadit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9C646CBF9733815AE70102B /* Pods_Breadit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3D13BC941CD54AAF009193C4 /* MangoWritten.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MangoWritten.swift; sourceTree = "<group>"; };
+		3D13BC961CD55269009193C4 /* SubmissionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionView.swift; sourceTree = "<group>"; };
+		3D13BC9A1CD5983C009193C4 /* MoreCommentCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreCommentCellView.swift; sourceTree = "<group>"; };
+		3D13BC9C1CD59AF6009193C4 /* CommentCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCellView.swift; sourceTree = "<group>"; };
 		3D4EAE351CCB2E2E001C23AC /* Breadit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Breadit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D4EAE381CCB2E2E001C23AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3D4EAE3F1CCB2E2E001C23AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3D4EAE411CCB2E2E001C23AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3D4EAE441CCB2E2E001C23AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3D4EAE461CCB2E2E001C23AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3D4EAE4C1CCBFFC1001C23AC /* RedditAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RedditAPI.swift; sourceTree = "<group>"; };
-		3D9CBE251CCC86370004EACC /* SubmissionImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionImageCell.swift; sourceTree = "<group>"; };
+		3D9CBE251CCC86370004EACC /* SubmissionImageCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionImageCellView.swift; sourceTree = "<group>"; };
 		3D9CBE271CCC9BF10004EACC /* Mango.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mango.swift; sourceTree = "<group>"; };
 		3D9CBE291CCD81C90004EACC /* SubmissionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionHeader.swift; sourceTree = "<group>"; };
-		3D9CBE2B1CCD82900004EACC /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
+		3D9CBE2B1CCD82900004EACC /* TextCommentCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextCommentCellView.swift; sourceTree = "<group>"; };
 		3DF4EE631CD3110100985184 /* TextComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextComment.swift; sourceTree = "<group>"; };
-		5056F484BCF5AB43FB1FF8EE /* SubmissionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionCell.swift; sourceTree = "<group>"; };
+		5056F484BCF5AB43FB1FF8EE /* SubmissionCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionCellView.swift; sourceTree = "<group>"; };
 		5056F72C1DF74F499B250156 /* MoreComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreComment.swift; sourceTree = "<group>"; };
 		5056F7AAA2F11CFCDFA0E5F9 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		5056F9DBA33BB2D69C3060CD /* SubmissionStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionStore.swift; sourceTree = "<group>"; };
-		5056FCE017B2DD0B1EC97D0B /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		5056FCE017B2DD0B1EC97D0B /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		5056FD916A6AA73ED01BA73C /* Submission.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Submission.swift; sourceTree = "<group>"; };
-		5056FEF8C31C10C595281F16 /* MasterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
+		5056FEF8C31C10C595281F16 /* SubmissionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionViewController.swift; sourceTree = "<group>"; };
 		81F3F02BD989F1F0A6A87972 /* Pods-Breadit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Breadit.release.xcconfig"; path = "Pods/Target Support Files/Pods-Breadit/Pods-Breadit.release.xcconfig"; sourceTree = "<group>"; };
 		AB6D9F07FB930788218F5A5A /* Pods-Breadit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Breadit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Breadit/Pods-Breadit.debug.xcconfig"; sourceTree = "<group>"; };
 		D9C646CBF9733815AE70102B /* Pods_Breadit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Breadit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -89,13 +95,13 @@
 				5056FE2C5067C8DB3EC30A3D /* Views */,
 				5056FC442F9ED6FFC75AE229 /* ViewControllers */,
 				3D4EAE381CCB2E2E001C23AC /* AppDelegate.swift */,
-				3D4EAE3E1CCB2E2E001C23AC /* Main.storyboard */,
 				3D4EAE411CCB2E2E001C23AC /* Assets.xcassets */,
 				3D4EAE431CCB2E2E001C23AC /* LaunchScreen.storyboard */,
 				3D4EAE461CCB2E2E001C23AC /* Info.plist */,
 				3D4EAE4C1CCBFFC1001C23AC /* RedditAPI.swift */,
 				5056F9DBA33BB2D69C3060CD /* SubmissionStore.swift */,
 				3D9CBE271CCC9BF10004EACC /* Mango.swift */,
+				3D13BC941CD54AAF009193C4 /* MangoWritten.swift */,
 			);
 			path = Breadit;
 			sourceTree = "<group>";
@@ -103,8 +109,8 @@
 		5056FC442F9ED6FFC75AE229 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				5056FEF8C31C10C595281F16 /* MasterViewController.swift */,
-				5056FCE017B2DD0B1EC97D0B /* DetailViewController.swift */,
+				5056FEF8C31C10C595281F16 /* SubmissionViewController.swift */,
+				5056FCE017B2DD0B1EC97D0B /* CommentViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -112,10 +118,13 @@
 		5056FE2C5067C8DB3EC30A3D /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				5056F484BCF5AB43FB1FF8EE /* SubmissionCell.swift */,
-				3D9CBE251CCC86370004EACC /* SubmissionImageCell.swift */,
+				5056F484BCF5AB43FB1FF8EE /* SubmissionCellView.swift */,
+				3D9CBE251CCC86370004EACC /* SubmissionImageCellView.swift */,
 				3D9CBE291CCD81C90004EACC /* SubmissionHeader.swift */,
-				3D9CBE2B1CCD82900004EACC /* CommentCell.swift */,
+				3D13BC961CD55269009193C4 /* SubmissionView.swift */,
+				3D9CBE2B1CCD82900004EACC /* TextCommentCellView.swift */,
+				3D13BC9A1CD5983C009193C4 /* MoreCommentCellView.swift */,
+				3D13BC9C1CD59AF6009193C4 /* CommentCellView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -212,7 +221,6 @@
 			files = (
 				3D4EAE451CCB2E2E001C23AC /* LaunchScreen.storyboard in Resources */,
 				3D4EAE421CCB2E2E001C23AC /* Assets.xcassets in Resources */,
-				3D4EAE401CCB2E2E001C23AC /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,18 +279,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D13BC9B1CD5983C009193C4 /* MoreCommentCellView.swift in Sources */,
 				3D9CBE2A1CCD81C90004EACC /* SubmissionHeader.swift in Sources */,
 				3D4EAE4D1CCBFFC1001C23AC /* RedditAPI.swift in Sources */,
 				3D4EAE391CCB2E2E001C23AC /* AppDelegate.swift in Sources */,
-				3D9CBE2C1CCD82900004EACC /* CommentCell.swift in Sources */,
+				3D9CBE2C1CCD82900004EACC /* TextCommentCellView.swift in Sources */,
 				5056F8F8C234C697A676DF09 /* Submission.swift in Sources */,
 				3D9CBE281CCC9BF10004EACC /* Mango.swift in Sources */,
-				3D9CBE261CCC86370004EACC /* SubmissionImageCell.swift in Sources */,
+				3D13BC971CD55269009193C4 /* SubmissionView.swift in Sources */,
+				3D9CBE261CCC86370004EACC /* SubmissionImageCellView.swift in Sources */,
 				3DF4EE641CD3110100985184 /* TextComment.swift in Sources */,
-				5056F646C416ADAA6764C5AD /* MasterViewController.swift in Sources */,
-				5056F9EE31D841816201EEB7 /* DetailViewController.swift in Sources */,
+				5056F646C416ADAA6764C5AD /* SubmissionViewController.swift in Sources */,
+				5056F9EE31D841816201EEB7 /* CommentViewController.swift in Sources */,
 				5056FE9AC46822F4A2665389 /* SubmissionStore.swift in Sources */,
-				5056F90CD7C987E083B8A6D4 /* SubmissionCell.swift in Sources */,
+				5056F90CD7C987E083B8A6D4 /* SubmissionCellView.swift in Sources */,
+				3D13BC9D1CD59AF6009193C4 /* CommentCellView.swift in Sources */,
+				3D13BC951CD54AAF009193C4 /* MangoWritten.swift in Sources */,
 				5056F6FD12FB503AA6314F94 /* Comment.swift in Sources */,
 				5056F522FCC477BEE6475337 /* MoreComment.swift in Sources */,
 			);
@@ -291,14 +303,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		3D4EAE3E1CCB2E2E001C23AC /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3D4EAE3F1CCB2E2E001C23AC /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		3D4EAE431CCB2E2E001C23AC /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

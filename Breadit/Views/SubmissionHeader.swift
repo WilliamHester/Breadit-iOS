@@ -8,6 +8,6 @@
 
 import UIKit
 
-class SubmissionHeader: UIView {
+class SubmissionHeader : UIView {
 
 }

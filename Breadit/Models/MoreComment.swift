@@ -6,7 +6,7 @@
 import Foundation
 import SwiftyJSON
 
-class MoreComment: Comment {
+class MoreComment : Comment {
     
     var level: Int = 0
 

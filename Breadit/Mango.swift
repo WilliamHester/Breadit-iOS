@@ -11,239 +11,253 @@ extension UIView {
     
     func uiView(views: (UIView) -> ()) -> UIView {
         let view = UIView()
-        views(view)
         addChild(view)
+        views(view)
         return view
     }
     
     func uiToolbar(views: (UIToolbar) -> ()) -> UIToolbar {
         let view = UIToolbar()
-        views(view)
         addChild(view)
+        views(view)
         return view
     }
     
     func uiPickerView(views: (UIPickerView) -> ()) -> UIPickerView {
         let view = UIPickerView()
-        views(view)
         addChild(view)
+        views(view)
+        return view
+    }
+    
+    func uiAlertView(views: (UIAlertView) -> ()) -> UIAlertView {
+        let view = UIAlertView()
+        addChild(view)
+        views(view)
         return view
     }
     
     func uiControl(views: (UIControl) -> ()) -> UIControl {
         let view = UIControl()
-        views(view)
         addChild(view)
+        views(view)
         return view
     }
     
     func uiSwitch(views: (UISwitch) -> ()) -> UISwitch {
         let view = UISwitch()
-        views(view)
         addChild(view)
+        views(view)
         return view
     }
     
     func uiSegmentedControl(views: (UISegmentedControl) -> ()) -> UISegmentedControl {
         let view = UISegmentedControl()
-        views(view)
         addChild(view)
+        views(view)
         return view
     }
     
     func uiSlider(views: (UISlider) -> ()) -> UISlider {
         let view = UISlider()
-        views(view)
         addChild(view)
+        views(view)
         return view
     }
     
     func uiRefreshControl(views: (UIRefreshControl) -> ()) -> UIRefreshControl {
         let view = UIRefreshControl()
-        views(view)
         addChild(view)
+        views(view)
         return view
     }
     
     func uiTextField(views: (UITextField) -> ()) -> UITextField {
         let view = UITextField()
-        views(view)
         addChild(view)
+        views(view)
         return view
     }
     
     func uiStepper(views: (UIStepper) -> ()) -> UIStepper {
         let view = UIStepper()
-        views(view)
         addChild(view)
+        views(view)
         return view
     }
     
     func uiDatePicker(views: (UIDatePicker) -> ()) -> UIDatePicker {
         let view = UIDatePicker()
-        views(view)
         addChild(view)
+        views(view)
         return view
     }
     
     func uiPageControl(views: (UIPageControl) -> ()) -> UIPageControl {
         let view = UIPageControl()
-        views(view)
         addChild(view)
+        views(view)
         return view
     }
     
     func uiButton(views: (UIButton) -> ()) -> UIButton {
         let view = UIButton()
-        views(view)
         addChild(view)
+        views(view)
         return view
     }
     
     func uiCollectionReusableView(views: (UICollectionReusableView) -> ()) -> UICollectionReusableView {
         let view = UICollectionReusableView()
-        views(view)
         addChild(view)
+        views(view)
         return view
     }
     
     func uiCollectionViewCell(views: (UICollectionViewCell) -> ()) -> UICollectionViewCell {
         let view = UICollectionViewCell()
-        views(view)
         addChild(view)
+        views(view)
         return view
     }
     
     func uiInputView(views: (UIInputView) -> ()) -> UIInputView {
         let view = UIInputView()
-        views(view)
         addChild(view)
+        views(view)
         return view
     }
     
     func uiWebView(views: (UIWebView) -> ()) -> UIWebView {
         let view = UIWebView()
-        views(view)
         addChild(view)
+        views(view)
         return view
     }
     
     func uiWindow(views: (UIWindow) -> ()) -> UIWindow {
         let view = UIWindow()
-        views(view)
         addChild(view)
+        views(view)
         return view
     }
     
     func uiScrollView(views: (UIScrollView) -> ()) -> UIScrollView {
         let view = UIScrollView()
-        views(view)
         addChild(view)
+        views(view)
         return view
     }
     
     func uiTableView(views: (UITableView) -> ()) -> UITableView {
         let view = UITableView()
-        views(view)
         addChild(view)
+        views(view)
         return view
     }
     
     func uiCollectionView(views: (UICollectionView) -> ()) -> UICollectionView {
         let view = UICollectionView()
-        views(view)
         addChild(view)
+        views(view)
         return view
     }
     
     func uiTextView(views: (UITextView) -> ()) -> UITextView {
         let view = UITextView()
-        views(view)
         addChild(view)
+        views(view)
         return view
     }
     
     func uiTableViewCell(views: (UITableViewCell) -> ()) -> UITableViewCell {
         let view = UITableViewCell()
-        views(view)
         addChild(view)
+        views(view)
+        return view
+    }
+    
+    func uiActionSheet(views: (UIActionSheet) -> ()) -> UIActionSheet {
+        let view = UIActionSheet()
+        addChild(view)
+        views(view)
         return view
     }
     
     func uiVisualEffectView(views: (UIVisualEffectView) -> ()) -> UIVisualEffectView {
         let view = UIVisualEffectView()
-        views(view)
         addChild(view)
+        views(view)
         return view
     }
     
     func uiActivityIndicatorView(views: (UIActivityIndicatorView) -> ()) -> UIActivityIndicatorView {
         let view = UIActivityIndicatorView()
-        views(view)
         addChild(view)
+        views(view)
         return view
     }
     
     func uiLabel(views: (UILabel) -> ()) -> UILabel {
         let view = UILabel()
-        views(view)
         addChild(view)
+        views(view)
         return view
     }
     
     func uiTabBar(views: (UITabBar) -> ()) -> UITabBar {
         let view = UITabBar()
-        views(view)
         addChild(view)
+        views(view)
         return view
     }
     
     func uiTableViewHeaderFooterView(views: (UITableViewHeaderFooterView) -> ()) -> UITableViewHeaderFooterView {
         let view = UITableViewHeaderFooterView()
-        views(view)
         addChild(view)
+        views(view)
         return view
     }
     
     func uiStackView(views: (UIStackView) -> ()) -> UIStackView {
         let view = UIStackView()
-        views(view)
         addChild(view)
+        views(view)
         return view
     }
     
     func uiSearchBar(views: (UISearchBar) -> ()) -> UISearchBar {
         let view = UISearchBar()
-        views(view)
         addChild(view)
+        views(view)
         return view
     }
     
     func uiPopoverBackgroundView(views: (UIPopoverBackgroundView) -> ()) -> UIPopoverBackgroundView {
         let view = UIPopoverBackgroundView()
-        views(view)
         addChild(view)
+        views(view)
         return view
     }
     
     func uiImageView(views: (UIImageView) -> ()) -> UIImageView {
         let view = UIImageView()
-        views(view)
         addChild(view)
+        views(view)
         return view
     }
     
     func uiProgressView(views: (UIProgressView) -> ()) -> UIProgressView {
         let view = UIProgressView()
-        views(view)
         addChild(view)
+        views(view)
         return view
     }
     
     func uiNavigationBar(views: (UINavigationBar) -> ()) -> UINavigationBar {
         let view = UINavigationBar()
-        views(view)
         addChild(view)
+        views(view)
         return view
     }
     
@@ -252,139 +266,219 @@ extension UIView {
 extension UIViewController {
     
     func uiView(views: (UIView) -> ()) {
-        self.view.uiView(views)
+        let view = UIView()
+        self.view = view
+        views(view)
     }
     
     func uiToolbar(views: (UIToolbar) -> ()) {
-        self.view.uiToolbar(views)
+        let view = UIToolbar()
+        self.view = view
+        views(view)
     }
     
     func uiPickerView(views: (UIPickerView) -> ()) {
-        self.view.uiPickerView(views)
+        let view = UIPickerView()
+        self.view = view
+        views(view)
+    }
+    
+    func uiAlertView(views: (UIAlertView) -> ()) {
+        let view = UIAlertView()
+        self.view = view
+        views(view)
     }
     
     func uiControl(views: (UIControl) -> ()) {
-        self.view.uiControl(views)
+        let view = UIControl()
+        self.view = view
+        views(view)
     }
     
     func uiSwitch(views: (UISwitch) -> ()) {
-        self.view.uiSwitch(views)
+        let view = UISwitch()
+        self.view = view
+        views(view)
     }
     
     func uiSegmentedControl(views: (UISegmentedControl) -> ()) {
-        self.view.uiSegmentedControl(views)
+        let view = UISegmentedControl()
+        self.view = view
+        views(view)
     }
     
     func uiSlider(views: (UISlider) -> ()) {
-        self.view.uiSlider(views)
+        let view = UISlider()
+        self.view = view
+        views(view)
     }
     
     func uiRefreshControl(views: (UIRefreshControl) -> ()) {
-        self.view.uiRefreshControl(views)
+        let view = UIRefreshControl()
+        self.view = view
+        views(view)
     }
     
     func uiTextField(views: (UITextField) -> ()) {
-        self.view.uiTextField(views)
+        let view = UITextField()
+        self.view = view
+        views(view)
     }
     
     func uiStepper(views: (UIStepper) -> ()) {
-        self.view.uiStepper(views)
+        let view = UIStepper()
+        self.view = view
+        views(view)
     }
     
     func uiDatePicker(views: (UIDatePicker) -> ()) {
-        self.view.uiDatePicker(views)
+        let view = UIDatePicker()
+        self.view = view
+        views(view)
     }
     
     func uiPageControl(views: (UIPageControl) -> ()) {
-        self.view.uiPageControl(views)
+        let view = UIPageControl()
+        self.view = view
+        views(view)
     }
     
     func uiButton(views: (UIButton) -> ()) {
-        self.view.uiButton(views)
+        let view = UIButton()
+        self.view = view
+        views(view)
     }
     
     func uiCollectionReusableView(views: (UICollectionReusableView) -> ()) {
-        self.view.uiCollectionReusableView(views)
+        let view = UICollectionReusableView()
+        self.view = view
+        views(view)
     }
     
     func uiCollectionViewCell(views: (UICollectionViewCell) -> ()) {
-        self.view.uiCollectionViewCell(views)
+        let view = UICollectionViewCell()
+        self.view = view
+        views(view)
     }
     
     func uiInputView(views: (UIInputView) -> ()) {
-        self.view.uiInputView(views)
+        let view = UIInputView()
+        self.view = view
+        views(view)
     }
     
     func uiWebView(views: (UIWebView) -> ()) {
-        self.view.uiWebView(views)
+        let view = UIWebView()
+        self.view = view
+        views(view)
     }
     
     func uiWindow(views: (UIWindow) -> ()) {
-        self.view.uiWindow(views)
+        let view = UIWindow()
+        self.view = view
+        views(view)
     }
     
     func uiScrollView(views: (UIScrollView) -> ()) {
-        self.view.uiScrollView(views)
+        let view = UIScrollView()
+        self.view = view
+        views(view)
     }
     
     func uiTableView(views: (UITableView) -> ()) {
-        self.view.uiTableView(views)
+        let view = UITableView()
+        self.view = view
+        views(view)
     }
     
     func uiCollectionView(views: (UICollectionView) -> ()) {
-        self.view.uiCollectionView(views)
+        let view = UICollectionView()
+        self.view = view
+        views(view)
     }
     
     func uiTextView(views: (UITextView) -> ()) {
-        self.view.uiTextView(views)
+        let view = UITextView()
+        self.view = view
+        views(view)
     }
     
     func uiTableViewCell(views: (UITableViewCell) -> ()) {
-        self.view.uiTableViewCell(views)
+        let view = UITableViewCell()
+        self.view = view
+        views(view)
+    }
+    
+    func uiActionSheet(views: (UIActionSheet) -> ()) {
+        let view = UIActionSheet()
+        self.view = view
+        views(view)
     }
     
     func uiVisualEffectView(views: (UIVisualEffectView) -> ()) {
-        self.view.uiVisualEffectView(views)
+        let view = UIVisualEffectView()
+        self.view = view
+        views(view)
     }
     
     func uiActivityIndicatorView(views: (UIActivityIndicatorView) -> ()) {
-        self.view.uiActivityIndicatorView(views)
+        let view = UIActivityIndicatorView()
+        self.view = view
+        views(view)
     }
     
     func uiLabel(views: (UILabel) -> ()) {
-        self.view.uiLabel(views)
+        let view = UILabel()
+        self.view = view
+        views(view)
     }
     
     func uiTabBar(views: (UITabBar) -> ()) {
-        self.view.uiTabBar(views)
+        let view = UITabBar()
+        self.view = view
+        views(view)
     }
     
     func uiTableViewHeaderFooterView(views: (UITableViewHeaderFooterView) -> ()) {
-        self.view.uiTableViewHeaderFooterView(views)
+        let view = UITableViewHeaderFooterView()
+        self.view = view
+        views(view)
     }
     
     func uiStackView(views: (UIStackView) -> ()) {
-        self.view.uiStackView(views)
+        let view = UIStackView()
+        self.view = view
+        views(view)
     }
     
     func uiSearchBar(views: (UISearchBar) -> ()) {
-        self.view.uiSearchBar(views)
+        let view = UISearchBar()
+        self.view = view
+        views(view)
     }
     
     func uiPopoverBackgroundView(views: (UIPopoverBackgroundView) -> ()) {
-        self.view.uiPopoverBackgroundView(views)
+        let view = UIPopoverBackgroundView()
+        self.view = view
+        views(view)
     }
     
     func uiImageView(views: (UIImageView) -> ()) {
-        self.view.uiImageView(views)
+        let view = UIImageView()
+        self.view = view
+        views(view)
     }
     
     func uiProgressView(views: (UIProgressView) -> ()) {
-        self.view.uiProgressView(views)
+        let view = UIProgressView()
+        self.view = view
+        views(view)
     }
     
     func uiNavigationBar(views: (UINavigationBar) -> ()) {
-        self.view.uiNavigationBar(views)
+        let view = UINavigationBar()
+        self.view = view
+        views(view)
     }
     
 }

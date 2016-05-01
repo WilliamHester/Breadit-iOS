@@ -9,7 +9,7 @@
 import Foundation
 import SwiftyJSON
 
-class TextComment: Comment {
+class TextComment : Comment {
     
     var level: Int
 
@@ -34,6 +34,7 @@ class TextComment: Comment {
     let stickied: Bool
     let likes: Bool?
     var replies: [Comment]? = [Comment]()
+    var hidden = false
 
     init(json: JSON, level: Int) {
         self.subreddit_id = json["subreddit_id"].string!
