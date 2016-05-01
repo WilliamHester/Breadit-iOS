@@ -14,6 +14,7 @@
 		3D13BC9F1CD5B3DD009193C4 /* NavigationDrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D13BC9E1CD5B3DD009193C4 /* NavigationDrawerViewController.swift */; };
 		3D13BCA11CD5C65A009193C4 /* DrawerContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D13BCA01CD5C65A009193C4 /* DrawerContainerView.swift */; };
 		3D13BCA31CD5EEDC009193C4 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D13BCA21CD5EEDC009193C4 /* NavigationViewController.swift */; };
+		3D13BCA51CD69524009193C4 /* HTMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D13BCA41CD69524009193C4 /* HTMLParser.swift */; };
 		3D4EAE391CCB2E2E001C23AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4EAE381CCB2E2E001C23AC /* AppDelegate.swift */; };
 		3D4EAE421CCB2E2E001C23AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D4EAE411CCB2E2E001C23AC /* Assets.xcassets */; };
 		3D4EAE451CCB2E2E001C23AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D4EAE431CCB2E2E001C23AC /* LaunchScreen.storyboard */; };
@@ -41,6 +42,7 @@
 		3D13BC9E1CD5B3DD009193C4 /* NavigationDrawerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationDrawerViewController.swift; sourceTree = "<group>"; };
 		3D13BCA01CD5C65A009193C4 /* DrawerContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerContainerView.swift; sourceTree = "<group>"; };
 		3D13BCA21CD5EEDC009193C4 /* NavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
+		3D13BCA41CD69524009193C4 /* HTMLParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTMLParser.swift; sourceTree = "<group>"; };
 		3D4EAE351CCB2E2E001C23AC /* Breadit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Breadit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D4EAE381CCB2E2E001C23AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3D4EAE411CCB2E2E001C23AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 				5056F9DBA33BB2D69C3060CD /* SubmissionStore.swift */,
 				3D9CBE271CCC9BF10004EACC /* Mango.swift */,
 				3D13BC941CD54AAF009193C4 /* MangoWritten.swift */,
+				3D13BCA41CD69524009193C4 /* HTMLParser.swift */,
 			);
 			path = Breadit;
 			sourceTree = "<group>";
@@ -299,6 +302,7 @@
 				3D13BC971CD55269009193C4 /* SubmissionView.swift in Sources */,
 				3D9CBE261CCC86370004EACC /* SubmissionImageCellView.swift in Sources */,
 				3DF4EE641CD3110100985184 /* TextComment.swift in Sources */,
+				3D13BCA51CD69524009193C4 /* HTMLParser.swift in Sources */,
 				5056F646C416ADAA6764C5AD /* SubmissionViewController.swift in Sources */,
 				3D13BCA31CD5EEDC009193C4 /* NavigationViewController.swift in Sources */,
 				5056F9EE31D841816201EEB7 /* CommentViewController.swift in Sources */,
