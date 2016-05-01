@@ -11,6 +11,8 @@
 		3D13BC971CD55269009193C4 /* SubmissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D13BC961CD55269009193C4 /* SubmissionView.swift */; };
 		3D13BC9B1CD5983C009193C4 /* MoreCommentCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D13BC9A1CD5983C009193C4 /* MoreCommentCellView.swift */; };
 		3D13BC9D1CD59AF6009193C4 /* CommentCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D13BC9C1CD59AF6009193C4 /* CommentCellView.swift */; };
+		3D13BC9F1CD5B3DD009193C4 /* NavigationDrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D13BC9E1CD5B3DD009193C4 /* NavigationDrawerViewController.swift */; };
+		3D13BCA11CD5C65A009193C4 /* DrawerContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D13BCA01CD5C65A009193C4 /* DrawerContainerView.swift */; };
 		3D4EAE391CCB2E2E001C23AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4EAE381CCB2E2E001C23AC /* AppDelegate.swift */; };
 		3D4EAE421CCB2E2E001C23AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D4EAE411CCB2E2E001C23AC /* Assets.xcassets */; };
 		3D4EAE451CCB2E2E001C23AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D4EAE431CCB2E2E001C23AC /* LaunchScreen.storyboard */; };
@@ -35,6 +37,8 @@
 		3D13BC961CD55269009193C4 /* SubmissionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionView.swift; sourceTree = "<group>"; };
 		3D13BC9A1CD5983C009193C4 /* MoreCommentCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreCommentCellView.swift; sourceTree = "<group>"; };
 		3D13BC9C1CD59AF6009193C4 /* CommentCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCellView.swift; sourceTree = "<group>"; };
+		3D13BC9E1CD5B3DD009193C4 /* NavigationDrawerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationDrawerViewController.swift; sourceTree = "<group>"; };
+		3D13BCA01CD5C65A009193C4 /* DrawerContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerContainerView.swift; sourceTree = "<group>"; };
 		3D4EAE351CCB2E2E001C23AC /* Breadit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Breadit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D4EAE381CCB2E2E001C23AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3D4EAE411CCB2E2E001C23AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -111,6 +115,7 @@
 			children = (
 				5056FEF8C31C10C595281F16 /* SubmissionViewController.swift */,
 				5056FCE017B2DD0B1EC97D0B /* CommentViewController.swift */,
+				3D13BC9E1CD5B3DD009193C4 /* NavigationDrawerViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -125,6 +130,7 @@
 				3D9CBE2B1CCD82900004EACC /* TextCommentCellView.swift */,
 				3D13BC9A1CD5983C009193C4 /* MoreCommentCellView.swift */,
 				3D13BC9C1CD59AF6009193C4 /* CommentCellView.swift */,
+				3D13BCA01CD5C65A009193C4 /* DrawerContainerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -281,6 +287,7 @@
 			files = (
 				3D13BC9B1CD5983C009193C4 /* MoreCommentCellView.swift in Sources */,
 				3D9CBE2A1CCD81C90004EACC /* SubmissionHeader.swift in Sources */,
+				3D13BC9F1CD5B3DD009193C4 /* NavigationDrawerViewController.swift in Sources */,
 				3D4EAE4D1CCBFFC1001C23AC /* RedditAPI.swift in Sources */,
 				3D4EAE391CCB2E2E001C23AC /* AppDelegate.swift in Sources */,
 				3D9CBE2C1CCD82900004EACC /* TextCommentCellView.swift in Sources */,
@@ -297,6 +304,7 @@
 				3D13BC951CD54AAF009193C4 /* MangoWritten.swift in Sources */,
 				5056F6FD12FB503AA6314F94 /* Comment.swift in Sources */,
 				5056F522FCC477BEE6475337 /* MoreComment.swift in Sources */,
+				3D13BCA11CD5C65A009193C4 /* DrawerContainerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -49,6 +49,8 @@ class SubmissionViewController : UITableViewController, UIViewControllerPreviewi
         		forCellReuseIdentifier: "SubmissionImageCellView")
 
         submissionStore.loadSubmissions(onSubmissionsLoaded)
+        
+        title = "Front Page"
     }
 
     override func didReceiveMemoryWarning() {
