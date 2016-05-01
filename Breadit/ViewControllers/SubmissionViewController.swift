@@ -40,13 +40,13 @@ class SubmissionViewController : UITableViewController, UIViewControllerPreviewi
         
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(SubmissionViewController.pullRefresh(_:)),
-    			forControlEvents: .ValueChanged)
+                forControlEvents: .ValueChanged)
         tableView.addSubview(refreshControl)
         
         tableView.registerClass(SubmissionCellView.self,
-        		forCellReuseIdentifier: "SubmissionCellView")
+                forCellReuseIdentifier: "SubmissionCellView")
         tableView.registerClass(SubmissionImageCellView.self,
-        		forCellReuseIdentifier: "SubmissionImageCellView")
+                forCellReuseIdentifier: "SubmissionImageCellView")
 
         submissionStore.loadSubmissions(onSubmissionsLoaded)
         
@@ -81,18 +81,18 @@ class SubmissionViewController : UITableViewController, UIViewControllerPreviewi
     }
 
     override func tableView(tableView: UITableView,
-    		cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+            cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let submission = submissionStore.submissions[indexPath.row]
         let cell: SubmissionCellView
         if let previewImage = submission.getPreviewImage() {
             cell = tableView.dequeueReusableCellWithIdentifier("SubmissionImageCellView",
-            		forIndexPath: indexPath) as! SubmissionImageCellView
+                    forIndexPath: indexPath) as! SubmissionImageCellView
             Alamofire.request(.GET, previewImage).responseImage { response in
                 (cell as! SubmissionImageCellView).contentImage.image = response.result.value
             }
         } else {
-        	cell = tableView.dequeueReusableCellWithIdentifier("SubmissionCellView",
-        			forIndexPath: indexPath) as! SubmissionCellView
+            cell = tableView.dequeueReusableCellWithIdentifier("SubmissionCellView",
+                    forIndexPath: indexPath) as! SubmissionCellView
         }
         
         if traitCollection.forceTouchCapability == .Available {
@@ -104,10 +104,14 @@ class SubmissionViewController : UITableViewController, UIViewControllerPreviewi
         }
 
         cell.title.text = submission.title
-        cell.author.text = submission.author
+        cell.authorAndPoints.text = "\(submission.author) \(submission.score) " +
+                "\(submission.score == 1 ? "point" : "points")"
         cell.subreddit.text = submission.subreddit.lowercaseString
         cell.relativeDate.text = NSDate(timeIntervalSince1970: Double(submission.createdUTC))
-            	.timeAgo()
+                .timeAgo()
+        cell.comments.text = "\(submission.numComments) " +
+                "\(submission.numComments == 1 ? "comment" : "comments")"
+        cell.domain.text = submission.domain
 
         return cell
     }
@@ -130,7 +134,7 @@ class SubmissionViewController : UITableViewController, UIViewControllerPreviewi
     // MARK: - View Controller Previewing Delegate
     
     func previewingContext(previewingContext: UIViewControllerPreviewing,
-    		viewControllerForLocation location: CGPoint) -> UIViewController? {
+            viewControllerForLocation location: CGPoint) -> UIViewController? {
         guard let indexPath = tableView.indexPathForRowAtPoint(location) else {
             return nil
         }
@@ -143,7 +147,7 @@ class SubmissionViewController : UITableViewController, UIViewControllerPreviewi
     }
     
     func previewingContext(previewingContext: UIViewControllerPreviewing,
-    		commitViewController viewControllerToCommit: UIViewController) {
+            commitViewController viewControllerToCommit: UIViewController) {
         showViewController(viewControllerToCommit, sender: self)
     }
 }

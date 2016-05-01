@@ -9,9 +9,11 @@ import UIKit
 class SubmissionCellView : UITableViewCell {
 
     var title: UILabel!
-    var author: UILabel!
+    var authorAndPoints: UILabel!
     var subreddit: UILabel!
     var relativeDate: UILabel!
+    var comments: UILabel!
+    var domain: UILabel!
     var stackView: UIStackView!
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -35,29 +37,39 @@ class SubmissionCellView : UITableViewCell {
                 v.axis = .Horizontal
                 v.distribution = .FillEqually
                 
-                self.author = v.uiLabel { v in
+                self.authorAndPoints = v.uiLabel { v in
                     v.fontSize = 10
                 }
                 
-                v.uiLabel { v in
+                self.relativeDate = v.uiLabel { v in
                     v.fontSize = 10
                     v.textAlignment = .Right
                 }
             }.constrain { v in
                 v.topAnchor.constraintEqualToAnchor(self.title.bottomAnchor).active = true
             }
-            
-            self.relativeDate = v.uiLabel { v in
-                v.fontSize = 10
+
+            v.uiStackView { v in
+                v.axis = .Horizontal
+                v.distribution = .FillEqually
+                self.comments = v.uiLabel { v in
+                    v.fontSize = 10
+                }
+
+                self.domain = v.uiLabel { v in
+                    v.fontSize = 10
+                    v.textAlignment = .Right
+                }
             }
+
         }.constrain { v in
-            v.leftAnchor.constraintEqualToAnchor(self.contentView.leftAnchor, constant: 4).active = true
-            v.rightAnchor.constraintEqualToAnchor(self.contentView.rightAnchor, constant: -4).active = true
-            self.contentView.topAnchor.constraintEqualToAnchor(v.topAnchor, constant: -4).active = true
-            self.contentView.bottomAnchor.constraintEqualToAnchor(v.bottomAnchor, constant: 4).active = true
+            v.leftAnchor.constraintEqualToAnchor(self.contentView.leftAnchor, constant: 8).active = true
+            v.rightAnchor.constraintEqualToAnchor(self.contentView.rightAnchor, constant: -8).active = true
+            self.contentView.topAnchor.constraintEqualToAnchor(v.topAnchor, constant: -8).active = true
+            self.contentView.bottomAnchor.constraintEqualToAnchor(v.bottomAnchor, constant: 8).active = true
         }
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
