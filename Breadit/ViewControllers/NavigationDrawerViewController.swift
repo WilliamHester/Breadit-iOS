@@ -28,6 +28,16 @@ class NavigationDrawerViewController : UIViewController, UIGestureRecognizerDele
         }
     }
     var enabled: Bool = true
+    var drawerWidth: CGFloat {
+        get {
+            return self.view.frame.width - NavigationDrawerViewController.size
+        }
+    }
+    var drawerOffset: CGFloat {
+        get {
+            return drawerWidth / 2
+        }
+    }
     
     init(contentViewController: UIViewController, drawerViewController: UIViewController) {
         super.init(nibName: nil, bundle: nil)
@@ -39,9 +49,6 @@ class NavigationDrawerViewController : UIViewController, UIGestureRecognizerDele
         self.addChildViewController(self.drawerController)
         
         if let navigationController = contentController as? UINavigationController {
-            navigationController.navigationItem.leftBarButtonItem =
-                	UIBarButtonItem(title: "Menu", style: .Plain, target: self,
-                        	action: #selector(NavigationDrawerViewController.toggleDrawer(_:)))
             navigationController.delegate = self
         }
     }
@@ -54,9 +61,13 @@ class NavigationDrawerViewController : UIViewController, UIGestureRecognizerDele
         uiView { v in
             v.addSubview(self.drawerController.view)
             self.drawer = self.drawerController.view.constrain { v in
-                self.drawerRightConstraint = v.rightAnchor.constraintEqualToAnchor(self.view.leftAnchor)
+                self.drawerRightConstraint = v.rightAnchor.constraintEqualToAnchor(
+                    self.view.leftAnchor,
+                    constant: -self.drawerOffset
+                )
                 self.drawerRightConstraint.active = true
-                v.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor).active = true
+                v.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor,
+                    	constant: -NavigationDrawerViewController.size).active = true
                 v.topAnchor.constraintEqualToAnchor(self.view.topAnchor).active = true
                 v.bottomAnchor.constraintEqualToAnchor(self.view.bottomAnchor).active = true
             }
@@ -95,7 +106,7 @@ class NavigationDrawerViewController : UIViewController, UIGestureRecognizerDele
     
     private func makeDrawerFrame() -> CGRect {
         return CGRect(x: 0, y: 0,
-                width: view.frame.width - NavigationDrawerViewController.size,
+                width: drawerWidth,
         		height: view.frame.height)
     }
     
@@ -104,13 +115,13 @@ class NavigationDrawerViewController : UIViewController, UIGestureRecognizerDele
     }
     
     func animateDrawer(duration: Double) {
-        let end = view.frame.width - NavigationDrawerViewController.size
+        let end = drawerWidth
         UIView.animateWithDuration(duration) {
             if self.isOpen {
                 self.drawerRightConstraint.constant = end
                 self.contentLeftConstraint.constant = end
             } else {
-                self.drawerRightConstraint.constant = 0
+                self.drawerRightConstraint.constant = self.drawerOffset
                 self.contentLeftConstraint.constant = 0
             }
             self.view.layoutIfNeeded()
@@ -142,7 +153,7 @@ class NavigationDrawerViewController : UIViewController, UIGestureRecognizerDele
     
     func moveDrawerBy(translation: CGFloat) {
         let trans = min(max(startTranslation + translation, 0), view.frame.width)
-        drawerRightConstraint.constant = trans
+        drawerRightConstraint.constant = min((trans / 2 + drawerOffset), drawerWidth)
         contentLeftConstraint.constant = trans
     }
     
@@ -174,6 +185,19 @@ class NavigationDrawerViewController : UIViewController, UIGestureRecognizerDele
     func navigationController(navigationController: UINavigationController,
     		didShowViewController viewController: UIViewController, animated: Bool) {
         enabled = navigationController.viewControllers[0] == viewController
+    }
+    
+    // MARK: - UINavigationControllerDelegate
+    
+    func navigationController(navigationController: UINavigationController,
+    		willShowViewController viewController: UIViewController, animated: Bool) {
+        if navigationController.viewControllers.count > 1 {
+            return
+        }
+        let menuButton = UIBarButtonItem(title: "Menu", style: .Plain, target: self,
+        		action: #selector(NavigationDrawerViewController.toggleDrawer(_:)))
+
+        viewController.navigationItem.setLeftBarButtonItem(menuButton, animated: false)
     }
     
 }
