@@ -45,8 +45,6 @@ class SubmissionCellView : UITableViewCell {
                     v.fontSize = 10
                     v.textAlignment = .Right
                 }
-            }.constrain { v in
-                v.topAnchor.constraintEqualToAnchor(self.title.bottomAnchor).active = true
             }
 
             v.uiStackView { v in

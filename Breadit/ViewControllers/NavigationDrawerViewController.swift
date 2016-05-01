@@ -9,12 +9,12 @@
 import UIKit
 
 class NavigationDrawerViewController : UIViewController, UIGestureRecognizerDelegate,
-		UINavigationControllerDelegate {
+		UINavigationControllerDelegate, NavigationDelegate {
     
     private static let size: CGFloat = 40
     
     var contentController: UIViewController!
-    var drawerController: UIViewController!
+    var drawerController: NavigationViewController!
     
     var drawer: UIView!
     var content: UIView!
@@ -39,11 +39,12 @@ class NavigationDrawerViewController : UIViewController, UIGestureRecognizerDele
         }
     }
     
-    init(contentViewController: UIViewController, drawerViewController: UIViewController) {
+    init(contentViewController: UIViewController, drawerViewController: NavigationViewController) {
         super.init(nibName: nil, bundle: nil)
 
         self.contentController = contentViewController
         self.drawerController = drawerViewController
+        self.drawerController.delegate = self
         
         self.addChildViewController(self.contentController)
         self.addChildViewController(self.drawerController)
@@ -198,6 +199,12 @@ class NavigationDrawerViewController : UIViewController, UIGestureRecognizerDele
         		action: #selector(NavigationDrawerViewController.toggleDrawer(_:)))
 
         viewController.navigationItem.setLeftBarButtonItem(menuButton, animated: false)
+    }
+    
+    // MARK: - NavigationDelegate
+    
+    func didNavigateTo(place: String) {
+        print(place)
     }
     
 }

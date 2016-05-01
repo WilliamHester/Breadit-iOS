@@ -120,6 +120,7 @@ class SubmissionViewController : UITableViewController, UIViewControllerPreviewi
         let commentsController = CommentViewController()
         commentsController.submission = submissionStore.submissions[indexPath.row]
         navigationController?.pushViewController(commentsController, animated: true)
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 
     func pullRefresh(sender: UIRefreshControl) {
