@@ -57,10 +57,6 @@ class NavigationDrawerViewController : UIViewController, UIGestureRecognizerDele
                 v.topAnchor.constraintEqualToAnchor(self.view.topAnchor).active = true
                 v.bottomAnchor.constraintEqualToAnchor(self.view.bottomAnchor).active = true
             }
-            self.drawerController.view.add { v in
-                let shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: v.frame.width, height: v.frame.height))
-                v.layer.shadowPath = shadowPath.CGPath
-            }
 
             v.addSubview(self.contentController.view)
             self.content = self.contentController.view.constrain { v in
@@ -69,6 +65,15 @@ class NavigationDrawerViewController : UIViewController, UIGestureRecognizerDele
                 v.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor).active = true
                 v.topAnchor.constraintEqualToAnchor(self.view.topAnchor).active = true
                 v.bottomAnchor.constraintEqualToAnchor(self.view.bottomAnchor).active = true
+            }
+            
+            // Make the shadow
+            self.content.add { v in
+                v.layer.shadowPath = UIBezierPath(rect: v.bounds).CGPath
+                v.layer.shadowRadius = 4
+                v.layer.shadowOffset = CGSizeMake(0, 5)
+                v.layer.shadowColor = UIColor.blackColor().CGColor
+                v.layer.shadowOpacity = 0.5
             }
         }
 
