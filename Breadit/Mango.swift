@@ -30,13 +30,6 @@ extension UIView {
         return view
     }
     
-    func uiAlertView(views: (UIAlertView) -> ()) -> UIAlertView {
-        let view = UIAlertView()
-        addChild(view)
-        views(view)
-        return view
-    }
-    
     func uiControl(views: (UIControl) -> ()) -> UIControl {
         let view = UIControl()
         addChild(view)
@@ -177,13 +170,6 @@ extension UIView {
         return view
     }
     
-    func uiActionSheet(views: (UIActionSheet) -> ()) -> UIActionSheet {
-        let view = UIActionSheet()
-        addChild(view)
-        views(view)
-        return view
-    }
-    
     func uiVisualEffectView(views: (UIVisualEffectView) -> ()) -> UIVisualEffectView {
         let view = UIVisualEffectView()
         addChild(view)
@@ -279,12 +265,6 @@ extension UIViewController {
     
     func uiPickerView(views: (UIPickerView) -> ()) {
         let view = UIPickerView()
-        self.view = view
-        views(view)
-    }
-    
-    func uiAlertView(views: (UIAlertView) -> ()) {
-        let view = UIAlertView()
         self.view = view
         views(view)
     }
@@ -405,12 +385,6 @@ extension UIViewController {
     
     func uiTableViewCell(views: (UITableViewCell) -> ()) {
         let view = UITableViewCell()
-        self.view = view
-        views(view)
-    }
-    
-    func uiActionSheet(views: (UIActionSheet) -> ()) {
-        let view = UIActionSheet()
         self.view = view
         views(view)
     }
