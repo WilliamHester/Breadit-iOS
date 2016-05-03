@@ -103,6 +103,11 @@ class NavigationDrawerViewController : UIViewController, UIGestureRecognizerDele
        			action: #selector(NavigationDrawerViewController.drawerSwiped(_:)))
         swipeRecognizer.delegate = self
         view.addGestureRecognizer(swipeRecognizer)
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self,
+      			action: #selector(NavigationDrawerViewController.drawerTapped(_:)))
+        tapGestureRecognizer.delegate = self
+        view.addGestureRecognizer(tapGestureRecognizer)
     }
     
     private func makeDrawerFrame() -> CGRect {
@@ -134,6 +139,15 @@ class NavigationDrawerViewController : UIViewController, UIGestureRecognizerDele
     func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
         return enabled && gestureRecognizer.locationInView(view).x <
             	NavigationDrawerViewController.size + content.frame.origin.x
+    }
+    
+    // MARK: - TapGestureRecognizer
+    
+    func drawerTapped(gestureRecognizer: UITapGestureRecognizer) {
+        let location = gestureRecognizer.locationInView(view)
+        if isOpen && location.x > drawerWidth {
+            isOpen = false
+        }
     }
     
     // MARK: - PanGestureRecognizer
