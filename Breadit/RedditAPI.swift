@@ -62,6 +62,23 @@ struct RedditAPI {
             callback(submission, resultComments)
         }
     }
+    
+    static func getToken(code: String, callback: () -> ()) {
+        let authString = Keys.redditClientId + ":"
+        let encoded = authString.dataUsingEncoding(NSUTF8StringEncoding)!
+        		.base64EncodedDataWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        print(encoded)
+        Alamofire.request(.POST, RedditRequest.baseURL + "/api/v1/access_token",
+      			headers: ["Authorization": "Basic \(encoded)"],
+      			parameters: [
+                    "grant_type": "authorization_code",
+                    "code": code,
+                    "redirect_uri": Keys.redditRedirectUrl
+            	]).responseJSON { response in
+                	print(response)
+                    callback()
+        		}
+	}
 
 }
 
