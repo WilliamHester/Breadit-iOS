@@ -6,7 +6,7 @@
 import Foundation
 import UIKit
 
-class SubmissionCellView : UITableViewCell {
+class SubmissionCellView: UITableViewCell {
 
     var title: UILabel!
     var authorAndPoints: UILabel!

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CommentViewController : UITableViewController {
+class CommentViewController: UITableViewController {
 
     var submission: Submission! {
         didSet {

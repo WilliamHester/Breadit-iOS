@@ -11,7 +11,7 @@ import Alamofire
 import AlamofireImage
 import NSDate_TimeAgo
 
-class SubmissionViewController : UITableViewController, UIViewControllerPreviewingDelegate {
+class SubmissionViewController: UITableViewController, UIViewControllerPreviewingDelegate {
 
     var detailViewController: CommentViewController? = nil
     let submissionStore = SubmissionStore()

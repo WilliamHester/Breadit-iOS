@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TextCommentCellView : CommentCellView {
+class TextCommentCellView: CommentCellView {
 
     var author: UILabel!
     var body: UILabel!

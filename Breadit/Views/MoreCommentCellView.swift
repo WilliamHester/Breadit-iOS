@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MoreCommentCellView : CommentCellView {
+class MoreCommentCellView: CommentCellView {
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

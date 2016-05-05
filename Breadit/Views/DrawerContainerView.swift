@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DrawerContainerView : UIView {
+class DrawerContainerView: UIView {
     
     override func drawRect(rect: CGRect) {
         

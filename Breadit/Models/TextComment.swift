@@ -9,7 +9,7 @@
 import Foundation
 import SwiftyJSON
 
-class TextComment : Comment {
+class TextComment: Comment {
     
     var level: Int
 

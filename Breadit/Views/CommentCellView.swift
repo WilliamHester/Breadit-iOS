@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CommentCellView : UITableViewCell {
+class CommentCellView: UITableViewCell {
     
     var paddingConstraint: NSLayoutConstraint!
     

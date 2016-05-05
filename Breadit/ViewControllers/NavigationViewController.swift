@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NavigationViewController : UITableViewController {
+class NavigationViewController: UITableViewController {
     
     private static let places = ["Home", "Inbox", "Account", "Friends", "Submit", "Settings"]
     

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SubmissionView : UIView {
+class SubmissionView: UIView {
     
     var subreddit: UILabel!
     var title: UILabel!

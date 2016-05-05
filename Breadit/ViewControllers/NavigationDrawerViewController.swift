@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NavigationDrawerViewController : UIViewController, UIGestureRecognizerDelegate,
+class NavigationDrawerViewController: UIViewController, UIGestureRecognizerDelegate,
 		UINavigationControllerDelegate, NavigationDelegate {
     
     private static let size: CGFloat = 40

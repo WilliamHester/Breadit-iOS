@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SubmissionImageCellView : SubmissionCellView {
+class SubmissionImageCellView: SubmissionCellView {
     
     private static let previewHeight: CGFloat = 150
     
