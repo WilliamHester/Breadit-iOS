@@ -9,8 +9,12 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
+import Realm
+import RealmSwift
 
 struct RedditAPI {
+    
+    static var loginManager = LoginManager()
 
     static func getSubmissions(after: String, callback: ([Submission]) -> ()) {
         let request = RedditRequest("", queries: ["after" : after])
@@ -63,40 +67,80 @@ struct RedditAPI {
         }
     }
     
-    static func getToken(code: String, callback: () -> ()) {
+    static func getToken(code: String, callback: (Account?) -> ()) {
         let authString = Keys.redditClientId + ":"
         let encoded = authString.dataUsingEncoding(NSUTF8StringEncoding)!
-        		.base64EncodedDataWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-        print(encoded)
-        Alamofire.request(.POST, RedditRequest.baseURL + "/api/v1/access_token",
+        		.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        Alamofire.request(.POST, RedditRequest.apiURL + "api/v1/access_token",
       			headers: ["Authorization": "Basic \(encoded)"],
       			parameters: [
                     "grant_type": "authorization_code",
                     "code": code,
                     "redirect_uri": Keys.redditRedirectUrl
             	]).responseJSON { response in
-                	print(response)
-                    callback()
+                	let json = JSON(response.result.value!)
+                    if json["access_token"] != nil {
+                        let newAccount = Account()
+                        newAccount.accessToken = json["access_token"].string!
+                        newAccount.refreshToken = json["refresh_token"].string!
+                        callback(newAccount)
+                    } else {
+                        callback(nil)
+                    }
         		}
 	}
-
-}
-
-private class RedditRequest {
-    private static let baseURL = "https://api.reddit.com/"
     
-    let path: String
-    let queries: [String : String]
-    
-    init(_ path: String, queries: [String : String] = [:]) {
-        self.path = path
-        self.queries = queries
+    static func getDetails(account: Account, callback: (Bool) -> ()) {
+        RedditRequest("api/v1/me", account: account).getJson { response in
+            account.username = response["name"].string!
+            let realm = try! Realm()
+            try! realm.write {
+                realm.add(account, update: true)
+            }
+            loginManager.account = account
+            callback(true)
+        }
     }
-
-    func getJson(callback: (JSON) -> ()) {
-        Alamofire.request(.GET, RedditRequest.baseURL + path, parameters: queries)
-            	.responseJSON { response in
-            callback(JSON(response.result.value!))
+    
+    private class RedditRequest {
+        private static let apiURL = "https://api.reddit.com/"
+        private static let oauthURL = "https://oauth.reddit.com/"
+        private static var url: String {
+            if RedditAPI.loginManager.account != nil {
+                return RedditRequest.oauthURL
+            } else {
+                return RedditRequest.apiURL
+            }
+        }
+        private static var headers: [String: String] {
+            if let account = RedditAPI.loginManager.account {
+                return ["Authorization": "bearer \(account.accessToken)"]
+            }
+            return [:]
+        }
+        
+        let path: String
+        let queries: [String: String]
+        let headers: [String: String]
+        
+        init(_ path: String, queries: [String: String] = [:],
+        		account: Account? = RedditAPI.loginManager.account) {
+            if account != nil {
+                self.path = RedditRequest.oauthURL + path
+                self.headers = ["Authorization": "bearer \(account!.accessToken)"]
+            } else {
+                self.path = RedditRequest.apiURL + path
+                self.headers = [:]
+            }
+            
+            self.queries = queries
+        }
+        
+        func getJson(callback: (JSON) -> ()) {
+            Alamofire.request(.GET, path, parameters: queries, headers: headers)
+                .responseJSON { response in
+                    callback(JSON(response.result.value!))
+            }
         }
     }
 }

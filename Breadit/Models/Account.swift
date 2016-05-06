@@ -13,4 +13,8 @@ class Account: Object {
     dynamic var username: String = ""
     dynamic var accessToken: String = ""
     dynamic var refreshToken: String = ""
+    
+    override static func primaryKey() -> String? {
+        return "username"
+    }
 }

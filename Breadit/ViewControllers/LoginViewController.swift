@@ -50,8 +50,14 @@ class LoginViewController: UIViewController, WKNavigationDelegate {
                 dict[keyValuePair[0]] = keyValuePair[1]
             }
             if let code = dict["code"] {
-                RedditAPI.getToken(code) {
-                    print("finished")
+                RedditAPI.getToken(code) { account in
+                    if let loggedInTempAccount = account {
+                        RedditAPI.getDetails(loggedInTempAccount) { success in
+
+                        }
+                    } else {
+                        
+                    }
                 }
             }
         }
