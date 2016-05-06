@@ -102,6 +102,27 @@ struct RedditAPI {
         }
     }
     
+    static func refreshToken(callback: () -> ()) {
+        let authString = Keys.redditClientId + ":"
+        let encoded = authString.dataUsingEncoding(NSUTF8StringEncoding)!
+            .base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        Alamofire.request(.POST, RedditRequest.apiURL + "api/v1/access_token",
+            headers: ["Authorization": "Basic \(encoded)"],
+            parameters: [
+                "grant_type": "refresh_token",
+                "refresh_token": loginManager.account!.refreshToken
+            ]).responseJSON { response in
+                let json = JSON(response.result.value!)
+                if json["access_token"] != nil {
+                    let realm = try! Realm()
+                    try! realm.write {
+                        loginManager.account!.accessToken = json["access_token"].string!
+                    }
+                }
+                callback()
+        }
+    }
+    
     private class RedditRequest {
         private static let apiURL = "https://api.reddit.com/"
         private static let oauthURL = "https://oauth.reddit.com/"
@@ -122,6 +143,7 @@ struct RedditAPI {
         let path: String
         let queries: [String: String]
         let headers: [String: String]
+        var attemptedRefresh = false
         
         init(_ path: String, queries: [String: String] = [:],
         		account: Account? = RedditAPI.loginManager.account) {
@@ -139,7 +161,14 @@ struct RedditAPI {
         func getJson(callback: (JSON) -> ()) {
             Alamofire.request(.GET, path, parameters: queries, headers: headers)
                 .responseJSON { response in
-                    callback(JSON(response.result.value!))
+                    if response.response?.statusCode == 401 && !self.attemptedRefresh {
+                        self.attemptedRefresh = true
+                        RedditAPI.refreshToken {
+                            self.getJson(callback)
+                        }
+                    } else {
+                    	callback(JSON(response.result.value!))
+                    }
             }
         }
     }

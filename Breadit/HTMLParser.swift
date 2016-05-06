@@ -8,6 +8,7 @@
 
 import UIKit
 import Kanna
+import SwiftString
 
 class HTMLParser {
     
@@ -18,7 +19,7 @@ class HTMLParser {
     }
     
     private static func parseHtml(text: String) -> NSAttributedString {
-        if let html = Kanna.HTML(html: text.decodedHtmlValue, encoding: NSUTF8StringEncoding) {
+        if let html = Kanna.HTML(html: text.decodeHTML(), encoding: NSUTF8StringEncoding) {
             generateString(html.body!, attributedString: NSMutableAttributedString())
         }
         return NSAttributedString()
@@ -34,23 +35,5 @@ class HTMLParser {
     
     private func insertNewLine(node: XMLElement, attributedString: NSMutableAttributedString) {
         
-    }
-}
-
-extension String {
-    var decodedHtmlValue: String {
-        get {
-            let encodedData = self.dataUsingEncoding(NSUTF8StringEncoding)!
-            let attributedOptions : [String: AnyObject] = [
-                NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
-                NSCharacterEncodingDocumentAttribute: NSUTF8StringEncoding
-            ]
-            let attributedString = try! NSAttributedString(
-                data: encodedData,
-           		options: attributedOptions,
-                documentAttributes: nil
-            )
-            return attributedString.string
-        }
     }
 }

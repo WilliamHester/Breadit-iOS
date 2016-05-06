@@ -31,6 +31,10 @@ class SubmissionStore {
         RedditAPI.getSubmissions("") { submissions in
             var same = true
             for (i, submission) in submissions.enumerate() {
+                if i >= self.submissions.count {
+                    same = false
+                    break
+                }
                 if submission.name != self.submissions[i].name {
                     same = false
                     break

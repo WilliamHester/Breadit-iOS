@@ -9,6 +9,7 @@ PODS:
   - Realm/Headers (0.99.0)
   - RealmSwift (0.99.0):
     - Realm (= 0.99.0)
+  - SwiftString (0.5)
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
@@ -17,6 +18,7 @@ DEPENDENCIES:
   - Kanna (~> 1.0.0)
   - NSDate+TimeAgo (from `https://github.com/kevinlawler/NSDate-TimeAgo.git`)
   - RealmSwift
+  - SwiftString
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
 
 EXTERNAL SOURCES:
@@ -40,6 +42,7 @@ SPEC CHECKSUMS:
   NSDate+TimeAgo: 35601c619b2d59290055e4fe76e61d97677a2360
   Realm: cf275f109b94e5399896960c90285a043edb3d56
   RealmSwift: f40e5634bbc74f063163561d02acc4aa040d40a5
+  SwiftString: ec9c31c55b2aa147a1154f5f5f8483dc71e3165f
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
 COCOAPODS: 0.39.0

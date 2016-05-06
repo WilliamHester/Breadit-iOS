@@ -103,7 +103,7 @@ class SubmissionViewController: UITableViewController, UIViewControllerPreviewin
             submissionStore.loadSubmissions(onSubmissionsLoaded)
         }
 
-        cell.title.text = submission.title.decodedHtmlValue
+        cell.title.text = submission.title.decodeHTML()
         cell.authorAndPoints.text = "\(submission.author) \(submission.score) " +
                 "\(submission.score == 1 ? "point" : "points")"
         cell.subreddit.text = submission.subreddit.lowercaseString

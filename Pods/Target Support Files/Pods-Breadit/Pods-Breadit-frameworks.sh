@@ -90,6 +90,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-Breadit/NSDate_TimeAgo.framework"
   install_framework "Pods-Breadit/Realm.framework"
   install_framework "Pods-Breadit/RealmSwift.framework"
+  install_framework "Pods-Breadit/SwiftString.framework"
   install_framework "Pods-Breadit/SwiftyJSON.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
@@ -99,5 +100,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-Breadit/NSDate_TimeAgo.framework"
   install_framework "Pods-Breadit/Realm.framework"
   install_framework "Pods-Breadit/RealmSwift.framework"
+  install_framework "Pods-Breadit/SwiftString.framework"
   install_framework "Pods-Breadit/SwiftyJSON.framework"
 fi

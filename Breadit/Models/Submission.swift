@@ -77,34 +77,6 @@ class Submission {
         numComments = json["num_comments"].int!
     }
     
-    /*
-     
- private void generateImgurDetails() {
-     int end = mUrl.indexOf('.', mUrl.indexOf(".com") + 4);
-     end = end != -1 ? end : mUrl.length();
-     int start = end - 1;
-     while (mUrl.charAt(start) != '/') {
-         start--;
-     }
-     mId = mUrl.substring(start + 1, end);
-     while (mUrl.charAt(start) == '/') {
-         start--;
-     }
-     char c = mUrl.charAt(start);
-     switch (c) {
-         case 'm': // imgur.com
-             mType = IMGUR_IMAGE;
-     		break;
-     	case 'a': // imgur.com/a/
-     		mType = IMGUR_ALBUM;
-    		break;
-    	case 'y': // imgur.com/gallery/
-     		mType = IMGUR_GALLERY;
-     		break;
-     }
- }
-    */
-    
     func getPreviewImage() -> String? {
         if !url.containsString("imgur.com") {
             return nil
