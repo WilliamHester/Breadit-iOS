@@ -64,7 +64,7 @@ class CommentViewController: UITableViewController {
             let textCommentCell = tableView.dequeueReusableCellWithIdentifier("TextCommentCellView")
                 as! TextCommentCellView
             textCommentCell.author.text = textComment.author
-            textCommentCell.body.text = textComment.body
+            textCommentCell.body.attributedText = HTMLParser(escapedHtml: textComment.body_html).attributedString
             cell = textCommentCell
         } else {
             cell = tableView.dequeueReusableCellWithIdentifier("MoreCommentCellView")!

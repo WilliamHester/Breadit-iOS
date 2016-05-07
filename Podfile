@@ -7,7 +7,7 @@ target 'Breadit' do
     pod 'RealmSwift'
     pod 'AlamofireImage', '~> 2.0'
     pod 'NSDate+TimeAgo', :git => 'https://github.com/kevinlawler/NSDate-TimeAgo.git'
-    pod 'Kanna', '~> 1.0.0'
     pod 'SwiftString'
+    pod 'Fuzi', '~> 0.3.0'
 end
 

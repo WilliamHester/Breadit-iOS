@@ -21,7 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = NavigationDrawerViewController(
             	contentViewController: mainContent,
             	drawerViewController: NavigationViewController())
-//        window?.rootViewController = UINavigationController(rootViewController: LoginViewController())
         window?.backgroundColor = UIColor.whiteColor()
         window?.makeKeyAndVisible()
         return true
