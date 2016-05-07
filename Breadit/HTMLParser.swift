@@ -13,8 +13,10 @@ import SwiftString
 class HTMLParser {
     
     var attributedString: NSAttributedString!
+    let font: UIFont
     
-    init(escapedHtml html: String) {
+    init(escapedHtml html: String, font: UIFont) {
+        self.font = font
         self.attributedString = self.parseHtml(html.decodeHTML())
     }
     
@@ -46,34 +48,60 @@ class HTMLParser {
             }
 
             if attributedString.length > 0 {
-                let (name, value) = getAttributeNameFromTag(element)
-                if value != nil {
-                	attributedString.addAttribute(name, value: value!,
-                			range: NSMakeRange(0, attributedString.length))
-                }
+                attributedString.addAttributes(getAttributeNameFromTag(element),
+                		range: NSMakeRange(0, attributedString.length))
             }
         }
         
         return attributedString
     }
     
-    private func getAttributeNameFromTag(node: XMLElement) -> (String, AnyObject?) {
+    private func getAttributeNameFromTag(node: XMLElement) -> [String: AnyObject] {
         guard node.tag != nil else {
-            return ("", nil)
+            return [:]
         }
         switch node.tag! {
         case "code":
-            return (NSFontAttributeName, UIFont(name: "Menlo-Regular", size: 12.0))
+            return [NSFontAttributeName: UIFont(name: "Menlo-Regular", size: 12.0)!]
+        case "del":
+            return [NSStrikethroughStyleAttributeName:
+                NSNumber(integer: NSUnderlineStyle.StyleSingle.rawValue)]
         case "h1":
-            return (NSFontAttributeName, UIFont.boldSystemFontOfSize(14.0))
+            return [NSFontAttributeName: UIFont.boldSystemFontOfSize(font.pointSize * 1.20)]
+        case "h2":
+            return [NSFontAttributeName: UIFont.systemFontOfSize(font.pointSize * 1.20)]
+        case "h3":
+            return [NSFontAttributeName: UIFont.boldSystemFontOfSize(font.pointSize * 1.1)]
+        case "h4":
+            return [NSFontAttributeName: UIFont.systemFontOfSize(font.pointSize * 1.1)]
+        case "h5":
+            fallthrough
         case "strong":
-            return (NSFontAttributeName, UIFont.boldSystemFontOfSize(12.0))
+            return [NSFontAttributeName: UIFont.boldSystemFontOfSize(font.pointSize)]
+        case "h6":
+            return [NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue]
         case "em":
-            return (NSFontAttributeName, UIFont.italicSystemFontOfSize(12.0))
+            return [NSFontAttributeName: UIFont.italicSystemFontOfSize(font.pointSize)]
+        case "sup":
+            return [
+                NSFontAttributeName: UIFont.systemFontOfSize(font.pointSize * 0.8),
+                NSBaselineOffsetAttributeName: 4
+            ]
+        case "blockquote":
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.setParagraphStyle(NSParagraphStyle.defaultParagraphStyle())
+            paragraphStyle.firstLineHeadIndent = 4.0
+            paragraphStyle.headIndent = 4.0
+            
+            return [
+                NSParagraphStyleAttributeName: paragraphStyle,
+                NSFontAttributeName: UIFont.italicSystemFontOfSize(12.0)
+            ]
         case "a":
-            return (NSLinkAttributeName, node.stringValue)
+            let link = node.attr("href") ?? "Couldn't find link :("
+            return [NSLinkAttributeName: link]
         default:
-            return ("", nil)
+            return [:]
         }
     }
 }
