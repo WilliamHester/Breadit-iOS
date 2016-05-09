@@ -74,7 +74,7 @@ class CommentViewController: UITableViewController {
                 	as! MoreCommentCellView
         }
         
-        cell.paddingConstraint.constant = CGFloat(comment.level * 8 + 4)
+        cell.paddingConstraint.constant = CGFloat(comment.level * 8 + 8)
         
         return cell
     }
@@ -133,6 +133,31 @@ class CommentViewController: UITableViewController {
         }
         comment.replies = nil
         tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
+    }
+    
+    // MARK: - View Controller Previewing Delegate
+    
+    func previewingContext(previewingContext: UIViewControllerPreviewing,
+                           viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let indexPath = tableView.indexPathForRowAtPoint(location) else {
+            return nil
+        }
+        let viewController = UIViewController()
+        let rawRect = tableView.rectForRowAtIndexPath(indexPath)
+        let rect = CGRectOffset(rawRect, -tableView.contentOffset.x, -tableView.contentOffset.y)
+        
+        for cell in tableView.visibleCells {
+            
+        }
+        
+        viewController.preferredContentSize = CGSize.zero
+        
+        return viewController
+    }
+    
+    func previewingContext(previewingContext: UIViewControllerPreviewing,
+                           commitViewController viewControllerToCommit: UIViewController) {
+        showViewController(viewControllerToCommit, sender: self)
     }
 
 }
