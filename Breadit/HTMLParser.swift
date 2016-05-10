@@ -14,10 +14,11 @@ class HTMLParser {
     
     var attributedString: NSAttributedString!
     let font: UIFont
+    var links = [(NSRange, String)]()
     
     init(escapedHtml html: String, font: UIFont) {
         self.font = font
-        self.attributedString = self.parseHtml(html.decodeHTML())
+        self.attributedString = self.parseHtml(html.decodeHTML().stringByReplacingOccurrencesOfString("\n", withString: ""))
     }
     
     private func parseHtml(text: String) -> NSAttributedString {
@@ -48,15 +49,19 @@ class HTMLParser {
             }
 
             if attributedString.length > 0 {
-                attributedString.addAttributes(getAttributeNameFromTag(element),
-                		range: NSMakeRange(0, attributedString.length))
+                let attributes = getAttributesFromTag(element)
+                let range = NSMakeRange(0, attributedString.length)
+                if let target = attributes[NSLinkAttributeName] as? String {
+                    links.append(range, target)
+                }
+                attributedString.addAttributes(attributes, range: range)
             }
         }
         
         return attributedString
     }
     
-    private func getAttributeNameFromTag(node: XMLElement) -> [String: AnyObject] {
+    private func getAttributesFromTag(node: XMLElement) -> [String: AnyObject] {
         guard node.tag != nil else {
             return [:]
         }

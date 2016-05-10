@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CommentViewController: UITableViewController {
+class CommentViewController: UITableViewController, UIViewControllerPreviewingDelegate {
 
     var submission: Submission! {
         didSet {
@@ -27,39 +27,37 @@ class CommentViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        title = "Comments"
+
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 140
         tableView.separatorStyle = .None
-        
-        
+
         tableView.registerClass(TextCommentCellView.self,
                                 forCellReuseIdentifier: "TextCommentCellView")
         tableView.registerClass(MoreCommentCellView.self,
                                 forCellReuseIdentifier: "MoreCommentCellView")
 
-        // Do any additional setup after loading the view, typically from a nib.
         self.configureView()
-        
-        title = "Comments"
     }
-    
+
     // MARK: - Table View
-    
+
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
-    
+
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return comments.count
     }
-    
+
     override func tableView(tableView: UITableView,
                             cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let comment = comments[indexPath.row]
-        
+
         var cell: CommentCellView
-        
+
         if let textComment = comment as? TextComment {
             let textCommentCell = tableView.dequeueReusableCellWithIdentifier("TextCommentCellView")
                 as! TextCommentCellView
@@ -73,12 +71,12 @@ class CommentViewController: UITableViewController {
             cell = tableView.dequeueReusableCellWithIdentifier("MoreCommentCellView")!
                 	as! MoreCommentCellView
         }
-        
+
         cell.paddingConstraint.constant = CGFloat(comment.level * 8 + 8)
-        
+
         return cell
     }
-    
+
     override func tableView(tableView: UITableView,
     		didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let comment = comments[indexPath.row]
@@ -92,13 +90,13 @@ class CommentViewController: UITableViewController {
             loadMoreComments(comment as! MoreComment, index: indexPath.row)
         }
     }
-    
+
     // MARK: - Reddit operations
-    
+
     private func loadMoreComments(comment: MoreComment, index: Int) {
-        
+
     }
-    
+
     private func collapseComment(comment: TextComment, index: Int) {
         comment.hidden = true
         var hiddenComments = [Comment]()
@@ -117,10 +115,10 @@ class CommentViewController: UITableViewController {
         	comments.removeRange(index + 1..<end)
         }
         comment.replies = hiddenComments
-        
+
         tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
     }
-    
+
     private func expandComment(comment: TextComment, index: Int) {
         comment.hidden = false
 
@@ -134,9 +132,9 @@ class CommentViewController: UITableViewController {
         comment.replies = nil
         tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
     }
-    
-    // MARK: - View Controller Previewing Delegate
-    
+
+    // MARK: - ViewControllerPreviewingDelegate
+
     func previewingContext(previewingContext: UIViewControllerPreviewing,
                            viewControllerForLocation location: CGPoint) -> UIViewController? {
         guard let indexPath = tableView.indexPathForRowAtPoint(location) else {
@@ -145,16 +143,15 @@ class CommentViewController: UITableViewController {
         let viewController = UIViewController()
         let rawRect = tableView.rectForRowAtIndexPath(indexPath)
         let rect = CGRectOffset(rawRect, -tableView.contentOffset.x, -tableView.contentOffset.y)
+
+        let cell = tableView.cellForRowAtIndexPath(indexPath)
         
-        for cell in tableView.visibleCells {
-            
-        }
-        
+
         viewController.preferredContentSize = CGSize.zero
-        
-        return viewController
+
+        return nil
     }
-    
+
     func previewingContext(previewingContext: UIViewControllerPreviewing,
                            commitViewController viewControllerToCommit: UIViewController) {
         showViewController(viewControllerToCommit, sender: self)
