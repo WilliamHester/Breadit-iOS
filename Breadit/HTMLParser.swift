@@ -14,7 +14,7 @@ class HTMLParser {
     
     var attributedString: NSAttributedString!
     let font: UIFont
-    var links = [(NSRange, String)]()
+    var links = [Link]()
     
     init(escapedHtml html: String, font: UIFont) {
         self.font = font
@@ -49,11 +49,8 @@ class HTMLParser {
             }
 
             if attributedString.length > 0 {
-                let attributes = getAttributesFromTag(element)
                 let range = NSMakeRange(0, attributedString.length)
-                if let target = attributes[NSLinkAttributeName] as? String {
-                    links.append(range, target)
-                }
+                let attributes = getAttributesFromTag(element)
                 attributedString.addAttributes(attributes, range: range)
             }
         }
@@ -103,8 +100,23 @@ class HTMLParser {
                 NSFontAttributeName: UIFont.italicSystemFontOfSize(12.0)
             ]
         case "a":
-            let link = node.attr("href") ?? "Couldn't find link :("
-            return [NSLinkAttributeName: link]
+            let link = Link(link: node.attr("href") ?? "")
+            let color: UIColor
+            switch link.linkType {
+            case .Normal:
+                color = UIColor.blueColor()
+            case .Image(_):
+                color = UIColor.greenColor()
+            case .Reddit(_):
+                color = UIColor.orangeColor()
+            case .YouTube:
+                color = UIColor.redColor()
+            }
+            links.append(link)
+            return [
+                NSForegroundColorAttributeName: color,
+                "LinkAttribute": link
+            ]
         default:
             return [:]
         }

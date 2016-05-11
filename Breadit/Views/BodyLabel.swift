@@ -9,17 +9,7 @@
 import UIKit
 
 class BodyLabel: UILabel {
-    
-    enum ActiveElement {
-        case URL(String)
-        case None
-    }
-    
-    enum ActiveType {
-        case URL
-        case None
-    }
-    
+
     // MARK: - public properties
     weak var delegate: BodyLabelDelegate?
     
@@ -70,13 +60,11 @@ class BodyLabel: UILabel {
     // MARK: - init functions
     override init(frame: CGRect) {
         super.init(frame: frame)
-        _customizing = false
         setupLabel()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        _customizing = false
         setupLabel()
     }
     
@@ -99,11 +87,11 @@ class BodyLabel: UILabel {
     func onTouch(touch: UITouch) -> Bool {
         let location = touch.locationInView(self)
         var avoidSuperCall = false
-        
         switch touch.phase {
         case .Began, .Moved:
             if let element = elementAtLocation(location) {
-                if element.range.location != selectedElement?.range.location || element.range.length != selectedElement?.range.length {
+                if element.range.location != selectedElement?.range.location ||
+                    	element.range.length != selectedElement?.range.length {
                     updateAttributesWhenSelected(false)
                     selectedElement = element
                     updateAttributesWhenSelected(true)
@@ -114,13 +102,19 @@ class BodyLabel: UILabel {
                 selectedElement = nil
             }
         case .Ended:
-            guard let selectedElement = selectedElement else { return avoidSuperCall }
+            guard let selectedElement = selectedElement else {
+                return avoidSuperCall
+            }
             
-            switch selectedElement.element {
-            case .URL(let url):
-                didTapStringURL(url)
-            case .None:
+            switch selectedElement.link.linkType {
+            case .Image(_):
                 ()
+            case .Reddit(_):
+                ()
+            case .YouTube:
+                ()
+            case .Normal:
+                didTapStringURL(selectedElement.link.url)
             }
             
             let when = dispatch_time(DISPATCH_TIME_NOW, Int64(0.25 * Double(NSEC_PER_SEC)))
@@ -142,12 +136,12 @@ class BodyLabel: UILabel {
     // MARK: - private properties
     private var urlTapHandler: ((NSURL) -> ())?
 
-    private var selectedElement: (range: NSRange, element: ActiveElement)?
+    private var selectedElement: (range: NSRange, link: Link)?
     private var heightCorrection: CGFloat = 0
     private lazy var textStorage = NSTextStorage()
     private lazy var layoutManager = NSLayoutManager()
     private lazy var textContainer = NSTextContainer()
-    internal lazy var activeElements = [(NSRange, ActiveElement)]()
+    var links: [Link]?
 
     // MARK: - helper functions
     private func setupLabel() {
@@ -164,14 +158,13 @@ class BodyLabel: UILabel {
             where attributedText.length > 0 else {
                 return
         }
-
-        self.textStorage.setAttributedString(attributedText)
-        self.setNeedsDisplay()
+        textStorage.setAttributedString(attributedText)
+        setNeedsDisplay()
     }
     
     private func textOrigin(inRect rect: CGRect) -> CGPoint {
         let usedRect = layoutManager.usedRectForTextContainer(textContainer)
-        heightCorrection = (rect.height - usedRect.height)/2
+        heightCorrection = (rect.height - usedRect.height) / 2
         let glyphOriginY = heightCorrection > 0 ? rect.origin.y + heightCorrection : rect.origin.y
         return CGPoint(x: rect.origin.x, y: glyphOriginY)
     }
@@ -201,14 +194,18 @@ class BodyLabel: UILabel {
         
         var attributes = textStorage.attributesAtIndex(0, effectiveRange: nil)
         if isSelected {
-            switch selectedElement.element {
-            case .URL(_): attributes[NSForegroundColorAttributeName] = URLSelectedColor ?? URLColor
-            case .None: ()
+            switch selectedElement.link.linkType {
+            case .Image(_): attributes[NSForegroundColorAttributeName] = UIColor.greenColor()
+            case .Reddit(_): attributes[NSForegroundColorAttributeName] = UIColor.orangeColor()
+            case .YouTube: attributes[NSForegroundColorAttributeName] = UIColor.redColor()
+            case .Normal: attributes[NSForegroundColorAttributeName] = URLSelectedColor ?? URLColor
             }
         } else {
-            switch selectedElement.element {
-            case .URL(_): attributes[NSForegroundColorAttributeName] = URLColor
-            case .None: ()
+            switch selectedElement.link.linkType {
+            case .Image(_): attributes[NSForegroundColorAttributeName] = UIColor.greenColor()
+            case .Reddit(_): attributes[NSForegroundColorAttributeName] = UIColor.orangeColor()
+            case .YouTube: attributes[NSForegroundColorAttributeName] = UIColor.redColor()
+            case .Normal: attributes[NSForegroundColorAttributeName] = URLColor
             }
         }
         
@@ -217,7 +214,7 @@ class BodyLabel: UILabel {
         setNeedsDisplay()
     }
     
-    private func elementAtLocation(location: CGPoint) -> (range: NSRange, element: ActiveElement)? {
+    private func elementAtLocation(location: CGPoint) -> (range: NSRange, link: Link)? {
         guard textStorage.length > 0 else {
             return nil
         }
@@ -230,11 +227,13 @@ class BodyLabel: UILabel {
         }
         
         let index = layoutManager.glyphIndexForPoint(correctLocation, inTextContainer: textContainer)
+        let attrs = textStorage.attributesAtIndex(index, effectiveRange: nil)
         
-        for element in activeElements.flatten() {
-            if index >= element.range.location && index <= element.range.location + element.range.length {
-                return element
-            }
+        if let link = attrs["LinkAttribute"] as? Link {
+            var range = NSRange()
+            textStorage.attribute(NSForegroundColorAttributeName, atIndex: index,
+                                  effectiveRange: &range)
+            return (range, link)
         }
         
         return nil

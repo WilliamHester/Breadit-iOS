@@ -19,6 +19,7 @@
 		3D4A9A121CDAF57200449959 /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4A9A111CDAF57100449959 /* LoginManager.swift */; };
 		3D4A9A141CDAF6BF00449959 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4A9A131CDAF6BF00449959 /* LoginViewController.swift */; };
 		3D4A9A171CDAF99C00449959 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4A9A161CDAF99C00449959 /* Keys.swift */; };
+		3D4AEF961CE2BF3C000ACEE4 /* Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4AEF951CE2BF3C000ACEE4 /* Link.swift */; };
 		3D4DEE781CE17E6400DB4DAD /* BodyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4DEE771CE17E6400DB4DAD /* BodyLabel.swift */; };
 		3D4DEE7A1CE1836700DB4DAD /* BodyLabelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4DEE791CE1836700DB4DAD /* BodyLabelDelegate.swift */; };
 		3D4EAE391CCB2E2E001C23AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4EAE381CCB2E2E001C23AC /* AppDelegate.swift */; };
@@ -53,6 +54,7 @@
 		3D4A9A111CDAF57100449959 /* LoginManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
 		3D4A9A131CDAF6BF00449959 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3D4A9A161CDAF99C00449959 /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
+		3D4AEF951CE2BF3C000ACEE4 /* Link.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Link.swift; sourceTree = "<group>"; };
 		3D4DEE771CE17E6400DB4DAD /* BodyLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BodyLabel.swift; sourceTree = "<group>"; };
 		3D4DEE791CE1836700DB4DAD /* BodyLabelDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BodyLabelDelegate.swift; sourceTree = "<group>"; };
 		3D4EAE351CCB2E2E001C23AC /* Breadit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Breadit.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -166,6 +168,7 @@
 				5056F7AAA2F11CFCDFA0E5F9 /* Comment.swift */,
 				5056F72C1DF74F499B250156 /* MoreComment.swift */,
 				3D4A9A0F1CDAF2B700449959 /* Account.swift */,
+				3D4AEF951CE2BF3C000ACEE4 /* Link.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -327,6 +330,7 @@
 				3D13BC9B1CD5983C009193C4 /* MoreCommentCellView.swift in Sources */,
 				3D9CBE2A1CCD81C90004EACC /* SubmissionHeader.swift in Sources */,
 				3D13BC9F1CD5B3DD009193C4 /* NavigationDrawerViewController.swift in Sources */,
+				3D4AEF961CE2BF3C000ACEE4 /* Link.swift in Sources */,
 				3D4EAE4D1CCBFFC1001C23AC /* RedditAPI.swift in Sources */,
 				3D4EAE391CCB2E2E001C23AC /* AppDelegate.swift in Sources */,
 				3D4A9A101CDAF2B700449959 /* Account.swift in Sources */,
