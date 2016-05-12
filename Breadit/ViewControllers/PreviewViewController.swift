@@ -29,6 +29,8 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate {
                 v.delegate = self
                 v.minimumZoomScale = 1.0
                 v.maximumZoomScale = 6.0
+                v.showsVerticalScrollIndicator = false
+                v.showsHorizontalScrollIndicator = false
                 
                 v.uiImageView { v in
                     self.imageView = v

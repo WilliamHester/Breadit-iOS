@@ -16,6 +16,7 @@ class MoreCommentCellView: CommentCellView {
         contentView.uiLabel { v in
             v.text = "Load more comments..."
             v.fontSize = 12
+            v.textColor = Colors.secondaryTextColor
         }.constrain { v in
             self.paddingConstraint = v.leftAnchor.constraintEqualToAnchor(self.contentView.leftAnchor)
             self.paddingConstraint.active = true

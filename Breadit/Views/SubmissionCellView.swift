@@ -18,6 +18,11 @@ class SubmissionCellView: UITableViewCell {
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        backgroundColor = UIColor.clearColor()
+        selectedBackgroundView = uiView { v in
+            v.backgroundColor = UIColor.darkGrayColor()
+        }
 
         contentView.uiStackView { v in
             self.stackView = v
@@ -27,10 +32,12 @@ class SubmissionCellView: UITableViewCell {
             
             self.subreddit = v.uiLabel { v in
                 v.fontSize = 10
+                v.textColor = Colors.secondaryTextColor
             }
             
             self.title = v.uiLabel { v in
                 v.numberOfLines = 0
+                v.textColor = Colors.textColor
             }
             
             v.uiStackView { v in
@@ -39,11 +46,13 @@ class SubmissionCellView: UITableViewCell {
                 
                 self.authorAndPoints = v.uiLabel { v in
                     v.fontSize = 10
+                    v.textColor = Colors.secondaryTextColor
                 }
                 
                 self.relativeDate = v.uiLabel { v in
                     v.fontSize = 10
                     v.textAlignment = .Right
+                    v.textColor = Colors.secondaryTextColor
                 }
             }
 
@@ -52,11 +61,13 @@ class SubmissionCellView: UITableViewCell {
                 v.distribution = .FillEqually
                 self.comments = v.uiLabel { v in
                     v.fontSize = 10
+                    v.textColor = Colors.secondaryTextColor
                 }
 
                 self.domain = v.uiLabel { v in
                     v.fontSize = 10
                     v.textAlignment = .Right
+                    v.textColor = Colors.secondaryTextColor
                 }
             }
 

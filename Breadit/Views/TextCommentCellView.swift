@@ -23,6 +23,7 @@ class TextCommentCellView: CommentCellView {
 
             self.author = v.uiLabel { v in
                 v.fontSize = 10
+                v.textColor = Colors.secondaryTextColor
             }
             
             self.body = BodyLabel()
@@ -30,6 +31,7 @@ class TextCommentCellView: CommentCellView {
                 let label = v as? UILabel
                 label?.font = UIFont.systemFontOfSize(13.0)
                 label?.numberOfLines = 0
+                label?.textColor = Colors.textColor
             }
             v.addChild(self.body)
         }.constrain { v in

@@ -110,6 +110,10 @@ class NavigationDrawerViewController: UIViewController, UIGestureRecognizerDeleg
         view.addGestureRecognizer(tapGestureRecognizer)
     }
     
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
+    }
+    
     private func makeDrawerFrame() -> CGRect {
         return CGRect(x: 0, y: 0,
                 width: drawerWidth,

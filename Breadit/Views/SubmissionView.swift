@@ -25,10 +25,12 @@ class SubmissionView: UIView {
 
             self.subreddit = v.uiLabel { v in
                 v.font = v.font.fontWithSize(10)
+                v.textColor = Colors.textColor
             }
 
             self.title = v.uiLabel { v in
                 v.numberOfLines = 0
+                v.textColor = Colors.textColor
             }
 
             v.uiStackView { v in
@@ -37,16 +39,19 @@ class SubmissionView: UIView {
 
                 self.author = v.uiLabel { v in
                     v.font = v.font.fontWithSize(10)
+                    v.textColor = Colors.textColor
                 }
 
                 self.points = v.uiLabel { v in
                     v.font = v.font.fontWithSize(10)
                     v.textAlignment = .Right
+                    v.textColor = Colors.textColor
                 }
             }
 
             self.comments = v.uiLabel { v in
                 v.font = v.font.fontWithSize(10)
+                v.textColor = Colors.textColor
             }
         }
     }

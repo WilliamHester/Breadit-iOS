@@ -13,11 +13,6 @@ class BodyLabel: UILabel {
     // MARK: - public properties
     weak var delegate: BodyLabelDelegate?
 
-    @IBInspectable var URLSelectedColor: UIColor? {
-        didSet {
-            updateTextStorage()
-        }
-    }
     @IBInspectable var lineSpacing: Float = 0 {
         didSet {
             updateTextStorage()

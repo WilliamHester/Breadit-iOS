@@ -15,28 +15,15 @@ class SubmissionViewController: UITableViewController, UIViewControllerPreviewin
 
     var detailViewController: CommentViewController? = nil
     let submissionStore = SubmissionStore()
-    
-    var seen: Float = 0
-    var sum: Float {
-        didSet {
-            title = "\(sum / seen)"
-        }
-    }
-    
-    init() {
-        self.sum = 0
-        super.init(style: .Plain)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.backgroundColor = Colors.backgroundColor
 
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 140
+        tableView.separatorColor = Colors.secondaryColor
         
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(SubmissionViewController.pullRefresh(_:)),

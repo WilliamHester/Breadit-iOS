@@ -19,6 +19,7 @@ class HTMLParser {
     init(escapedHtml html: String, font: UIFont) {
         self.font = font
         self.attributedString = self.parseHtml(html.decodeHTML().stringByReplacingOccurrencesOfString("\n", withString: ""))
+        
     }
     
     private func parseHtml(text: String) -> NSAttributedString {
@@ -39,19 +40,21 @@ class HTMLParser {
     
     private func generateString(node: XMLNode, attributedString: NSMutableAttributedString) -> NSMutableAttributedString {
         if node.type == XMLNodeType.Text {
-            attributedString.appendAttributedString(NSAttributedString(string: node.stringValue))
+            attributedString.appendAttributedString(NSAttributedString(string: node.stringValue,
+                attributes: [NSForegroundColorAttributeName: Colors.textColor]))
             return attributedString
         }
         if let element = node as? XMLElement {
         	for child in element.childNodes(ofTypes: [.Element, .Text]) {
             	attributedString.appendAttributedString(generateString(child,
-                    	attributedString: NSMutableAttributedString()))
+                    attributedString: NSMutableAttributedString()))
             }
 
             if attributedString.length > 0 {
                 let range = NSMakeRange(0, attributedString.length)
                 let attributes = getAttributesFromTag(element)
                 attributedString.addAttributes(attributes, range: range)
+                
             }
         }
         

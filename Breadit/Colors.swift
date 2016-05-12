@@ -14,5 +14,33 @@ let youTubeColor = UIColor(rgb: 0xb31217)
 let selectedYouTubeColor = UIColor(rgb: 0xf6a2a5)
 let redditColor = UIColor(rgb: 0xff8b24)
 let selectedRedditColor = UIColor(rgb: 0xffc999)
-let urlColor = UIColor(rgb: 0x0000FF)
+let urlColor = UIColor(rgb: 0x0066ff)
 let selectedUrlColor = UIColor(rgb: 0xccccff)
+
+class Colors {
+    static var theme = Theme(backgroundColor: UIColor(rgb: 0x202020),
+                             secondaryColor: UIColor(rgb: 0x2e2e2e),
+                             textColor: UIColor.whiteColor(),
+                             secondaryTextColor: UIColor(rgb: 0xa0a0a0),
+                             titleBarColor: UIColor.blackColor())
+
+    static var backgroundColor: UIColor {
+        return theme.backgroundColor
+    }
+    
+    static var secondaryColor: UIColor {
+        return theme.secondaryColor
+    }
+
+    static var textColor: UIColor {
+        return theme.textColor
+    }
+    
+    static var secondaryTextColor: UIColor {
+        return theme.secondaryTextColor
+    }
+
+    static var titleBarColor: UIColor {
+        return theme.titleBarColor
+    }
+}

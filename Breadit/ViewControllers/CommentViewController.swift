@@ -28,6 +28,8 @@ class CommentViewController: UITableViewController, UIViewControllerPreviewingDe
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.backgroundColor = Colors.backgroundColor
 
         title = "Comments"
 

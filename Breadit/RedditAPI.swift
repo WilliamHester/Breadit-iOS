@@ -167,7 +167,11 @@ struct RedditAPI {
                             self.getJson(callback)
                         }
                     } else {
-                    	callback(JSON(response.result.value!))
+                        if let value = response.result.value {
+                            callback(JSON(value))
+                        } else {
+                            callback(JSON([:]))
+                        }
                     }
             }
         }

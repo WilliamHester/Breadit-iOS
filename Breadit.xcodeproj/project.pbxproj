@@ -22,6 +22,7 @@
 		3D4AEF961CE2BF3C000ACEE4 /* Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4AEF951CE2BF3C000ACEE4 /* Link.swift */; };
 		3D4AEF991CE3CD1E000ACEE4 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4AEF981CE3CD1E000ACEE4 /* UIColor.swift */; };
 		3D4AEF9B1CE3D4E8000ACEE4 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4AEF9A1CE3D4E8000ACEE4 /* Colors.swift */; };
+		3D4AEF9D1CE41EE4000ACEE4 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4AEF9C1CE41EE4000ACEE4 /* Theme.swift */; };
 		3D4DEE781CE17E6400DB4DAD /* BodyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4DEE771CE17E6400DB4DAD /* BodyLabel.swift */; };
 		3D4DEE7A1CE1836700DB4DAD /* BodyLabelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4DEE791CE1836700DB4DAD /* BodyLabelDelegate.swift */; };
 		3D4EAE391CCB2E2E001C23AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4EAE381CCB2E2E001C23AC /* AppDelegate.swift */; };
@@ -59,6 +60,7 @@
 		3D4AEF951CE2BF3C000ACEE4 /* Link.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Link.swift; sourceTree = "<group>"; };
 		3D4AEF981CE3CD1E000ACEE4 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		3D4AEF9A1CE3D4E8000ACEE4 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		3D4AEF9C1CE41EE4000ACEE4 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		3D4DEE771CE17E6400DB4DAD /* BodyLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BodyLabel.swift; sourceTree = "<group>"; };
 		3D4DEE791CE1836700DB4DAD /* BodyLabelDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BodyLabelDelegate.swift; sourceTree = "<group>"; };
 		3D4EAE351CCB2E2E001C23AC /* Breadit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Breadit.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -101,6 +103,7 @@
 			children = (
 				3D4AEF981CE3CD1E000ACEE4 /* UIColor.swift */,
 				3D4AEF9A1CE3D4E8000ACEE4 /* Colors.swift */,
+				3D4AEF9C1CE41EE4000ACEE4 /* Theme.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -366,6 +369,7 @@
 				3D4DEE781CE17E6400DB4DAD /* BodyLabel.swift in Sources */,
 				5056F9EE31D841816201EEB7 /* CommentViewController.swift in Sources */,
 				3D4A9A121CDAF57200449959 /* LoginManager.swift in Sources */,
+				3D4AEF9D1CE41EE4000ACEE4 /* Theme.swift in Sources */,
 				5056FE9AC46822F4A2665389 /* SubmissionStore.swift in Sources */,
 				5056F90CD7C987E083B8A6D4 /* SubmissionCellView.swift in Sources */,
 				3D13BC9D1CD59AF6009193C4 /* CommentCellView.swift in Sources */,
