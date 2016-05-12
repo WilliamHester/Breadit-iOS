@@ -66,8 +66,10 @@ class HTMLParser {
         case "code":
             return [NSFontAttributeName: UIFont(name: "Menlo-Regular", size: 12.0)!]
         case "del":
-            return [NSStrikethroughStyleAttributeName:
-                NSNumber(integer: NSUnderlineStyle.StyleSingle.rawValue)]
+            return [
+                    NSStrikethroughStyleAttributeName:
+                    NSNumber(integer: NSUnderlineStyle.StyleSingle.rawValue)
+            ]
         case "h1":
             return [NSFontAttributeName: UIFont.boldSystemFontOfSize(font.pointSize * 1.20)]
         case "h2":
@@ -86,8 +88,8 @@ class HTMLParser {
             return [NSFontAttributeName: UIFont.italicSystemFontOfSize(font.pointSize)]
         case "sup":
             return [
-                NSFontAttributeName: UIFont.systemFontOfSize(font.pointSize * 0.8),
-                NSBaselineOffsetAttributeName: 4
+                    NSFontAttributeName: UIFont.systemFontOfSize(font.pointSize * 0.8),
+                    NSBaselineOffsetAttributeName: 4
             ]
         case "blockquote":
             let paragraphStyle = NSMutableParagraphStyle()
@@ -96,26 +98,26 @@ class HTMLParser {
             paragraphStyle.headIndent = 4.0
             
             return [
-                NSParagraphStyleAttributeName: paragraphStyle,
-                NSFontAttributeName: UIFont.italicSystemFontOfSize(12.0)
+                    NSParagraphStyleAttributeName: paragraphStyle,
+                    NSFontAttributeName: UIFont.italicSystemFontOfSize(12.0)
             ]
         case "a":
             let link = Link(link: node.attr("href") ?? "")
             let color: UIColor
             switch link.linkType {
             case .Normal:
-                color = UIColor.blueColor()
+                color = urlColor
             case .Image(_):
-                color = UIColor.greenColor()
+                color = imageColor
             case .Reddit(_):
-                color = UIColor.orangeColor()
+                color = redditColor
             case .YouTube:
-                color = UIColor.redColor()
+                color = youTubeColor
             }
             links.append(link)
             return [
-                NSForegroundColorAttributeName: color,
-                "LinkAttribute": link
+                    NSForegroundColorAttributeName: color,
+                    "LinkAttribute": link
             ]
         default:
             return [:]

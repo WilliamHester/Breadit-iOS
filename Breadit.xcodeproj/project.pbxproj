@@ -20,6 +20,8 @@
 		3D4A9A141CDAF6BF00449959 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4A9A131CDAF6BF00449959 /* LoginViewController.swift */; };
 		3D4A9A171CDAF99C00449959 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4A9A161CDAF99C00449959 /* Keys.swift */; };
 		3D4AEF961CE2BF3C000ACEE4 /* Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4AEF951CE2BF3C000ACEE4 /* Link.swift */; };
+		3D4AEF991CE3CD1E000ACEE4 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4AEF981CE3CD1E000ACEE4 /* UIColor.swift */; };
+		3D4AEF9B1CE3D4E8000ACEE4 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4AEF9A1CE3D4E8000ACEE4 /* Colors.swift */; };
 		3D4DEE781CE17E6400DB4DAD /* BodyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4DEE771CE17E6400DB4DAD /* BodyLabel.swift */; };
 		3D4DEE7A1CE1836700DB4DAD /* BodyLabelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4DEE791CE1836700DB4DAD /* BodyLabelDelegate.swift */; };
 		3D4EAE391CCB2E2E001C23AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4EAE381CCB2E2E001C23AC /* AppDelegate.swift */; };
@@ -55,6 +57,8 @@
 		3D4A9A131CDAF6BF00449959 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3D4A9A161CDAF99C00449959 /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		3D4AEF951CE2BF3C000ACEE4 /* Link.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Link.swift; sourceTree = "<group>"; };
+		3D4AEF981CE3CD1E000ACEE4 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		3D4AEF9A1CE3D4E8000ACEE4 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		3D4DEE771CE17E6400DB4DAD /* BodyLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BodyLabel.swift; sourceTree = "<group>"; };
 		3D4DEE791CE1836700DB4DAD /* BodyLabelDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BodyLabelDelegate.swift; sourceTree = "<group>"; };
 		3D4EAE351CCB2E2E001C23AC /* Breadit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Breadit.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,6 +96,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D4AEF971CE3CD12000ACEE4 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				3D4AEF981CE3CD1E000ACEE4 /* UIColor.swift */,
+				3D4AEF9A1CE3D4E8000ACEE4 /* Colors.swift */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
 		3D4EAE2C1CCB2E2E001C23AC = {
 			isa = PBXGroup;
 			children = (
@@ -113,6 +126,7 @@
 		3D4EAE371CCB2E2E001C23AC /* Breadit */ = {
 			isa = PBXGroup;
 			children = (
+				3D4AEF971CE3CD12000ACEE4 /* Utils */,
 				5056FF667DB1F49A436AF0A6 /* Models */,
 				5056FE2C5067C8DB3EC30A3D /* Views */,
 				5056FC442F9ED6FFC75AE229 /* ViewControllers */,
@@ -332,6 +346,7 @@
 				3D13BC9F1CD5B3DD009193C4 /* NavigationDrawerViewController.swift in Sources */,
 				3D4AEF961CE2BF3C000ACEE4 /* Link.swift in Sources */,
 				3D4EAE4D1CCBFFC1001C23AC /* RedditAPI.swift in Sources */,
+				3D4AEF9B1CE3D4E8000ACEE4 /* Colors.swift in Sources */,
 				3D4EAE391CCB2E2E001C23AC /* AppDelegate.swift in Sources */,
 				3D4A9A101CDAF2B700449959 /* Account.swift in Sources */,
 				3D9CBE2C1CCD82900004EACC /* TextCommentCellView.swift in Sources */,
@@ -346,6 +361,7 @@
 				3D4DEE7A1CE1836700DB4DAD /* BodyLabelDelegate.swift in Sources */,
 				5056F646C416ADAA6764C5AD /* SubmissionViewController.swift in Sources */,
 				3D13BCA31CD5EEDC009193C4 /* NavigationViewController.swift in Sources */,
+				3D4AEF991CE3CD1E000ACEE4 /* UIColor.swift in Sources */,
 				3D4A9A171CDAF99C00449959 /* Keys.swift in Sources */,
 				3D4DEE781CE17E6400DB4DAD /* BodyLabel.swift in Sources */,
 				5056F9EE31D841816201EEB7 /* CommentViewController.swift in Sources */,

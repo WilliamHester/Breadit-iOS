@@ -9,5 +9,5 @@
 import Foundation
 
 protocol BodyLabelDelegate: class {
-    func bodyLabel(didSelectURL url: String)
+    func bodyLabel(link: Link)
 }

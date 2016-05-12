@@ -28,21 +28,10 @@ class TextCommentCellView: CommentCellView {
             self.body = BodyLabel()
             self.body.add { v in
                 let label = v as? UILabel
-                label?.font = UIFont.systemFontOfSize(12.0)
+                label?.font = UIFont.systemFontOfSize(13.0)
+                label?.numberOfLines = 0
             }
             v.addChild(self.body)
-
-//            self.body = v.uiTextView { v in
-//                v.font = UIFont.systemFontOfSize(12.0)
-//                v.editable = false
-//                v.selectable = false
-//                v.scrollEnabled = false
-//                v.userInteractionEnabled = true
-//
-//                // Remove the padding from the UITextView; NOTE: Good candidate for Mango?
-//                v.textContainerInset = UIEdgeInsetsZero
-//                v.textContainer.lineFragmentPadding = 0
-//            }
         }.constrain { v in
             self.paddingConstraint = v.leftAnchor.constraintEqualToAnchor(self.contentView.leftAnchor, constant: 4)
             self.paddingConstraint.active = true

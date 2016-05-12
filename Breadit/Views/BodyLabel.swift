@@ -12,15 +12,16 @@ class BodyLabel: UILabel {
 
     // MARK: - public properties
     weak var delegate: BodyLabelDelegate?
-    
-    @IBInspectable var URLColor: UIColor = .blueColor() {
-        didSet { updateTextStorage(parseText: false) }
-    }
+
     @IBInspectable var URLSelectedColor: UIColor? {
-        didSet { updateTextStorage(parseText: false) }
+        didSet {
+            updateTextStorage()
+        }
     }
     @IBInspectable var lineSpacing: Float = 0 {
-        didSet { updateTextStorage(parseText: false) }
+        didSet {
+            updateTextStorage()
+        }
     }
     
     // MARK: - public methods
@@ -30,31 +31,45 @@ class BodyLabel: UILabel {
     
     // MARK: - override UILabel properties
     override var text: String? {
-        didSet { updateTextStorage() }
+        didSet {
+            updateTextStorage()
+        }
     }
     
     override var attributedText: NSAttributedString? {
-        didSet { updateTextStorage() }
+        didSet {
+            updateTextStorage()
+        }
     }
     
     override var font: UIFont! {
-        didSet { updateTextStorage(parseText: false) }
+        didSet {
+            updateTextStorage()
+        }
     }
     
     override var textColor: UIColor! {
-        didSet { updateTextStorage(parseText: false) }
+        didSet {
+            updateTextStorage()
+        }
     }
     
     override var textAlignment: NSTextAlignment {
-        didSet { updateTextStorage(parseText: false)}
+        didSet {
+            updateTextStorage()
+        }
     }
     
     override var numberOfLines: Int {
-        didSet { textContainer.maximumNumberOfLines = numberOfLines }
+        didSet {
+            textContainer.maximumNumberOfLines = numberOfLines
+        }
     }
     
     override var lineBreakMode: NSLineBreakMode {
-        didSet { textContainer.lineBreakMode = lineBreakMode }
+        didSet {
+            textContainer.lineBreakMode = lineBreakMode
+        }
     }
     
     // MARK: - init functions
@@ -86,7 +101,6 @@ class BodyLabel: UILabel {
     // MARK: - touch events
     func onTouch(touch: UITouch) -> Bool {
         let location = touch.locationInView(self)
-        var avoidSuperCall = false
         switch touch.phase {
         case .Began, .Moved:
             if let element = elementAtLocation(location) {
@@ -96,33 +110,23 @@ class BodyLabel: UILabel {
                     selectedElement = element
                     updateAttributesWhenSelected(true)
                 }
-                avoidSuperCall = true
+                return true
             } else {
                 updateAttributesWhenSelected(false)
                 selectedElement = nil
             }
         case .Ended:
             guard let selectedElement = selectedElement else {
-                return avoidSuperCall
+                return false
             }
-            
-            switch selectedElement.link.linkType {
-            case .Image(_):
-                ()
-            case .Reddit(_):
-                ()
-            case .YouTube:
-                ()
-            case .Normal:
-                didTapStringURL(selectedElement.link.url)
+
+            if let delegate = delegate {
+                delegate.bodyLabel(selectedElement.link)
             }
-            
-            let when = dispatch_time(DISPATCH_TIME_NOW, Int64(0.25 * Double(NSEC_PER_SEC)))
-            dispatch_after(when, dispatch_get_main_queue()) {
-                self.updateAttributesWhenSelected(false)
-                self.selectedElement = nil
-            }
-            avoidSuperCall = true
+        
+            self.updateAttributesWhenSelected(false)
+            self.selectedElement = nil
+            return true
         case .Cancelled:
             updateAttributesWhenSelected(false)
             selectedElement = nil
@@ -130,7 +134,7 @@ class BodyLabel: UILabel {
             break
         }
         
-        return avoidSuperCall
+        return false
     }
     
     // MARK: - private properties
@@ -153,7 +157,7 @@ class BodyLabel: UILabel {
         userInteractionEnabled = true
     }
     
-    private func updateTextStorage(parseText parseText: Bool = true) {
+    private func updateTextStorage() {
         guard let attributedText = attributedText
             where attributedText.length > 0 else {
                 return
@@ -195,17 +199,17 @@ class BodyLabel: UILabel {
         var attributes = textStorage.attributesAtIndex(0, effectiveRange: nil)
         if isSelected {
             switch selectedElement.link.linkType {
-            case .Image(_): attributes[NSForegroundColorAttributeName] = UIColor.greenColor()
-            case .Reddit(_): attributes[NSForegroundColorAttributeName] = UIColor.orangeColor()
-            case .YouTube: attributes[NSForegroundColorAttributeName] = UIColor.redColor()
-            case .Normal: attributes[NSForegroundColorAttributeName] = URLSelectedColor ?? URLColor
+            case .Image(_): attributes[NSForegroundColorAttributeName] = selectedImageColor
+            case .Reddit(_): attributes[NSForegroundColorAttributeName] = selectedRedditColor
+            case .YouTube: attributes[NSForegroundColorAttributeName] = selectedYouTubeColor
+            case .Normal: attributes[NSForegroundColorAttributeName] = selectedUrlColor
             }
         } else {
             switch selectedElement.link.linkType {
-            case .Image(_): attributes[NSForegroundColorAttributeName] = UIColor.greenColor()
-            case .Reddit(_): attributes[NSForegroundColorAttributeName] = UIColor.orangeColor()
-            case .YouTube: attributes[NSForegroundColorAttributeName] = UIColor.redColor()
-            case .Normal: attributes[NSForegroundColorAttributeName] = URLColor
+            case .Image(_): attributes[NSForegroundColorAttributeName] = imageColor
+            case .Reddit(_): attributes[NSForegroundColorAttributeName] = redditColor
+            case .YouTube: attributes[NSForegroundColorAttributeName] = youTubeColor
+            case .Normal: attributes[NSForegroundColorAttributeName] = urlColor
             }
         }
         
@@ -242,19 +246,29 @@ class BodyLabel: UILabel {
     
     //MARK: - Handle UI Responder touches
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        guard let touch = touches.first else { return }
-        if onTouch(touch) { return }
+        guard let touch = touches.first else {
+            return
+        }
+        if onTouch(touch) {
+            return
+        }
         super.touchesBegan(touches, withEvent: event)
     }
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        guard let touch = touches.first else { return }
-        if onTouch(touch) { return }
+        guard let touch = touches.first else {
+            return
+        }
+        if onTouch(touch) {
+            return
+        }
         super.touchesMoved(touches, withEvent: event)
     }
     
     override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
-        guard let touch = touches?.first else { return }
+        guard let touch = touches?.first else {
+            return
+        }
         onTouch(touch)
         super.touchesCancelled(touches, withEvent: event)
     }
@@ -267,15 +281,6 @@ class BodyLabel: UILabel {
             return
         }
         super.touchesEnded(touches, withEvent: event)
-    }
-
-    // MARK: - ActiveLabel handler
-    private func didTapStringURL(stringURL: String) {
-        guard let urlHandler = urlTapHandler, let url = NSURL(string: stringURL) else {
-            delegate?.bodyLabel(didSelectURL: stringURL)
-            return
-        }
-        urlHandler(url)
     }
 }
 
