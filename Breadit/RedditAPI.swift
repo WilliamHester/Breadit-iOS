@@ -15,6 +15,7 @@ import RealmSwift
 struct RedditAPI {
     
     static var loginManager = LoginManager()
+    static let realm = try! Realm()
 
     static func getSubmissions(after: String, callback: ([Submission]) -> ()) {
         let request = RedditRequest("", queries: ["after" : after])
@@ -64,6 +65,32 @@ struct RedditAPI {
             }
 
             callback(submission, resultComments)
+        }
+    }
+
+    static func getDefaultSubreddits(after: String = "", acc: [Subreddit] = [], callback: ([Subreddit]) -> ()) {
+        var subs = acc
+
+        let request = RedditRequest("subreddits/default", queries: ["after": after])
+        request.getJson { json in
+            if let subreddits = json["data"]["children"].array {
+                if subreddits.count == 0 {
+                    callback(acc)
+                    return
+                }
+                for subreddit in subreddits {
+                    subs.append(Subreddit(json: subreddit["data"], isDefault: true))
+                }
+                try! realm.write {
+                    for subreddit in subs {
+                        realm.add(subreddit, update: true)
+                    }
+                }
+                print(subreddits.last!["data"]["name"].string!)
+                getDefaultSubreddits(subreddits.last!["data"]["name"].string!, acc: subs, callback: callback)
+            } else {
+                callback([])
+            }
         }
     }
     

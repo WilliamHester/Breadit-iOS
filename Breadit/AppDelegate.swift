@@ -7,33 +7,35 @@
 //
 
 import UIKit
+import Realm
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         let mainContent = UINavigationController(rootViewController: SubmissionViewController())
+        let navView = NavigationViewController()
         let navVC = NavigationDrawerViewController(
             contentViewController: mainContent,
-            drawerViewController: NavigationViewController())
+            drawerViewController: navView)
         mainContent.navigationBar.barStyle = .BlackTranslucent
         mainContent.navigationBar.tintColor = Colors.secondaryTextColor
-        
+
+        let realm = try! Realm()
+        let subredditStore = SubredditStore()
+        SubredditStore.realm = realm
+        navView.subredditStore = subredditStore
+
         window?.rootViewController = navVC
         window?.backgroundColor = Colors.backgroundColor
         window?.makeKeyAndVisible()
-        
+
         return true
-    }
-    
-    func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
-        print(url.absoluteString)
-        return false
     }
 
     func applicationWillResignActive(application: UIApplication) {

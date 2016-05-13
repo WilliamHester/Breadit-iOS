@@ -13,6 +13,7 @@ class NavigationViewController: UITableViewController {
     private static let places = ["Home", "Inbox", "Account", "Friends", "Submit", "Settings"]
     
     var delegate: NavigationDelegate?
+    var subredditStore: SubredditStore!
     
     override func loadView() {
         super.loadView()
@@ -28,10 +29,22 @@ class NavigationViewController: UITableViewController {
         tableView.separatorColor = Colors.secondaryColor
         
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "default")
+        
+        subredditStore.loadSubreddits {
+            self.tableView.reloadData()
+        }
+    }
+    
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 2
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return NavigationViewController.places.count
+        if section == 0 {
+            return NavigationViewController.places.count
+        } else {
+            return subredditStore.subreddits.count
+        }
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -43,7 +56,11 @@ class NavigationViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("default")
         cell?.backgroundColor = UIColor.clearColor()
         if let textLabel = cell?.textLabel {
-            textLabel.text = NavigationViewController.places[indexPath.row]
+            if indexPath.section == 0 {
+            	textLabel.text = NavigationViewController.places[indexPath.row]
+            } else {
+                textLabel.text = subredditStore.subreddits[indexPath.row].displayName.lowercaseString
+            }
             textLabel.textColor = Colors.textColor
         }
         return cell!
