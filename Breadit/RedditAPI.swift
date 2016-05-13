@@ -17,7 +17,7 @@ struct RedditAPI {
     static var loginManager = LoginManager()
 
     static func getSubmissions(after: String, callback: ([Submission]) -> ()) {
-        let request = RedditRequest("r/breaditapp", queries: ["after" : after])
+        let request = RedditRequest("", queries: ["after" : after])
         var submissions = [Submission]()
         request.getJson { json in
             if let subs = json["data"]["children"].array {
