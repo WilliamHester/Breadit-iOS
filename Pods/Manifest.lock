@@ -11,6 +11,7 @@ PODS:
     - Realm (= 0.99.0)
   - SwiftString (0.5)
   - SwiftyJSON (2.3.2)
+  - youtube-ios-player-helper (0.1.6)
 
 DEPENDENCIES:
   - Alamofire (~> 3.3)
@@ -20,6 +21,7 @@ DEPENDENCIES:
   - RealmSwift
   - SwiftString
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
+  - youtube-ios-player-helper (~> 0.1.6)
 
 EXTERNAL SOURCES:
   NSDate+TimeAgo:
@@ -44,5 +46,6 @@ SPEC CHECKSUMS:
   RealmSwift: f40e5634bbc74f063163561d02acc4aa040d40a5
   SwiftString: ec9c31c55b2aa147a1154f5f5f8483dc71e3165f
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+  youtube-ios-player-helper: 21ab92db027c7ff86cb17a3843a3f6eafc8158d2
 
 COCOAPODS: 0.39.0

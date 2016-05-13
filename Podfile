@@ -9,5 +9,6 @@ target 'Breadit' do
     pod 'NSDate+TimeAgo', :git => 'https://github.com/kevinlawler/NSDate-TimeAgo.git'
     pod 'SwiftString'
     pod 'Fuzi', '~> 0.3.0'
+    pod 'youtube-ios-player-helper', '~> 0.1.6'
 end
 

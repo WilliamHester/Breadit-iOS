@@ -43,13 +43,8 @@ class LoginViewController: UIViewController, WKNavigationDelegate {
                  didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
         if let stringUrl = webView.URL?.absoluteString where
             stringUrl.hasPrefix(Keys.redditRedirectUrl) {
-            webView.URL!.query
-            var dict = [String: String]()
-            for item in (webView.URL!.query?.componentsSeparatedByString("&"))! {
-                let keyValuePair = item.componentsSeparatedByString("=")
-                dict[keyValuePair[0]] = keyValuePair[1]
-            }
-            if let code = dict["code"] {
+            
+            if let code = webView.URL?.queries["code"] {
                 RedditAPI.getToken(code) { account in
                     if let loggedInTempAccount = account {
                         RedditAPI.getDetails(loggedInTempAccount) { success in

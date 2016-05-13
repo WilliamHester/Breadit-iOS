@@ -33,6 +33,8 @@
 		3D9CBE281CCC9BF10004EACC /* Mango.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9CBE271CCC9BF10004EACC /* Mango.swift */; };
 		3D9CBE2A1CCD81C90004EACC /* SubmissionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9CBE291CCD81C90004EACC /* SubmissionHeader.swift */; };
 		3D9CBE2C1CCD82900004EACC /* TextCommentCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9CBE2B1CCD82900004EACC /* TextCommentCellView.swift */; };
+		3DD431361CE53E0900892CBB /* YouTubePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD431351CE53E0900892CBB /* YouTubePreviewViewController.swift */; };
+		3DD431381CE5404400892CBB /* NSURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD431371CE5404400892CBB /* NSURL.swift */; };
 		3DF4EE641CD3110100985184 /* TextComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF4EE631CD3110100985184 /* TextComment.swift */; };
 		5056F522FCC477BEE6475337 /* MoreComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056F72C1DF74F499B250156 /* MoreComment.swift */; };
 		5056F646C416ADAA6764C5AD /* SubmissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056FEF8C31C10C595281F16 /* SubmissionViewController.swift */; };
@@ -73,6 +75,8 @@
 		3D9CBE271CCC9BF10004EACC /* Mango.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mango.swift; sourceTree = "<group>"; };
 		3D9CBE291CCD81C90004EACC /* SubmissionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionHeader.swift; sourceTree = "<group>"; };
 		3D9CBE2B1CCD82900004EACC /* TextCommentCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextCommentCellView.swift; sourceTree = "<group>"; };
+		3DD431351CE53E0900892CBB /* YouTubePreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YouTubePreviewViewController.swift; sourceTree = "<group>"; };
+		3DD431371CE5404400892CBB /* NSURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURL.swift; sourceTree = "<group>"; };
 		3DF4EE631CD3110100985184 /* TextComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextComment.swift; sourceTree = "<group>"; };
 		5056F484BCF5AB43FB1FF8EE /* SubmissionCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionCellView.swift; sourceTree = "<group>"; };
 		5056F72C1DF74F499B250156 /* MoreComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreComment.swift; sourceTree = "<group>"; };
@@ -104,6 +108,7 @@
 				3D4AEF981CE3CD1E000ACEE4 /* UIColor.swift */,
 				3D4AEF9A1CE3D4E8000ACEE4 /* Colors.swift */,
 				3D4AEF9C1CE41EE4000ACEE4 /* Theme.swift */,
+				3DD431371CE5404400892CBB /* NSURL.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -157,6 +162,7 @@
 				3D13BCA21CD5EEDC009193C4 /* NavigationViewController.swift */,
 				3D13BCA61CD69EA6009193C4 /* PreviewViewController.swift */,
 				3D4A9A131CDAF6BF00449959 /* LoginViewController.swift */,
+				3DD431351CE53E0900892CBB /* YouTubePreviewViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -360,6 +366,7 @@
 				3DF4EE641CD3110100985184 /* TextComment.swift in Sources */,
 				3D13BCA51CD69524009193C4 /* HTMLParser.swift in Sources */,
 				3D4A9A141CDAF6BF00449959 /* LoginViewController.swift in Sources */,
+				3DD431361CE53E0900892CBB /* YouTubePreviewViewController.swift in Sources */,
 				3D13BCA71CD69EA6009193C4 /* PreviewViewController.swift in Sources */,
 				3D4DEE7A1CE1836700DB4DAD /* BodyLabelDelegate.swift in Sources */,
 				5056F646C416ADAA6764C5AD /* SubmissionViewController.swift in Sources */,
@@ -375,6 +382,7 @@
 				3D13BC9D1CD59AF6009193C4 /* CommentCellView.swift in Sources */,
 				3D13BC951CD54AAF009193C4 /* MangoWritten.swift in Sources */,
 				5056F6FD12FB503AA6314F94 /* Comment.swift in Sources */,
+				3DD431381CE5404400892CBB /* NSURL.swift in Sources */,
 				5056F522FCC477BEE6475337 /* MoreComment.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

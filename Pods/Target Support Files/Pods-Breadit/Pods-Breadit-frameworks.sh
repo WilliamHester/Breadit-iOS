@@ -92,6 +92,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-Breadit/RealmSwift.framework"
   install_framework "Pods-Breadit/SwiftString.framework"
   install_framework "Pods-Breadit/SwiftyJSON.framework"
+  install_framework "Pods-Breadit/youtube_ios_player_helper.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-Breadit/Alamofire.framework"
@@ -102,4 +103,5 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-Breadit/RealmSwift.framework"
   install_framework "Pods-Breadit/SwiftString.framework"
   install_framework "Pods-Breadit/SwiftyJSON.framework"
+  install_framework "Pods-Breadit/youtube_ios_player_helper.framework"
 fi

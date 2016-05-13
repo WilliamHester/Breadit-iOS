@@ -94,7 +94,7 @@ extension UIView {
     }
     
     func uiButton(views: (UIButton) -> ()) -> UIButton {
-        let view = UIButton()
+        let view = UIButton(type: .System)
         addChild(view)
         views(view)
         return view

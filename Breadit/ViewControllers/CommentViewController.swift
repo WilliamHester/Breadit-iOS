@@ -143,17 +143,15 @@ class CommentViewController: UITableViewController, UIViewControllerPreviewingDe
 
     func previewingContext(previewingContext: UIViewControllerPreviewing,
                            viewControllerForLocation location: CGPoint) -> UIViewController? {
-        guard let indexPath = tableView.indexPathForRowAtPoint(location) else {
-            return nil
-        }
-        let viewController = UIViewController()
+//        guard let indexPath = tableView.indexPathForRowAtPoint(location) else {
+//            return nil
+//        }
+//        let viewController = UIViewController()
 //        let rawRect = tableView.rectForRowAtIndexPath(indexPath)
 //        let rect = CGRectOffset(rawRect, -tableView.contentOffset.x, -tableView.contentOffset.y)
 //
 //        let cell = tableView.cellForRowAtIndexPath(indexPath)
-        
-
-        viewController.preferredContentSize = CGSize.zero
+//        viewController.preferredContentSize = CGSize.zero
 
         return nil
     }
@@ -166,16 +164,21 @@ class CommentViewController: UITableViewController, UIViewControllerPreviewingDe
     // MARK: BodyLabelDelegate
     func bodyLabel(link: Link) {
 //        UIApplication.sharedApplication().openURL(NSURL(string: link.url)!)
-        let preview = PreviewViewController()
-        preview.modalPresentationStyle = .OverCurrentContext
-        preview.imageUrl = link.previewUrl
-        parentViewController?.parentViewController?.presentViewController(preview, animated: true, completion: nil)
         switch link.linkType {
         case .Normal:
             break
         case .YouTube:
-            break
+            let preview = YouTubePreviewViewController()
+            let navigation = UINavigationController(rootViewController: preview)
+            navigation.navigationBar.barStyle = .Black
+            navigation.modalTransitionStyle = .CoverVertical
+            preview.link = link
+            navigationController?.presentViewController(navigation, animated: true, completion: nil)
         case .Image(let imageType):
+            let preview = PreviewViewController()
+        	preview.modalPresentationStyle = .OverFullScreen
+        	preview.imageUrl = link.previewUrl
+        	presentViewController(preview, animated: true, completion: nil)
             switch imageType {
             case .Normal:
                 break

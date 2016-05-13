@@ -50,8 +50,8 @@ class Link {
                 linkType = .Reddit(.Subreddit)
             }
         } else {
-            let url = NSURL(string: link)
-            guard let domain = url?.host else {
+            let url = NSURL(string: link)!
+            guard let domain = url.host else {
                 return
             }
             if domain.contains("reddit.com") {
@@ -59,7 +59,7 @@ class Link {
             } else if domain.contains("imgur") {
                 generateImgurDetails()
             } else if domain.contains("youtube.com") || domain.contains("youtu.be") {
-                generateYouTubeDetails()
+                generateYouTubeDetails(url)
             }
         }
     }
@@ -90,8 +90,15 @@ class Link {
         }
     }
     
-    private func generateYouTubeDetails() {
+    private func generateYouTubeDetails(url: NSURL) {
         linkType = .YouTube
+        
+        if let id = url.queries["v"] {
+            self.id = id
+        } else if url.host == "youtu.be" {
+            let index = self.url.indexOf("youtu.be/")
+            self.id = self.url.substring((index?.advancedBy(9))!, length: 11)
+        }
     }
     
     private func generateRedditDetails() {
