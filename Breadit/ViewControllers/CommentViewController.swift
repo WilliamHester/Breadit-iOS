@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import Alamofire
+import AlamofireImage
 
-class CommentViewController: UITableViewController, UIViewControllerPreviewingDelegate,
-		BodyLabelDelegate {
+class CommentViewController: UITableViewController, BodyLabelDelegate {
 
     var submission: Submission! {
         didSet {
@@ -37,6 +38,11 @@ class CommentViewController: UITableViewController, UIViewControllerPreviewingDe
         tableView.estimatedRowHeight = 140
         tableView.separatorStyle = .None
 
+        
+        tableView.registerClass(SubmissionCellView.self,
+                                forCellReuseIdentifier: "SubmissionCellView")
+        tableView.registerClass(SubmissionImageCellView.self,
+                                forCellReuseIdentifier: "SubmissionImageCellView")
         tableView.registerClass(TextCommentCellView.self,
                                 forCellReuseIdentifier: "TextCommentCellView")
         tableView.registerClass(MoreCommentCellView.self,
@@ -48,39 +54,22 @@ class CommentViewController: UITableViewController, UIViewControllerPreviewingDe
     // MARK: - Table View
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            return submission != nil ? 1 : 0
+        }
         return comments.count
     }
 
     override func tableView(tableView: UITableView,
                             cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let comment = comments[indexPath.row]
-
-        var cell: CommentCellView
-
-        if let textComment = comment as? TextComment {
-            let textCommentCell = tableView.dequeueReusableCellWithIdentifier("TextCommentCellView")
-                as! TextCommentCellView
-            textCommentCell.author.text = textComment.author
-            let parsedText = HTMLParser(
-                escapedHtml: textComment.body_html,
-                font: textCommentCell.body.font!
-            )
-            textCommentCell.body.attributedText = parsedText.attributedString
-            textCommentCell.body.links = parsedText.links
-            textCommentCell.body.delegate = self
-            cell = textCommentCell
-        } else {
-            cell = tableView.dequeueReusableCellWithIdentifier("MoreCommentCellView")!
-                	as! MoreCommentCellView
+        if indexPath.section == 0 {
+            return submissionCell(tableView, indexPath: indexPath)
         }
-
-        cell.paddingConstraint.constant = CGFloat(comment.level * 8 + 8)
-
-        return cell
+        return commentCell(tableView, indexPath: indexPath)
     }
 
     override func tableView(tableView: UITableView,
@@ -95,6 +84,57 @@ class CommentViewController: UITableViewController, UIViewControllerPreviewingDe
         } else {
             loadMoreComments(comment as! MoreComment, index: indexPath.row)
         }
+    }
+    
+    private func submissionCell(tableView: UITableView, indexPath: NSIndexPath) -> UITableViewCell {
+        let cell: SubmissionCellView
+        if let previewImage = submission.getPreviewImage() {
+            cell = tableView.dequeueReusableCellWithIdentifier("SubmissionImageCellView",
+           			forIndexPath: indexPath) as! SubmissionImageCellView
+            Alamofire.request(.GET, previewImage).responseImage { response in
+                (cell as! SubmissionImageCellView).contentImage.image = response.result.value
+            }
+        } else {
+            cell = tableView.dequeueReusableCellWithIdentifier("SubmissionCellView",
+					forIndexPath: indexPath) as! SubmissionCellView
+        }
+        
+        cell.title.text = submission.title.decodeHTML()
+        cell.authorAndPoints.text = "\(submission.author) \(submission.score) " +
+            "\(submission.score == 1 ? "point" : "points")"
+        cell.subreddit.text = submission.subreddit.lowercaseString
+        cell.relativeDate.text = NSDate(timeIntervalSince1970: Double(submission.createdUTC))
+            .timeAgo()
+        cell.comments.text = "\(submission.numComments) " +
+            "\(submission.numComments == 1 ? "comment" : "comments")"
+        cell.domain.text = submission.domain
+        return cell
+    }
+    
+    private func commentCell(tableView: UITableView, indexPath: NSIndexPath) -> UITableViewCell {
+        let comment = comments[indexPath.row]
+        
+        var cell: CommentCellView
+        
+        if let textComment = comment as? TextComment {
+            let textCommentCell = tableView.dequeueReusableCellWithIdentifier("TextCommentCellView")
+                as! TextCommentCellView
+            textCommentCell.author.text = textComment.author
+            let parsedText = HTMLParser(
+                escapedHtml: textComment.body_html,
+                font: textCommentCell.body.font!
+            )
+            textCommentCell.body.attributedText = parsedText.attributedString
+            textCommentCell.body.links = parsedText.links
+            textCommentCell.body.delegate = self
+            cell = textCommentCell
+        } else {
+            cell = tableView.dequeueReusableCellWithIdentifier("MoreCommentCellView")!
+                as! MoreCommentCellView
+        }
+        
+        cell.paddingConstraint.constant = CGFloat(comment.level * 8 + 8)
+        return cell
     }
 
     // MARK: - Reddit operations
@@ -138,32 +178,9 @@ class CommentViewController: UITableViewController, UIViewControllerPreviewingDe
         comment.replies = nil
         tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
     }
-
-    // MARK: - ViewControllerPreviewingDelegate
-
-    func previewingContext(previewingContext: UIViewControllerPreviewing,
-                           viewControllerForLocation location: CGPoint) -> UIViewController? {
-//        guard let indexPath = tableView.indexPathForRowAtPoint(location) else {
-//            return nil
-//        }
-//        let viewController = UIViewController()
-//        let rawRect = tableView.rectForRowAtIndexPath(indexPath)
-//        let rect = CGRectOffset(rawRect, -tableView.contentOffset.x, -tableView.contentOffset.y)
-//
-//        let cell = tableView.cellForRowAtIndexPath(indexPath)
-//        viewController.preferredContentSize = CGSize.zero
-
-        return nil
-    }
-
-    func previewingContext(previewingContext: UIViewControllerPreviewing,
-                           commitViewController viewControllerToCommit: UIViewController) {
-        showViewController(viewControllerToCommit, sender: self)
-    }
     
     // MARK: BodyLabelDelegate
     func bodyLabel(link: Link) {
-//        UIApplication.sharedApplication().openURL(NSURL(string: link.url)!)
         switch link.linkType {
         case .Normal:
             break
