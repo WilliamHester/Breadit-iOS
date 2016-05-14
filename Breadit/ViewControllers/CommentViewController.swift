@@ -151,7 +151,7 @@ class CommentViewController: UITableViewController, BodyLabelDelegate {
         for i in index + 1..<comments.count {
             if comments[i].level > comment.level {
                 hiddenComments.append(comments[i])
-                indexPaths.append(NSIndexPath(forItem: i, inSection: 0))
+                indexPaths.append(NSIndexPath(forItem: i, inSection: 1))
             } else {
                 end = i
                 break
@@ -171,7 +171,7 @@ class CommentViewController: UITableViewController, BodyLabelDelegate {
         var indexPaths = [NSIndexPath]()
         if comment.replies!.count > 0 {
             for i in 1...comment.replies!.count {
-                indexPaths.append(NSIndexPath(forRow: i + index, inSection: 0))
+                indexPaths.append(NSIndexPath(forRow: i + index, inSection: 1))
             }
             comments.insertContentsOf(comment.replies!, at: index + 1)
         }
