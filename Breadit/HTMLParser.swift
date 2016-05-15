@@ -15,12 +15,12 @@ class HTMLParser {
     var attributedString: NSAttributedString!
     let font: UIFont
     var links = [Link]()
+    var i = 0
     
     init(escapedHtml html: String, font: UIFont) {
         self.font = font
         self.attributedString = self.parseHtml(html.decodeHTML()
             	.stringByReplacingOccurrencesOfString("\n", withString: "").trimmed())
-        
     }
     
     private func parseHtml(text: String) -> NSAttributedString {
@@ -48,6 +48,7 @@ class HTMLParser {
             }
 
             if attributedString.length > 0 {
+                
                 let range = NSMakeRange(0, attributedString.length)
                 let attributes = getAttributesFromTag(element)
                 attributedString.addAttributes(attributes, range: range)
@@ -64,9 +65,9 @@ class HTMLParser {
             return [:]
         }
         switch node.tag! {
-        case "p":
+//        case "p":
 //            return [NSParagraphStyleAttributeName: NSParagraphStyle.defaultParagraphStyle()]
-            return [:]
+//            return [NSBackgroundColorAttributeName: cycleBackgroundColor()]
         case "code":
             return [NSFontAttributeName: UIFont(name: "Menlo-Regular", size: font.pointSize)!]
         case "del":
@@ -125,6 +126,22 @@ class HTMLParser {
             ]
         default:
             return [:]
+        }
+    }
+    
+    private func cycleBackgroundColor() -> UIColor {
+        i = (i + 1) % 4
+        switch i {
+        case 0:
+            return UIColor.yellowColor()
+        case 1:
+            return UIColor.greenColor()
+        case 2:
+            return UIColor.purpleColor()
+        case 3:
+            return UIColor.orangeColor()
+        default:
+            return UIColor.yellowColor()
         }
     }
     

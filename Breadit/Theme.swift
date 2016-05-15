@@ -14,4 +14,5 @@ struct Theme {
     let textColor: UIColor
     let secondaryTextColor: UIColor
     let titleBarColor: UIColor
+    let infoColor: UIColor
 }

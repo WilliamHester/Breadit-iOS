@@ -164,26 +164,9 @@ class BodyLabel: UILabel {
     private func textOrigin(inRect rect: CGRect) -> CGPoint {
         let usedRect = layoutManager.usedRectForTextContainer(textContainer)
         heightCorrection = (rect.height - usedRect.height) / 2
+        frame.size.height -= 2 * heightCorrection
         let glyphOriginY = heightCorrection > 0 ? rect.origin.y + heightCorrection : rect.origin.y
         return CGPoint(x: rect.origin.x, y: glyphOriginY)
-    }
-    
-    /// add line break mode
-    private func addLineBreak(attrString: NSAttributedString) -> NSMutableAttributedString {
-        let mutAttrString = NSMutableAttributedString(attributedString: attrString)
-        
-        var range = NSRange(location: 0, length: 0)
-        var attributes = mutAttrString.attributesAtIndex(0, effectiveRange: &range)
-        
-        let paragraphStyle = attributes[NSParagraphStyleAttributeName] as? NSMutableParagraphStyle ?? NSMutableParagraphStyle()
-        paragraphStyle.lineBreakMode = NSLineBreakMode.ByWordWrapping
-        paragraphStyle.alignment = textAlignment
-        paragraphStyle.lineSpacing = CGFloat(lineSpacing)
-        
-        attributes[NSParagraphStyleAttributeName] = paragraphStyle
-        mutAttrString.setAttributes(attributes, range: range)
-        
-        return mutAttrString
     }
     
     private func updateAttributesWhenSelected(isSelected: Bool) {

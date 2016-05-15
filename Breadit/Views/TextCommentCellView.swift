@@ -23,7 +23,7 @@ class TextCommentCellView: CommentCellView {
 
             self.author = v.uiLabel { v in
                 v.fontSize = 10
-                v.textColor = Colors.secondaryTextColor
+                v.textColor = Colors.infoColor
             }
             
             self.body = BodyLabel()

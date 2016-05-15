@@ -22,7 +22,8 @@ class Colors {
                              secondaryColor: UIColor(rgb: 0x2e2e2e),
                              textColor: UIColor.whiteColor(),
                              secondaryTextColor: UIColor(rgb: 0xa0a0a0),
-                             titleBarColor: UIColor.blackColor())
+                             titleBarColor: UIColor.blackColor(),
+                             infoColor: UIColor(rgb: 0x6A98AF))
 
     static var backgroundColor: UIColor {
         return theme.backgroundColor
@@ -42,5 +43,9 @@ class Colors {
 
     static var titleBarColor: UIColor {
         return theme.titleBarColor
+    }
+    
+    static var infoColor: UIColor {
+        return theme.infoColor
     }
 }

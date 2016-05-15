@@ -32,7 +32,7 @@ class SubmissionCellView: UITableViewCell {
             
             self.subreddit = v.uiLabel { v in
                 v.fontSize = 10
-                v.textColor = Colors.secondaryTextColor
+                v.textColor = Colors.infoColor
             }
             
             self.title = v.uiLabel { v in
