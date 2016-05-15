@@ -67,7 +67,6 @@ class HTMLParser {
         switch node.tag! {
 //        case "p":
 //            return [NSParagraphStyleAttributeName: NSParagraphStyle.defaultParagraphStyle()]
-//            return [NSBackgroundColorAttributeName: cycleBackgroundColor()]
         case "code":
             return [NSFontAttributeName: UIFont(name: "Menlo-Regular", size: font.pointSize)!]
         case "del":
@@ -126,22 +125,6 @@ class HTMLParser {
             ]
         default:
             return [:]
-        }
-    }
-    
-    private func cycleBackgroundColor() -> UIColor {
-        i = (i + 1) % 4
-        switch i {
-        case 0:
-            return UIColor.yellowColor()
-        case 1:
-            return UIColor.greenColor()
-        case 2:
-            return UIColor.purpleColor()
-        case 3:
-            return UIColor.orangeColor()
-        default:
-            return UIColor.yellowColor()
         }
     }
     
