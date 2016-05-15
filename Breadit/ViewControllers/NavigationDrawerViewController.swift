@@ -38,6 +38,7 @@ class NavigationDrawerViewController: UIViewController, UIGestureRecognizerDeleg
             return drawerWidth / 2
         }
     }
+    var currentPlace: NavigationPlace = .Subreddit("")
     
     init(contentViewController: UIViewController, drawerViewController: NavigationViewController) {
         super.init(nibName: nil, bundle: nil)
@@ -107,6 +108,7 @@ class NavigationDrawerViewController: UIViewController, UIGestureRecognizerDeleg
         let tapGestureRecognizer = UITapGestureRecognizer(target: self,
       			action: #selector(NavigationDrawerViewController.drawerTapped(_:)))
         tapGestureRecognizer.delegate = self
+        tapGestureRecognizer.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGestureRecognizer)
     }
     
@@ -221,8 +223,25 @@ class NavigationDrawerViewController: UIViewController, UIGestureRecognizerDeleg
     
     // MARK: - NavigationDelegate
     
-    func didNavigateTo(place: String) {
-        print(place)
+    func didNavigateTo(place: NavigationPlace) {
+        switch place {
+        case .Subreddit(let displayName):
+            if let submissionVC = contentController.childViewControllers[0] as? SubmissionViewController {
+                submissionVC.submissionStore = SubmissionStore(subredditDisplay: displayName)
+            }
+            break
+        case .Account:
+            break
+        case .Friends:
+            break
+        case .Inbox:
+            break
+        case .Settings:
+            break
+        case .Submit:
+            break
+        }
+        isOpen = false
     }
     
 }

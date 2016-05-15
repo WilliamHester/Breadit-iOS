@@ -14,11 +14,7 @@ class NavigationViewController: UITableViewController {
     
     var delegate: NavigationDelegate?
     var subredditStore: SubredditStore!
-    
-    override func loadView() {
-        super.loadView()
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,13 +44,36 @@ class NavigationViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    	delegate?.didNavigateTo(NavigationViewController.places[indexPath.row])
+        let place: NavigationPlace
+        if indexPath.section == 0 {
+            switch indexPath.row {
+            case 0:
+                place = .Subreddit("")
+            case 1:
+                place = .Inbox
+            case 2:
+                place = .Account
+            case 3:
+                place = .Friends
+            case 4:
+                place = .Submit
+            case 5:
+                place = .Settings
+            default:
+                place = .Subreddit("")
+            }
+        } else {
+            place = .Subreddit(subredditStore.subreddits[indexPath.row].displayName)
+        }
+        delegate?.didNavigateTo(place)
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) ->
         	UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("default")
         cell?.backgroundColor = UIColor.clearColor()
+        cell?.selectedBackgroundView = UIView()
+        cell?.selectedBackgroundView?.backgroundColor = UIColor.darkGrayColor()
         if let textLabel = cell?.textLabel {
             if indexPath.section == 0 {
             	textLabel.text = NavigationViewController.places[indexPath.row]
@@ -78,5 +97,5 @@ enum NavigationPlace {
 }
 
 protocol NavigationDelegate {
-    func didNavigateTo(place: String)
+    func didNavigateTo(place: NavigationPlace)
 }

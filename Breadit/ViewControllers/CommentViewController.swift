@@ -74,6 +74,9 @@ class CommentViewController: UITableViewController, BodyLabelDelegate {
 
     override func tableView(tableView: UITableView,
     		didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        guard indexPath.section == 1 else {
+            return
+        }
         let comment = comments[indexPath.row]
         if let textComment = comment as? TextComment {
             if textComment.hidden {
@@ -84,6 +87,7 @@ class CommentViewController: UITableViewController, BodyLabelDelegate {
         } else {
             loadMoreComments(comment as! MoreComment, index: indexPath.row)
         }
+        tableView.deselectRowAtIndexPath(indexPath, animated: false)
     }
     
     private func submissionCell(tableView: UITableView, indexPath: NSIndexPath) -> UITableViewCell {

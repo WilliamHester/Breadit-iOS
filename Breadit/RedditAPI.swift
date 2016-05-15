@@ -17,8 +17,9 @@ struct RedditAPI {
     static var loginManager = LoginManager()
     static let realm = try! Realm()
 
-    static func getSubmissions(after: String, callback: ([Submission]) -> ()) {
-        let request = RedditRequest("", queries: ["after" : after])
+    static func getSubmissions(subreddit: String, after: String = "", callback: ([Submission]) -> ()) {
+        let subString = subreddit.length > 0 ? "r/" + subreddit : subreddit
+        let request = RedditRequest(subString, queries: ["after" : after])
         var submissions = [Submission]()
         request.getJson { json in
             if let subs = json["data"]["children"].array {
@@ -86,7 +87,6 @@ struct RedditAPI {
                         realm.add(subreddit, update: true)
                     }
                 }
-                print(subreddits.last!["data"]["name"].string!)
                 getDefaultSubreddits(subreddits.last!["data"]["name"].string!, acc: subs, callback: callback)
             } else {
                 callback([])

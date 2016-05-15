@@ -14,7 +14,13 @@ import NSDate_TimeAgo
 class SubmissionViewController: UITableViewController, UIViewControllerPreviewingDelegate {
 
     var detailViewController: CommentViewController? = nil
-    let submissionStore = SubmissionStore()
+    var submissionStore: SubmissionStore! {
+        didSet {
+            let display = submissionStore.subredditDisplay
+            title = display == "" ? "Front Page" : display
+            submissionStore.refreshSubmissions(onRefresh)
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,10 +40,6 @@ class SubmissionViewController: UITableViewController, UIViewControllerPreviewin
                 forCellReuseIdentifier: "SubmissionCellView")
         tableView.registerClass(SubmissionImageCellView.self,
                 forCellReuseIdentifier: "SubmissionImageCellView")
-
-        submissionStore.loadSubmissions(onSubmissionsLoaded)
-        
-        title = "Front Page"
     }
 
     override func didReceiveMemoryWarning() {
@@ -109,12 +111,17 @@ class SubmissionViewController: UITableViewController, UIViewControllerPreviewin
         navigationController?.pushViewController(commentsController, animated: true)
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
+    
+    func onRefresh(refreshed: Bool) {
+        if refreshed {
+        	self.tableView.reloadData()
+        }
+    }
+    
 
     func pullRefresh(sender: UIRefreshControl) {
         submissionStore.refreshSubmissions { refreshed in
-            if refreshed {
-                self.tableView.reloadData()
-            }
+            self.onRefresh(refreshed)
             sender.endRefreshing()
         }
     }

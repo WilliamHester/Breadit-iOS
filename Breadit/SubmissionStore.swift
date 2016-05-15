@@ -9,6 +9,11 @@ class SubmissionStore {
 
     var submissions = [Submission]()
     var failedLoad = false
+    let subredditDisplay: String
+    
+    init(subredditDisplay: String) {
+        self.subredditDisplay = subredditDisplay
+    }
 
     func loadSubmissions(onLoad: (Int, Int) -> ()) {
         let after: String
@@ -17,7 +22,7 @@ class SubmissionStore {
         } else {
             after = ""
         }
-        RedditAPI.getSubmissions(after) { submissions in
+        RedditAPI.getSubmissions(subredditDisplay, after: after) { submissions in
             let oldCount = self.submissions.count
             self.submissions += submissions
             if submissions.count == 0 {
@@ -28,7 +33,7 @@ class SubmissionStore {
     }
     
     func refreshSubmissions(onLoad: (Bool) -> ()) {
-        RedditAPI.getSubmissions("") { submissions in
+        RedditAPI.getSubmissions(subredditDisplay) { submissions in
             var same = true
             for (i, submission) in submissions.enumerate() {
                 if i >= self.submissions.count {
@@ -39,6 +44,9 @@ class SubmissionStore {
                     same = false
                     break
                 }
+            }
+            if !same {
+                self.submissions = submissions
             }
             onLoad(!same)
         }
