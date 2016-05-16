@@ -208,7 +208,12 @@ class CommentViewController: UITableViewController, BodyLabelDelegate {
     func bodyLabel(link: Link) {
         switch link.linkType {
         case .Normal:
-            break
+            let preview = WebViewPreviewController()
+            let navigation = UINavigationController(rootViewController: preview)
+            navigation.navigationBar.barStyle = .Black
+            navigation.modalTransitionStyle = .CoverVertical
+            preview.link = link
+            navigationController?.presentViewController(navigation, animated: true, completion: nil)
         case .YouTube:
             let preview = YouTubePreviewViewController()
             let navigation = UINavigationController(rootViewController: preview)
