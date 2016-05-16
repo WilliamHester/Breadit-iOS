@@ -16,13 +16,14 @@ class LoginViewController: UIViewController, WKNavigationDelegate {
     
     override func loadView() {
         title = "Log in"
-        
-        webView = WKWebView()
-        
-        view = webView
-        
-        webView.navigationDelegate = self
 
+        let doneButtom =  UIBarButtonItem(barButtonSystemItem: .Done, target: self,
+                                          action: #selector(YouTubePreviewViewController.done(_:)))
+        navigationItem.leftBarButtonItem = doneButtom
+
+        webView = WKWebView()
+        view = webView
+        webView.navigationDelegate = self
         webView.loadRequest(NSURLRequest(URL: NSURL(string: buildUrl())!))
     }
     
@@ -48,7 +49,7 @@ class LoginViewController: UIViewController, WKNavigationDelegate {
                 RedditAPI.getToken(code) { account in
                     if let loggedInTempAccount = account {
                         RedditAPI.getDetails(loggedInTempAccount) { success in
-
+							self.dismissViewControllerAnimated(true, completion: nil)
                         }
                     } else {
                         

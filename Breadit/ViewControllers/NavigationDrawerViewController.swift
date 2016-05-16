@@ -226,10 +226,14 @@ class NavigationDrawerViewController: UIViewController, UIGestureRecognizerDeleg
     func didNavigateTo(place: NavigationPlace) {
         switch place {
         case .Subreddit(let displayName):
+            var vc: SubmissionViewController
             if let submissionVC = contentController.childViewControllers[0] as? SubmissionViewController {
-                submissionVC.submissionStore = SubmissionStore(subredditDisplay: displayName)
+                vc = submissionVC
+            } else {
+                vc = SubmissionViewController()
+                contentController = UINavigationController(rootViewController: vc)
             }
-            break
+            vc.submissionStore = SubmissionStore(subredditDisplay: displayName)
         case .Account:
             break
         case .Friends:
@@ -237,7 +241,10 @@ class NavigationDrawerViewController: UIViewController, UIGestureRecognizerDeleg
         case .Inbox:
             break
         case .Settings:
-            break
+            let vc = UINavigationController(rootViewController: LoginViewController())
+            vc.navigationBar.barStyle = .Black
+            vc.modalTransitionStyle = .CoverVertical
+        	presentViewController(vc, animated: true, completion: nil)
         case .Submit:
             break
         }

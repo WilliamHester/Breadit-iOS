@@ -9,7 +9,7 @@ import SwiftyJSON
 
 class Subreddit: Object {
     dynamic var displayName: String = ""
-    dynamic var descriptionHtml: String = ""
+    dynamic var descriptionHtml: String? = ""
     dynamic var iconImg: String = ""
     dynamic var url: String = ""
     dynamic var subredditType: String = ""
@@ -22,7 +22,7 @@ class Subreddit: Object {
         self.init()
 
         self.displayName = json["display_name"].string!
-        self.descriptionHtml = json["description_html"].string!
+        self.descriptionHtml = json["description_html"].string
         self.iconImg = json["icon_img"].string!
         self.url = json["url"].string!
         self.subredditType = json["subreddit_type"].string!

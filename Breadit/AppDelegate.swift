@@ -18,8 +18,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        
+        let loginManager = LoginManager()
+        RedditAPI.loginManager = loginManager
+        
         let submissions = SubmissionViewController()
-        submissions.submissionStore = SubmissionStore(subredditDisplay: "cfb")
+        submissions.submissionStore = SubmissionStore(subredditDisplay: "")
         let mainContent = UINavigationController(rootViewController: submissions)
         let navView = NavigationViewController()
         let navVC = NavigationDrawerViewController(
@@ -30,6 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let realm = try! Realm()
         let subredditStore = SubredditStore()
+        subredditStore.loginManager = loginManager
         SubredditStore.realm = realm
         navView.subredditStore = subredditStore
 

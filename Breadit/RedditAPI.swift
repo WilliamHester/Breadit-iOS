@@ -14,7 +14,7 @@ import RealmSwift
 
 struct RedditAPI {
     
-    static var loginManager = LoginManager()
+    static var loginManager: LoginManager!
     static let realm = try! Realm()
 
     static func getSubmissions(subreddit: String, after: String = "", callback: ([Submission]) -> ()) {
@@ -68,26 +68,34 @@ struct RedditAPI {
             callback(submission, resultComments)
         }
     }
-
-    static func getDefaultSubreddits(after: String = "", acc: [Subreddit] = [], callback: ([Subreddit]) -> ()) {
-        var subs = acc
-
-        let request = RedditRequest("subreddits/default", queries: ["after": after])
+    
+    static func getMySubreddits(callback: ([Subreddit]) ->()) {
+        getSubreddits("mine", after: "", accumulator: [], callback: callback)
+    }
+    
+    static func getDefaultSubreddits(callback: ([Subreddit]) -> ()) {
+        getSubreddits("default", after: "", accumulator: [], callback: callback)
+    }
+    
+    static func getSubreddits(type: String, after: String, accumulator: [Subreddit], callback: ([Subreddit]) -> ()) {
+        var subs = accumulator
+        
+        let request = RedditRequest("subreddits/\(type)", queries: ["after": after])
         request.getJson { json in
             if let subreddits = json["data"]["children"].array {
                 if subreddits.count == 0 {
-                    callback(acc)
+                    callback(accumulator)
                     return
                 }
                 for subreddit in subreddits {
-                    subs.append(Subreddit(json: subreddit["data"], isDefault: true))
+                    subs.append(Subreddit(json: subreddit["data"], isDefault: "default" == type))
                 }
                 try! realm.write {
                     for subreddit in subs {
                         realm.add(subreddit, update: true)
                     }
                 }
-                getDefaultSubreddits(subreddits.last!["data"]["name"].string!, acc: subs, callback: callback)
+                getSubreddits(type, after: subreddits.last!["data"]["name"].string!, accumulator: subs, callback: callback)
             } else {
                 callback([])
             }
