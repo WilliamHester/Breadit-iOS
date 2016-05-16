@@ -83,6 +83,12 @@ class BodyLabel: UILabel {
         updateTextStorage()
     }
     
+    override func textRectForBounds(bounds: CGRect, limitedToNumberOfLines numberOfLines: Int) -> CGRect {
+        let size = CGSize(width: frame.width, height: CGFloat.max)
+        return attributedText!.boundingRectWithSize(size, options: .UsesLineFragmentOrigin,
+                                                    context: nil)
+    }
+    
     override func drawTextInRect(rect: CGRect) {
         let range = NSRange(location: 0, length: textStorage.length)
         
@@ -164,7 +170,6 @@ class BodyLabel: UILabel {
     private func textOrigin(inRect rect: CGRect) -> CGPoint {
         let usedRect = layoutManager.usedRectForTextContainer(textContainer)
         heightCorrection = (rect.height - usedRect.height) / 2
-        frame.size.height -= 2 * heightCorrection
         let glyphOriginY = heightCorrection > 0 ? rect.origin.y + heightCorrection : rect.origin.y
         return CGPoint(x: rect.origin.x, y: glyphOriginY)
     }
