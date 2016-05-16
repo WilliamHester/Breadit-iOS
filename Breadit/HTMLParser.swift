@@ -101,12 +101,13 @@ class HTMLParser {
         case "blockquote":
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.setParagraphStyle(NSParagraphStyle.defaultParagraphStyle())
-            paragraphStyle.firstLineHeadIndent = 4.0
-            paragraphStyle.headIndent = 4.0
+            paragraphStyle.firstLineHeadIndent = 6.0
+            paragraphStyle.headIndent = 6.0
+            paragraphStyle.paragraphSpacing = 6.0
             
             return [
                     NSParagraphStyleAttributeName: paragraphStyle,
-                    NSFontAttributeName: UIFont.italicSystemFontOfSize(font.pointSize)
+                    NSForegroundColorAttributeName: Colors.textColor.colorWithAlphaComponent(0.6)
             ]
         case "a":
             let link = Link(link: node.attr("href") ?? "")
