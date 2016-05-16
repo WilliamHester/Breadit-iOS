@@ -22,7 +22,7 @@ class HTMLParser {
         self.attributedString = self.parseHtml(html.decodeHTML()
             	.stringByReplacingOccurrencesOfString("\n", withString: "").trimmed())
     }
-    
+
     private func parseHtml(text: String) -> NSAttributedString {
         let html = try! XMLDocument(string: text, encoding: NSUTF8StringEncoding)
         let string = generateString(html.root!, attributedString: NSMutableAttributedString())

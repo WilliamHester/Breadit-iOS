@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import AlamofireImage
 
 class SubmissionImageCellView: SubmissionCellView {
     
@@ -37,6 +39,14 @@ class SubmissionImageCellView: SubmissionCellView {
         super.prepareForReuse()
         
         contentImage?.image = nil
+    }
+    
+    override func setSubmission(submission: Submission) {
+        super.setSubmission(submission)
+        
+        Alamofire.request(.GET, submission.getPreviewImage()!).responseImage { response in
+            self.contentImage.image = response.result.value
+        }
     }
 
 }

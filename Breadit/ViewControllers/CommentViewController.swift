@@ -92,26 +92,15 @@ class CommentViewController: UITableViewController, BodyLabelDelegate {
     
     private func submissionCell(tableView: UITableView, indexPath: NSIndexPath) -> UITableViewCell {
         let cell: SubmissionCellView
-        if let previewImage = submission.getPreviewImage() {
+        if submission.getPreviewImage() != nil {
             cell = tableView.dequeueReusableCellWithIdentifier("SubmissionImageCellView",
            			forIndexPath: indexPath) as! SubmissionImageCellView
-            Alamofire.request(.GET, previewImage).responseImage { response in
-                (cell as! SubmissionImageCellView).contentImage.image = response.result.value
-            }
         } else {
             cell = tableView.dequeueReusableCellWithIdentifier("SubmissionCellView",
 					forIndexPath: indexPath) as! SubmissionCellView
         }
         
-        cell.title.text = submission.title.decodeHTML()
-        cell.authorAndPoints.text = "\(submission.author) \(submission.score) " +
-            "\(submission.score == 1 ? "point" : "points")"
-        cell.subreddit.text = submission.subreddit.lowercaseString
-        cell.relativeDate.text = NSDate(timeIntervalSince1970: Double(submission.createdUTC))
-            .timeAgo()
-        cell.comments.text = "\(submission.numComments) " +
-            "\(submission.numComments == 1 ? "comment" : "comments")"
-        cell.domain.text = submission.domain
+        cell.setSubmission(submission)
         return cell
     }
     
