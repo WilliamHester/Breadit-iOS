@@ -43,6 +43,8 @@ class CommentViewController: UITableViewController, BodyLabelDelegate {
                                 forCellReuseIdentifier: "SubmissionCellView")
         tableView.registerClass(SubmissionImageCellView.self,
                                 forCellReuseIdentifier: "SubmissionImageCellView")
+        tableView.registerClass(SubmissionSelfPostCellView.self,
+                                forCellReuseIdentifier: "SubmissionSelfPostCellView")
         tableView.registerClass(TextCommentCellView.self,
                                 forCellReuseIdentifier: "TextCommentCellView")
         tableView.registerClass(MoreCommentCellView.self,
@@ -95,6 +97,11 @@ class CommentViewController: UITableViewController, BodyLabelDelegate {
         if submission.getPreviewImage() != nil {
             cell = tableView.dequeueReusableCellWithIdentifier("SubmissionImageCellView",
            			forIndexPath: indexPath) as! SubmissionImageCellView
+        } else if submission.selftextHtml != nil {
+            let selfPostView = tableView.dequeueReusableCellWithIdentifier("SubmissionSelfPostCellView")
+                	as! SubmissionSelfPostCellView
+            cell = selfPostView
+            selfPostView.contentBody.delegate = self
         } else {
             cell = tableView.dequeueReusableCellWithIdentifier("SubmissionCellView",
 					forIndexPath: indexPath) as! SubmissionCellView
@@ -112,6 +119,7 @@ class CommentViewController: UITableViewController, BodyLabelDelegate {
         if let textComment = comment as? TextComment {
             let textCommentCell = tableView.dequeueReusableCellWithIdentifier("TextCommentCellView")
                 as! TextCommentCellView
+            textCommentCell.paddingConstraint.constant = CGFloat(comment.level * 8 + 8)
             textCommentCell.author.text = textComment.author
             let parsedText = HTMLParser(
                 escapedHtml: textComment.body_html,
@@ -120,13 +128,17 @@ class CommentViewController: UITableViewController, BodyLabelDelegate {
             textCommentCell.body.attributedText = parsedText.attributedString
             textCommentCell.body.links = parsedText.links
             textCommentCell.body.delegate = self
+            
+            if textComment.hidden {
+                textCommentCell.hide()
+            }
+            
             cell = textCommentCell
         } else {
             cell = tableView.dequeueReusableCellWithIdentifier("MoreCommentCellView")!
                 as! MoreCommentCellView
+            cell.paddingConstraint.constant = CGFloat(comment.level * 8 + 8)
         }
-        
-        cell.paddingConstraint.constant = CGFloat(comment.level * 8 + 8)
         return cell
     }
 
@@ -156,6 +168,12 @@ class CommentViewController: UITableViewController, BodyLabelDelegate {
         comment.replies = hiddenComments
 
         tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
+        tableView.reloadRowsAtIndexPaths([NSIndexPath(forItem: index, inSection: 1)], withRowAnimation: .Automatic)
+        
+        if comments.count < index + 1 {
+        	tableView.scrollToRowAtIndexPath(NSIndexPath(forItem: index + 1, inSection: 1),
+            		atScrollPosition: .Top, animated: true)
+        }
     }
 
     private func expandComment(comment: TextComment, index: Int) {
@@ -169,7 +187,9 @@ class CommentViewController: UITableViewController, BodyLabelDelegate {
             comments.insertContentsOf(comment.replies!, at: index + 1)
         }
         comment.replies = nil
+
         tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
+        tableView.reloadRowsAtIndexPaths([NSIndexPath(forItem: index, inSection: 1)], withRowAnimation: .Automatic)
     }
     
     // MARK: BodyLabelDelegate

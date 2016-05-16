@@ -46,5 +46,12 @@ class TextCommentCellView: CommentCellView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func hide() {
+        body.attributedText = NSMutableAttributedString(string: "Comment hidden",
+        		attributes: [
+                    NSForegroundColorAttributeName: Colors.secondaryTextColor,
+            	])
+    }
 
 }
