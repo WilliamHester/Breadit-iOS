@@ -129,6 +129,16 @@ class CommentViewController: UITableViewController, BodyLabelDelegate {
             textCommentCell.body.links = parsedText.links
             textCommentCell.body.delegate = self
             
+            textCommentCell.pointsAndTime.text = "\(textComment.score) • " +
+            		"\(shortTimeFromNow(textComment))"
+            
+            if let flair = textComment.author_flair_text {
+                textCommentCell.hidden = false
+                textCommentCell.flair.text = flair
+            } else {
+                textCommentCell.flair.hidden = true
+            }
+            
             if textComment.hidden {
                 textCommentCell.hide()
             }
@@ -168,7 +178,8 @@ class CommentViewController: UITableViewController, BodyLabelDelegate {
         comment.replies = hiddenComments
 
         tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
-        tableView.reloadRowsAtIndexPaths([NSIndexPath(forItem: index, inSection: 1)], withRowAnimation: .Automatic)
+        tableView.reloadRowsAtIndexPaths([NSIndexPath(forItem: index, inSection: 1)],
+    			withRowAnimation: .Automatic)
         
         if comments.count < index + 1 {
         	tableView.scrollToRowAtIndexPath(NSIndexPath(forItem: index + 1, inSection: 1),
@@ -189,7 +200,8 @@ class CommentViewController: UITableViewController, BodyLabelDelegate {
         comment.replies = nil
 
         tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
-        tableView.reloadRowsAtIndexPaths([NSIndexPath(forItem: index, inSection: 1)], withRowAnimation: .Automatic)
+        tableView.reloadRowsAtIndexPaths([NSIndexPath(forItem: index, inSection: 1)],
+                withRowAnimation: .Automatic)
     }
     
     // MARK: BodyLabelDelegate
@@ -241,5 +253,28 @@ class CommentViewController: UITableViewController, BodyLabelDelegate {
                 break
             }
         }
+    }
+    
+    private func shortTimeFromNow(textComment: TextComment) -> String {
+        let currentTime = Int(NSDate().timeIntervalSince1970)
+        let postTime = textComment.created_utc
+        let difference = max(currentTime - postTime, 0)
+        var time: String
+        if (difference / 31536000 > 0) {
+            time = "\(difference / 31536000)y"
+        } else if (difference / 2592000 > 0) {
+            time = "\(difference / 2592000)mo"
+        } else if (difference / 604800 > 0) {
+            time = "\(difference / 604800)w"
+        } else if (difference / 86400 > 0) {
+            time = "\(difference / 86400)d"
+        } else if (difference / 3600 > 0) {
+            time = "\(difference / 3600)h"
+        } else if (difference / 60 > 0) {
+            time = "\(difference / 60)m"
+        } else {
+            time = "\(difference)s"
+        }
+        return time
     }
 }

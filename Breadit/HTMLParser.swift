@@ -133,8 +133,10 @@ class HTMLParser {
     }
     
     private func insertNewLine(element: XMLElement, string: NSMutableAttributedString) {
-        if element.tag == "li" && element.children[0].tag == "p" || element.tag == "p" ||
-            	element.tag == "pre" || element.tag == "h1" {
+        if element.tag == "li" && element.children.count > 0 && element.children[0].tag == "p" ||
+            	element.tag == "p" || element.tag == "pre" || element.tag == "h1" ||
+        		element.tag == "h2" || element.tag == "h3" || element.tag == "h4" ||
+        		element.tag == "h5" {
             string.appendAttributedString(NSMutableAttributedString(string: "\n"))
         }
     }
