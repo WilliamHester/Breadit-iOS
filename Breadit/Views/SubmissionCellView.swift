@@ -51,6 +51,7 @@ class SubmissionCellView: UITableViewCell {
             self.title = v.uiLabel { v in
                 v.numberOfLines = 0
                 v.textColor = Colors.textColor
+                v.font = UIFont(name: "PingFangHK-Medium", size: 14)
             }
                 
             self.authorAndSubreddit = v.uiLabel { v in
