@@ -85,18 +85,19 @@ class BodyLabel: UILabel {
     
     override func textRectForBounds(bounds: CGRect, limitedToNumberOfLines numberOfLines: Int) -> CGRect {
         let size = CGSize(width: frame.width, height: CGFloat.max)
-        return attributedText!.boundingRectWithSize(size, options: .UsesLineFragmentOrigin,
-                                                    context: nil)
+        var rect = attributedText!.boundingRectWithSize(size, options: .UsesLineFragmentOrigin,
+        		context: nil)
+        rect.size.height += 1.0 // mild hack to make sure that the last line isn't truncated
+        return rect
     }
     
     override func drawTextInRect(rect: CGRect) {
         let range = NSRange(location: 0, length: textStorage.length)
         
         textContainer.size = rect.size
-        let newOrigin = textOrigin(inRect: rect)
         
-        layoutManager.drawBackgroundForGlyphRange(range, atPoint: newOrigin)
-        layoutManager.drawGlyphsForGlyphRange(range, atPoint: newOrigin)
+        layoutManager.drawBackgroundForGlyphRange(range, atPoint: CGPoint.zero)
+        layoutManager.drawGlyphsForGlyphRange(range, atPoint: CGPoint.zero)
     }
     
     // MARK: - touch events
@@ -165,13 +166,6 @@ class BodyLabel: UILabel {
         }
         textStorage.setAttributedString(attributedText)
         setNeedsDisplay()
-    }
-    
-    private func textOrigin(inRect rect: CGRect) -> CGPoint {
-        let usedRect = layoutManager.usedRectForTextContainer(textContainer)
-        heightCorrection = (rect.height - usedRect.height) / 2
-        let glyphOriginY = heightCorrection > 0 ? rect.origin.y + heightCorrection : rect.origin.y
-        return CGPoint(x: rect.origin.x, y: glyphOriginY)
     }
     
     private func updateAttributesWhenSelected(isSelected: Bool) {

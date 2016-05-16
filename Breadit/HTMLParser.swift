@@ -65,8 +65,11 @@ class HTMLParser {
             return [:]
         }
         switch node.tag! {
-//        case "p":
-//            return [NSParagraphStyleAttributeName: NSParagraphStyle.defaultParagraphStyle()]
+        case "p":
+            let style = NSMutableParagraphStyle()
+            style.setParagraphStyle(NSParagraphStyle.defaultParagraphStyle())
+            style.paragraphSpacing = 6.0
+            return [NSParagraphStyleAttributeName: style]
         case "code":
             return [NSFontAttributeName: UIFont(name: "Menlo-Regular", size: font.pointSize)!]
         case "del":
