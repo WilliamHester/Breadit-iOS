@@ -11,9 +11,11 @@ import UIKit
 extension NSURL {
     var queries: [String: String] {
         var dict = [String: String]()
-        for item in (query?.componentsSeparatedByString("&"))! {
-            let keyValuePair = item.componentsSeparatedByString("=")
-            dict[keyValuePair[0]] = keyValuePair[1]
+        if let query = query {
+        	for item in query.componentsSeparatedByString("&") {
+            	let keyValuePair = item.componentsSeparatedByString("=")
+            	dict[keyValuePair[0]] = keyValuePair[1]
+        	}
         }
         return dict
     }
