@@ -21,7 +21,9 @@ class MoreCommentCellView: CommentCellView {
             self.paddingConstraint = v.leftAnchor.constraintEqualToAnchor(self.contentView.leftAnchor)
             self.paddingConstraint.active = true
             v.rightAnchor.constraintEqualToAnchor(self.contentView.rightAnchor).active = true
-            self.contentView.heightAnchor.constraintEqualToAnchor(v.heightAnchor, constant: 16).active = true
+            self.contentView.heightAnchor.constraintEqualToAnchor(v.heightAnchor).active = true
+            self.heightAnchor.constraintEqualToAnchor(self.contentView.heightAnchor).active = true
+            self.contentView.translatesAutoresizingMaskIntoConstraints = false
         }
     }
 
