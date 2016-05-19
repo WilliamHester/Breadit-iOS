@@ -13,9 +13,11 @@ import NSDate_TimeAgo
 
 class SubmissionViewController: UITableViewController, UIViewControllerPreviewingDelegate {
 
+    var canLoad = false
     var detailViewController: CommentViewController? = nil
     var submissionStore: SubmissionStore! {
         didSet {
+            canLoad = true
             let display = submissionStore.subredditDisplay
             title = display == "" ? "Front Page" : display
             submissionStore.refreshSubmissions(onRefresh)
@@ -40,6 +42,10 @@ class SubmissionViewController: UITableViewController, UIViewControllerPreviewin
                 forCellReuseIdentifier: "SubmissionCellView")
         tableView.registerClass(SubmissionImageCellView.self,
                 forCellReuseIdentifier: "SubmissionImageCellView")
+
+        if traitCollection.forceTouchCapability == .Available {
+            self.registerForPreviewingWithDelegate(self, sourceView: view)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -80,10 +86,6 @@ class SubmissionViewController: UITableViewController, UIViewControllerPreviewin
             cell = tableView.dequeueReusableCellWithIdentifier("SubmissionCellView",
                     forIndexPath: indexPath) as! SubmissionCellView
         }
-        
-        if traitCollection.forceTouchCapability == .Available {
-            self.registerForPreviewingWithDelegate(self, sourceView: cell)
-        }
 
         if indexPath.item > submissionStore.submissions.count - 5 {
             submissionStore.loadSubmissions(onSubmissionsLoaded)
@@ -122,6 +124,10 @@ class SubmissionViewController: UITableViewController, UIViewControllerPreviewin
         guard let indexPath = tableView.indexPathForRowAtPoint(location) else {
             return nil
         }
+        
+        let viewRectInTableView = tableView.convertRect(view.frame, fromCoordinateSpace: view.superview!)
+        previewingContext.sourceRect = viewRectInTableView
+
         let viewController = CommentViewController()
         viewController.submission = submissionStore.submissions[indexPath.row]
         
