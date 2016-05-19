@@ -214,7 +214,11 @@ class CommentViewController: UITableViewController, BodyLabelDelegate,
     // MARK: BodyLabelDelegate
     func bodyLabel(link: Link) {
         if let preview = getViewController(forLink: link) {
-        	presentViewController(preview, animated: true, completion: nil)
+            if preview is UINavigationController {
+                presentViewController(preview, animated: true, completion: nil)
+            } else {
+                navigationController?.pushViewController(preview, animated: true)
+            }
         }
     }
     
@@ -244,7 +248,9 @@ class CommentViewController: UITableViewController, BodyLabelDelegate,
             case .Submission:
                 break
             case .Subreddit:
-                break
+                let preview = SubmissionViewController()
+                preview.submissionStore = SubmissionStore(subredditDisplay: link.id!)
+                return preview
             case .User:
                 break
             case .RedditLive:
@@ -273,8 +279,11 @@ class CommentViewController: UITableViewController, BodyLabelDelegate,
     
     func previewingContext(previewingContext: UIViewControllerPreviewing,
                            commitViewController viewControllerToCommit: UIViewController) {
-        presentViewController(viewControllerToCommit, animated: true, completion: nil)
-//        showViewController(viewControllerToCommit, sender: self)
+        if viewControllerToCommit is UINavigationController {
+        	presentViewController(viewControllerToCommit, animated: true, completion: nil)
+        } else {
+            navigationController?.pushViewController(viewControllerToCommit, animated: true)
+        }
     }
     
     private func shortTimeFromNow(textComment: TextComment) -> String {
