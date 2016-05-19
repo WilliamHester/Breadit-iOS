@@ -19,8 +19,7 @@ class HTMLParser {
     
     init(escapedHtml html: String, font: UIFont) {
         self.font = font
-        self.attributedString = self.parseHtml(html.decodeHTML()
-            	.stringByReplacingOccurrencesOfString("\n", withString: "").trimmed())
+        self.attributedString = self.parseHtml(html.decodeHTML().trimmed())
     }
 
     private func parseHtml(text: String) -> NSAttributedString {
@@ -35,9 +34,15 @@ class HTMLParser {
     }
     
     private func generateString(node: XMLNode, attributedString: NSMutableAttributedString) -> NSMutableAttributedString {
-        if node.type == XMLNodeType.Text {
-            attributedString.appendAttributedString(NSAttributedString(string: node.stringValue,
-                attributes: [NSForegroundColorAttributeName: Colors.textColor]))
+        if node.type == .Text {
+            let string: String
+            if let parent = node.parent where parent.tag == "code" {
+                string = node.stringValue
+            } else {
+                string = node.stringValue.stringByReplacingOccurrencesOfString("\n", withString: "")
+            }
+            attributedString.appendAttributedString(NSAttributedString(string: string,
+                	attributes: [NSForegroundColorAttributeName: Colors.textColor]))
             return attributedString
         }
         
@@ -55,6 +60,9 @@ class HTMLParser {
                 }
             }
         	for child in element.childNodes(ofTypes: [.Element, .Text]) {
+                if child.type == .Text && child.stringValue == "\n" {
+                    continue
+                }
                 attributedString.appendAttributedString(prefix)
             	attributedString.appendAttributedString(generateString(child,
                     	attributedString: NSMutableAttributedString()))
@@ -93,7 +101,14 @@ class HTMLParser {
             style.paragraphSpacing = 6.0
             return [NSParagraphStyleAttributeName: style]
         case "code":
-            return [NSFontAttributeName: UIFont(name: "Menlo-Regular", size: font.pointSize)!]
+            let style = NSMutableParagraphStyle()
+            style.setParagraphStyle(NSParagraphStyle.defaultParagraphStyle())
+            style.firstLineHeadIndent = 6.0
+            style.headIndent = 6.0
+            return [
+                    NSParagraphStyleAttributeName: style,
+                    NSFontAttributeName: UIFont(name: "Menlo-Regular", size: font.pointSize)!
+            ]
         case "del":
             return [
                     NSStrikethroughStyleAttributeName:
