@@ -195,7 +195,7 @@ class BodyLabel: UILabel {
         setNeedsDisplay()
     }
     
-    private func elementAtLocation(location: CGPoint) -> (range: NSRange, link: Link)? {
+    func elementAtLocation(location: CGPoint) -> (range: NSRange, link: Link)? {
         guard textStorage.length > 0 else {
             return nil
         }

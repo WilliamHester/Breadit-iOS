@@ -10,7 +10,8 @@ import UIKit
 import Alamofire
 import AlamofireImage
 
-class CommentViewController: UITableViewController, BodyLabelDelegate {
+class CommentViewController: UITableViewController, BodyLabelDelegate,
+		UIViewControllerPreviewingDelegate {
 
     var submission: Submission! {
         didSet {
@@ -29,6 +30,8 @@ class CommentViewController: UITableViewController, BodyLabelDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        definesPresentationContext = true
         
         view.backgroundColor = Colors.backgroundColor
 
@@ -143,6 +146,10 @@ class CommentViewController: UITableViewController, BodyLabelDelegate {
                 textCommentCell.hide()
             }
             
+            if traitCollection.forceTouchCapability == .Available {
+                self.registerForPreviewingWithDelegate(self, sourceView: textCommentCell.body)
+            }
+            
             cell = textCommentCell
         } else {
             cell = tableView.dequeueReusableCellWithIdentifier("MoreCommentCellView")!
@@ -206,6 +213,12 @@ class CommentViewController: UITableViewController, BodyLabelDelegate {
     
     // MARK: BodyLabelDelegate
     func bodyLabel(link: Link) {
+        if let preview = getViewController(forLink: link) {
+        	presentViewController(preview, animated: true, completion: nil)
+        }
+    }
+    
+    func getViewController(forLink link: Link) -> UIViewController? {
         switch link.linkType {
         case .Normal:
             let preview = WebViewPreviewController()
@@ -213,35 +226,19 @@ class CommentViewController: UITableViewController, BodyLabelDelegate {
             navigation.navigationBar.barStyle = .Black
             navigation.modalTransitionStyle = .CoverVertical
             preview.link = link
-            navigationController?.presentViewController(navigation, animated: true, completion: nil)
+            return navigation
         case .YouTube:
             let preview = YouTubePreviewViewController()
             let navigation = UINavigationController(rootViewController: preview)
             navigation.navigationBar.barStyle = .Black
             navigation.modalTransitionStyle = .CoverVertical
             preview.link = link
-            navigationController?.presentViewController(navigation, animated: true, completion: nil)
-        case .Image(let imageType):
+            return navigation
+        case .Image(_):
             let preview = PreviewViewController()
-        	preview.modalPresentationStyle = .OverFullScreen
-        	preview.imageUrl = link.previewUrl
-        	presentViewController(preview, animated: true, completion: nil)
-            switch imageType {
-            case .Normal:
-                break
-            case .ImgurImage:
-                break
-            case .ImgurAlbum:
-                break
-            case .ImgurGallery:
-                break
-            case .Gfycat:
-                break
-            case .DirectGfy:
-                break
-            case .Gif:
-                break
-            }
+            preview.modalPresentationStyle = .OverFullScreen
+            preview.imageUrl = link.previewUrl
+            return preview
         case .Reddit(let redditType):
             switch redditType {
             case .Submission:
@@ -258,6 +255,26 @@ class CommentViewController: UITableViewController, BodyLabelDelegate {
                 break
             }
         }
+        return nil
+    }
+
+    // MARK: - View Controller Previewing Delegate
+    
+    func previewingContext(previewingContext: UIViewControllerPreviewing,
+                           viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let bodyLabel = previewingContext.sourceView as? BodyLabel else {
+            return nil
+        }
+        if let (_, link) = bodyLabel.elementAtLocation(location) {
+            return getViewController(forLink: link)
+        }
+        return nil
+    }
+    
+    func previewingContext(previewingContext: UIViewControllerPreviewing,
+                           commitViewController viewControllerToCommit: UIViewController) {
+        presentViewController(viewControllerToCommit, animated: true, completion: nil)
+//        showViewController(viewControllerToCommit, sender: self)
     }
     
     private func shortTimeFromNow(textComment: TextComment) -> String {

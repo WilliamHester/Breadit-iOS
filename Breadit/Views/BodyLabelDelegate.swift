@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol BodyLabelDelegate: class {
     func bodyLabel(link: Link)
