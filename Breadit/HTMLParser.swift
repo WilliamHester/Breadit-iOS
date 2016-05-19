@@ -42,15 +42,29 @@ class HTMLParser {
         }
         
         if let element = node as? XMLElement {
+            var index = 1
+            var prefix: NSAttributedString {
+                if element.tag == "ul" {
+                    return NSAttributedString(string: "• ",
+                  			attributes: [NSForegroundColorAttributeName: Colors.textColor])
+                } else if element.tag == "ol" {
+                    return NSAttributedString(string: "\(index). ",
+                  			attributes: [NSForegroundColorAttributeName: Colors.textColor])
+                } else {
+                    return NSAttributedString(string: "")
+                }
+            }
         	for child in element.childNodes(ofTypes: [.Element, .Text]) {
+                attributedString.appendAttributedString(prefix)
             	attributedString.appendAttributedString(generateString(child,
-                    attributedString: NSMutableAttributedString()))
+                    	attributedString: NSMutableAttributedString()))
+                index += 1
             }
 
             if attributedString.length > 0 {
                 
+                let attributes = getAttributesFromTag(element, string: attributedString)
                 let range = NSMakeRange(0, attributedString.length)
-                let attributes = getAttributesFromTag(element)
                 attributedString.addAttributes(attributes, range: range)
             }
             
@@ -60,11 +74,19 @@ class HTMLParser {
         return attributedString
     }
     
-    private func getAttributesFromTag(node: XMLElement) -> [String: AnyObject] {
+    private func getAttributesFromTag(node: XMLElement, string: NSMutableAttributedString) -> [String: AnyObject] {
         guard node.tag != nil else {
             return [:]
         }
         switch node.tag! {
+        case "ol":
+            fallthrough
+        case "ul":
+            let style = NSMutableParagraphStyle()
+            style.setParagraphStyle(NSParagraphStyle.defaultParagraphStyle())
+            style.firstLineHeadIndent = 6.0
+            style.headIndent = 6.0
+            return [NSParagraphStyleAttributeName: style]
         case "p":
             let style = NSMutableParagraphStyle()
             style.setParagraphStyle(NSParagraphStyle.defaultParagraphStyle())
@@ -133,10 +155,10 @@ class HTMLParser {
     }
     
     private func insertNewLine(element: XMLElement, string: NSMutableAttributedString) {
-        if element.tag == "li" && element.children.count > 0 && element.children[0].tag == "p" ||
+        if element.tag == "li" && !(element.children.count > 0 && element.children[0].tag == "p") ||
             	element.tag == "p" || element.tag == "pre" || element.tag == "h1" ||
-        		element.tag == "h2" || element.tag == "h3" || element.tag == "h4" ||
-        		element.tag == "h5" {
+                element.tag == "h2" || element.tag == "h3" || element.tag == "h4" ||
+            	element.tag == "h5" {
             string.appendAttributedString(NSMutableAttributedString(string: "\n"))
         }
     }
