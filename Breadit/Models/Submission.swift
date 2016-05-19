@@ -42,6 +42,7 @@ class Submission {
     let created: Int
     let createdUTC: Int
     var numComments: Int
+    var editedUTC: Int?
 
     init(json: JSON) {
         domain = json["domain"].string!
@@ -75,6 +76,8 @@ class Submission {
         created = json["created"].int!
         createdUTC = json["created_utc"].int!
         numComments = json["num_comments"].int!
+        editedUTC = json["edited"].int
+        editedUTC = editedUTC > 0 ? editedUTC : nil
     }
     
     func getPreviewImage() -> String? {

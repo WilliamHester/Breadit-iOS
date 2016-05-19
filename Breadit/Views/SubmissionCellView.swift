@@ -81,9 +81,18 @@ class SubmissionCellView: UITableViewCell {
         authorAndSubreddit.text = "\(submission.author) • " +
             "/r/\(submission.subreddit.lowercaseString) • " +
             submission.domain
+        
+        let edited: String
+        if let editedTime = submission.editedUTC {
+            edited = " (edited \(NSDate(timeIntervalSince1970: Double(editedTime)).timeAgo()))"
+        } else {
+            edited = ""
+        }
+        
         let str: String = String(submission.numComments) + " " +
             (submission.numComments == 1 ? "comment" : "comments") + " " +
-            NSDate(timeIntervalSince1970: Double(submission.createdUTC)).timeAgo()
+            NSDate(timeIntervalSince1970: Double(submission.createdUTC)).timeAgo() +
+            edited
 		comments.text = str
         
         nsfw.hidden = !submission.over18
