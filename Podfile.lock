@@ -1,14 +1,14 @@
 PODS:
-  - Alamofire (3.3.1)
+  - Alamofire (3.4.0)
   - AlamofireImage (2.4.0):
     - Alamofire (~> 3.3)
   - Fuzi (0.3.1)
   - NSDate+TimeAgo (1.0.6)
-  - Realm (0.99.0):
-    - Realm/Headers (= 0.99.0)
-  - Realm/Headers (0.99.0)
-  - RealmSwift (0.99.0):
-    - Realm (= 0.99.0)
+  - Realm (0.103.0):
+    - Realm/Headers (= 0.103.0)
+  - Realm/Headers (0.103.0)
+  - RealmSwift (0.103.0):
+    - Realm (= 0.103.0)
   - SwiftString (0.5)
   - SwiftyJSON (2.3.2)
   - youtube-ios-player-helper (0.1.6)
@@ -31,19 +31,19 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   NSDate+TimeAgo:
-    :commit: 04592fb23e79580e06c785c1443b9dd83f12b7f6
+    :commit: 5048248ca73cde3904e6f9c37da638426217a85a
     :git: https://github.com/kevinlawler/NSDate-TimeAgo.git
   SwiftyJSON:
     :commit: 2a5b70f06001316d4fb54501edc70b4084705da0
     :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 SPEC CHECKSUMS:
-  Alamofire: 369bc67b6f5ac33ded3648d7bd21c5bfb91c2ecc
+  Alamofire: c19a627cefd6a95f840401c49ab1f124e07f54ee
   AlamofireImage: 87408b652e0f5ae5fe364035f15aea8b9b24c77e
   Fuzi: 25118b725a1637f1676f63ae1acbba1f30a5dd6c
   NSDate+TimeAgo: 35601c619b2d59290055e4fe76e61d97677a2360
-  Realm: cf275f109b94e5399896960c90285a043edb3d56
-  RealmSwift: f40e5634bbc74f063163561d02acc4aa040d40a5
+  Realm: 99c44c3a9e075638478d4134e28d9026a6de07c4
+  RealmSwift: daaa1789eb581f2f8c2a05a25f463a6f70df5a5f
   SwiftString: ec9c31c55b2aa147a1154f5f5f8483dc71e3165f
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   youtube-ios-player-helper: 21ab92db027c7ff86cb17a3843a3f6eafc8158d2

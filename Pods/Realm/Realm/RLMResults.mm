@@ -116,9 +116,18 @@ static auto translateErrors(Function&& f, NSString *aggregateMethod=nil) {
     return ar;
 }
 
++ (instancetype)emptyDetachedResults
+{
+    return [[self alloc] initPrivate];
+}
+
 static inline void RLMResultsValidateInWriteTransaction(__unsafe_unretained RLMResults *const ar) {
     ar->_realm->_realm->verify_thread();
     ar->_realm->_realm->verify_in_write();
+}
+
+- (BOOL)isInvalidated {
+    return translateErrors([&] { return !_results.is_valid(); });
 }
 
 - (NSUInteger)count {
@@ -165,6 +174,8 @@ static inline void RLMResultsValidateInWriteTransaction(__unsafe_unretained RLMR
 
     Query query = translateErrors([&] { return _results.get_query(); });
     RLMUpdateQueryWithPredicate(&query, predicate, _realm.schema, _objectSchema);
+
+    query.sync_view_if_needed();
 
     TableView table_view;
     if (const auto& sort = _results.get_sort()) {
@@ -401,6 +412,14 @@ static inline void RLMResultsValidateInWriteTransaction(__unsafe_unretained RLMR
     [_realm verifyNotificationsAreSupported];
     return RLMAddNotificationBlock(self, _results, block, false);
 }
-
 #pragma clang diagnostic pop
+
+- (BOOL)isAttached
+{
+    return !!_realm;
+}
+
+@end
+
+@implementation RLMLinkingObjects
 @end

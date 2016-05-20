@@ -15,6 +15,7 @@ class SubmissionImageCellView: SubmissionCellView {
     private static let previewHeight: CGFloat = 150
     
     var contentImage: UIImageView!
+    var request: Request?
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -39,12 +40,16 @@ class SubmissionImageCellView: SubmissionCellView {
         super.prepareForReuse()
         
         contentImage?.image = nil
+        if let request = request {
+            request.cancel()
+            self.request = nil
+        }
     }
     
     override func setSubmission(submission: Submission) {
         super.setSubmission(submission)
         
-        Alamofire.request(.GET, submission.getPreviewImage()!).responseImage { response in
+        request = Alamofire.request(.GET, submission.getPreviewImage()!).responseImage { response in
             self.contentImage.image = response.result.value
         }
     }

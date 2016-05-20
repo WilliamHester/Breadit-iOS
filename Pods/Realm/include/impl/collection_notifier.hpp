@@ -23,11 +23,11 @@
 
 #include <realm/group_shared.hpp>
 
+#include <array>
 #include <atomic>
 #include <exception>
 #include <functional>
 #include <mutex>
-#include <thread>
 #include <unordered_map>
 
 namespace realm {
@@ -46,8 +46,47 @@ struct TransactionChangeInfo {
     std::vector<bool> table_moves_needed;
     std::vector<ListChangeInfo> lists;
     std::vector<CollectionChangeBuilder> tables;
+};
 
-    bool row_did_change(Table const& table, size_t row_ndx, int depth = 0) const;
+class DeepChangeChecker {
+public:
+    struct OutgoingLink {
+        size_t col_ndx;
+        bool is_list;
+    };
+    struct RelatedTable {
+        size_t table_ndx;
+        std::vector<OutgoingLink> links;
+    };
+
+    DeepChangeChecker(TransactionChangeInfo const& info, Table const& root_table,
+                      std::vector<RelatedTable> const& related_tables);
+
+    bool operator()(size_t row_ndx);
+
+    // Recursively add `table` and all tables it links to to `out`, along with
+    // information about the links from them
+    static void find_related_tables(std::vector<RelatedTable>& out, Table const& table);
+
+private:
+    TransactionChangeInfo const& m_info;
+    Table const& m_root_table;
+    const size_t m_root_table_ndx;
+    IndexSet const* const m_root_modifications;
+    std::vector<IndexSet> m_not_modified;
+    std::vector<RelatedTable> const& m_related_tables;
+
+    struct Path {
+        size_t table;
+        size_t row;
+        size_t col;
+        bool depth_exceeded;
+    };
+    std::array<Path, 16> m_current_path;
+
+    bool check_row(Table const& table, size_t row_ndx, size_t depth = 0);
+    bool check_outgoing_links(size_t table_ndx, Table const& table,
+                              size_t row_ndx, size_t depth = 0);
 };
 
 // A base class for a notifier that keeps a collection up to date and/or
@@ -109,7 +148,7 @@ public:
 
     virtual void run() = 0;
     void prepare_handover();
-    bool deliver(SharedGroup&, std::exception_ptr);
+    bool deliver(Realm&, SharedGroup&, std::exception_ptr);
 
 protected:
     bool have_callbacks() const noexcept { return m_have_callbacks; }
@@ -117,15 +156,14 @@ protected:
     void set_table(Table const& table);
     std::unique_lock<std::mutex> lock_target();
 
+    std::function<bool (size_t)> get_modification_checker(TransactionChangeInfo const&, Table const&);
+
 private:
     virtual void do_attach_to(SharedGroup&) = 0;
     virtual void do_detach_from(SharedGroup&) = 0;
     virtual void do_prepare_handover(SharedGroup&) = 0;
     virtual bool do_deliver(SharedGroup&) { return true; }
     virtual bool do_add_required_change_info(TransactionChangeInfo&) = 0;
-
-    const std::thread::id m_thread_id = std::this_thread::get_id();
-    bool is_for_current_thread() const { return m_thread_id == std::this_thread::get_id(); }
 
     mutable std::mutex m_realm_mutex;
     std::shared_ptr<Realm> m_realm;
@@ -137,8 +175,7 @@ private:
     CollectionChangeBuilder m_accumulated_changes;
     CollectionChangeSet m_changes_to_deliver;
 
-    // Tables which this collection needs change information for
-    std::vector<size_t> m_relevant_tables;
+    std::vector<DeepChangeChecker::RelatedTable> m_related_tables;
 
     struct Callback {
         CollectionChangeCallback fn;

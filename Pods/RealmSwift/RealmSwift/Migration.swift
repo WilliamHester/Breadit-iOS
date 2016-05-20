@@ -43,26 +43,6 @@ accessed using subscripting.
 public typealias MigrationObjectEnumerateBlock = (oldObject: MigrationObject?, newObject: MigrationObject?) -> Void
 
 /**
-Get the schema version for a Realm at a given path.
-- parameter realmPath:     Path to a Realm file.
-- parameter encryptionKey: Optional 64-byte encryption key for encrypted Realms.
-- parameter error:         If an error occurs, upon return contains an `NSError` object
-                           that describes the problem. If you are not interested in
-                           possible errors, omit the argument, or pass in `nil`.
-
-- returns: The version of the Realm at `realmPath` or `nil` if the version cannot be read.
-*/
-@available(*, deprecated=1, message="Use schemaVersionAtURL(_:encryptionKey:)")
-public func schemaVersionAtPath(realmPath: String, encryptionKey: NSData? = nil,
-                                error: NSErrorPointer = nil) -> UInt64? {
-    let version = RLMRealm.schemaVersionAtPath(realmPath, encryptionKey: encryptionKey, error: error)
-    if version == RLMNotVersioned {
-        return nil
-    }
-    return version
-}
-
-/**
 Get the schema version for a Realm at a given local URL.
 
 - parameter fileURL:       Local URL to a Realm file.
@@ -172,6 +152,20 @@ public final class Migration {
     */
     public func deleteData(objectClassName: String) -> Bool {
         return rlmMigration.deleteDataForClassName(objectClassName)
+    }
+
+    /**
+    Rename property of the given class from `oldName` to `newName`.
+
+    - parameter className: Class for which the property is to be renamed. Must be present
+                           in both the old and new Realm schemas.
+    - parameter oldName:   Old name for the property to be renamed. Must not be present
+                           in the new Realm.
+    - parameter newName:   New name for the property to be renamed. Must not be present
+                           in the old Realm.
+    */
+    public func renamePropertyForClass(className: String, oldName: String, newName: String) {
+        rlmMigration.renamePropertyForClass(className, oldName: oldName, newName: newName)
     }
 
     private init(_ rlmMigration: RLMMigration) {

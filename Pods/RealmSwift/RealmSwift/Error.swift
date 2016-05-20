@@ -64,6 +64,8 @@ public enum Error: ErrorType {
             return RLMError.FileFormatUpgradeRequired
         case .AddressSpaceExhausted:
             return RLMError.AddressSpaceExhausted
+        case .SchemaMismatch:
+            return RLMError.SchemaMismatch
         }
     }
 
@@ -90,11 +92,14 @@ public enum Error: ErrorType {
     case IncompatibleLockFile
 
     /// Error thrown by Realm if a file format upgrade is required to open the file,
-    /// but upgrades were explicilty disabled.
+    /// but upgrades were explicitly disabled.
     case FileFormatUpgradeRequired
 
     /// Error thrown by Realm if there is insufficient available address space.
     case AddressSpaceExhausted
+
+    /** Error thrown by Realm if there is a schema version mismatch, so that a migration is required. */
+    case SchemaMismatch
 }
 
 // MARK: Equatable

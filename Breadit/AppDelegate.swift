@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         RedditAPI.loginManager = loginManager
         
         let submissions = SubmissionViewController()
-        submissions.submissionStore = SubmissionStore(subredditDisplay: "")
+        submissions.submissionStore = SubmissionStore(subredditDisplay: "breaditapp")
         let mainContent = UINavigationController(rootViewController: submissions)
         let navView = NavigationViewController()
         let navVC = NavigationDrawerViewController(
