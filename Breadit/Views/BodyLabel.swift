@@ -83,13 +83,13 @@ class BodyLabel: UILabel {
         updateTextStorage()
     }
     
-    override func textRectForBounds(bounds: CGRect, limitedToNumberOfLines numberOfLines: Int) -> CGRect {
-        let size = CGSize(width: frame.width, height: CGFloat.max)
-        var rect = attributedText!.boundingRectWithSize(size, options: .UsesLineFragmentOrigin,
-        		context: nil)
-        rect.size.height += 4.0 // mild hack to make sure that the last line isn't truncated
-        return rect
-    }
+//    override func textRectForBounds(bounds: CGRect, limitedToNumberOfLines numberOfLines: Int) -> CGRect {
+//        let size = CGSize(width: frame.width, height: CGFloat.max)
+//        var rect = attributedText!.boundingRectWithSize(size, options: .UsesLineFragmentOrigin,
+//        		context: nil)
+//        rect.size.height += 1.0 // mild hack to make sure that the last line isn't truncated
+//        return rect
+//    }
     
     override func drawTextInRect(rect: CGRect) {
         let range = NSRange(location: 0, length: textStorage.length)
