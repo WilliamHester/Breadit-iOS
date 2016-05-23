@@ -20,6 +20,7 @@ class SubmissionViewController: UITableViewController, UIViewControllerPreviewin
             canLoad = true
             let display = submissionStore.subredditDisplay
             title = display == "" ? "Front Page" : display
+            
             submissionStore.refreshSubmissions(onRefresh)
         }
     }
@@ -56,6 +57,10 @@ class SubmissionViewController: UITableViewController, UIViewControllerPreviewin
     // MARK: - Submission loading
 
     private func onSubmissionsLoaded(oldCount: Int, _ newCount: Int) {
+        guard newCount > oldCount else {
+            return
+        }
+        
         tableView.beginUpdates()
         var indexPaths = [NSIndexPath]()
         for i in oldCount..<newCount {
@@ -87,8 +92,9 @@ class SubmissionViewController: UITableViewController, UIViewControllerPreviewin
                     forIndexPath: indexPath) as! SubmissionCellView
         }
 
-        if indexPath.item > submissionStore.submissions.count - 5 {
+        if indexPath.item > submissionStore.submissions.count - 5 && canLoad {
             submissionStore.loadSubmissions(onSubmissionsLoaded)
+            canLoad = false
         }
 
 		cell.setSubmission(submission)
@@ -114,6 +120,7 @@ class SubmissionViewController: UITableViewController, UIViewControllerPreviewin
         submissionStore.refreshSubmissions { refreshed in
             self.onRefresh(refreshed)
             sender.endRefreshing()
+            self.canLoad = refreshed
         }
     }
     
