@@ -155,6 +155,7 @@ class CommentViewController: UITableViewController, BodyLabelDelegate,
                 as! MoreCommentCellView
             cell.paddingConstraint.constant = CGFloat(comment.level * 8 + 8)
         }
+        
         return cell
     }
 
@@ -183,9 +184,11 @@ class CommentViewController: UITableViewController, BodyLabelDelegate,
         }
         comment.replies = hiddenComments
 
+        tableView.beginUpdates()
         tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
         tableView.reloadRowsAtIndexPaths([NSIndexPath(forItem: index, inSection: 1)],
     			withRowAnimation: .Automatic)
+        tableView.endUpdates()
         
         if comments.count < index + 1 {
         	tableView.scrollToRowAtIndexPath(NSIndexPath(forItem: index + 1, inSection: 1),
@@ -205,9 +208,11 @@ class CommentViewController: UITableViewController, BodyLabelDelegate,
         }
         comment.replies = nil
 
+        tableView.beginUpdates()
         tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
         tableView.reloadRowsAtIndexPaths([NSIndexPath(forItem: index, inSection: 1)],
                 withRowAnimation: .Automatic)
+        tableView.endUpdates()
     }
     
     // MARK: BodyLabelDelegate
