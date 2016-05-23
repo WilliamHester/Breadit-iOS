@@ -147,7 +147,6 @@ class BodyLabel: UILabel {
     private lazy var textStorage = NSTextStorage()
     private lazy var layoutManager = NSLayoutManager()
     private lazy var textContainer = NSTextContainer()
-    var links: [Link]?
 
     // MARK: - helper functions
     private func setupLabel() {

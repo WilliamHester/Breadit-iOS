@@ -129,7 +129,6 @@ class CommentViewController: UITableViewController, BodyLabelDelegate,
                 font: textCommentCell.body.font!
             )
             textCommentCell.body.attributedText = parsedText.attributedString
-            textCommentCell.body.links = parsedText.links
             textCommentCell.body.delegate = self
             
             textCommentCell.pointsAndTime.text = "\(textComment.score) • " +
