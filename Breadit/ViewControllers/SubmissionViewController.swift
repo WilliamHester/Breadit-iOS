@@ -20,8 +20,12 @@ class SubmissionViewController: UITableViewController, UIViewControllerPreviewin
             canLoad = true
             let display = submissionStore.subredditDisplay
             title = display == "" ? "Front Page" : display
-            
             submissionStore.refreshSubmissions(onRefresh)
+            
+            if tableView != nil {
+                tableView.reloadData()
+                tableView.setContentOffset(tableView.contentOffset, animated: false)
+            }
         }
     }
 
