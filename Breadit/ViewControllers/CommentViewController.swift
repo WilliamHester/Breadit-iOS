@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import AlamofireImage
+import SafariServices
 
 class CommentViewController: UITableViewController, BodyLabelDelegate,
 		UIViewControllerPreviewingDelegate {
@@ -218,7 +219,9 @@ class CommentViewController: UITableViewController, BodyLabelDelegate,
     // MARK: BodyLabelDelegate
     func bodyLabel(link: Link) {
         if let preview = getViewController(forLink: link) {
-            if preview is UINavigationController {
+            if preview is SFSafariViewController {
+                parentViewController?.parentViewController?.presentViewController(preview, animated: true, completion: nil)
+            } else if preview is UINavigationController {
                 presentViewController(preview, animated: true, completion: nil)
             } else {
                 navigationController?.pushViewController(preview, animated: true)
@@ -229,12 +232,9 @@ class CommentViewController: UITableViewController, BodyLabelDelegate,
     func getViewController(forLink link: Link) -> UIViewController? {
         switch link.linkType {
         case .Normal:
-            let preview = WebViewPreviewController()
-            let navigation = UINavigationController(rootViewController: preview)
-            navigation.navigationBar.barStyle = .Black
-            navigation.modalTransitionStyle = .CoverVertical
-            preview.link = link
-            return navigation
+            let preview = SFSafariViewController(URL: NSURL(string: link.url)!)
+            preview.modalTransitionStyle = .CoverVertical
+            return preview
         case .YouTube:
             let preview = YouTubePreviewViewController()
             let navigation = UINavigationController(rootViewController: preview)
@@ -283,7 +283,9 @@ class CommentViewController: UITableViewController, BodyLabelDelegate,
     
     func previewingContext(previewingContext: UIViewControllerPreviewing,
                            commitViewController viewControllerToCommit: UIViewController) {
-        if viewControllerToCommit is UINavigationController {
+        if viewControllerToCommit is SFSafariViewController {
+            parentViewController?.parentViewController?.presentViewController(viewControllerToCommit, animated: true, completion: nil)
+        } else if viewControllerToCommit is UINavigationController {
         	presentViewController(viewControllerToCommit, animated: true, completion: nil)
         } else {
             navigationController?.pushViewController(viewControllerToCommit, animated: true)
