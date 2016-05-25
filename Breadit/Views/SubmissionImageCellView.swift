@@ -48,8 +48,8 @@ class SubmissionImageCellView: SubmissionCellView {
     
     override func setSubmission(submission: Submission) {
         super.setSubmission(submission)
-        
-        request = Alamofire.request(.GET, submission.getPreviewImage()!).responseImage { response in
+
+        request = Alamofire.request(.GET, submission.link!.previewUrl!).responseImage { response in
             self.contentImage.image = response.result.value
         }
     }

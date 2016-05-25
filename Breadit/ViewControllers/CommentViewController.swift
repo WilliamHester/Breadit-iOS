@@ -98,7 +98,7 @@ class CommentViewController: UITableViewController, BodyLabelDelegate,
     
     private func submissionCell(tableView: UITableView, indexPath: NSIndexPath) -> UITableViewCell {
         let cell: SubmissionCellView
-        if submission.getPreviewImage() != nil {
+        if submission.link?.previewUrl != nil {
             cell = tableView.dequeueReusableCellWithIdentifier("SubmissionImageCellView",
            			forIndexPath: indexPath) as! SubmissionImageCellView
         } else if submission.selftextHtml != nil {

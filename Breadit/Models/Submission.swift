@@ -43,6 +43,7 @@ class Submission {
     let createdUTC: Int
     var numComments: Int
     var editedUTC: Int?
+    var link: Link?
 
     init(json: JSON) {
         domain = json["domain"].string!
@@ -78,37 +79,10 @@ class Submission {
         numComments = json["num_comments"].int!
         editedUTC = json["edited"].int
         editedUTC = editedUTC > 0 ? editedUTC : nil
-    }
-    
-    func getPreviewImage() -> String? {
-        if !url.containsString("imgur.com") {
-            return nil
-        }
-
-        if let start = url.rangeOfString("imgur.com")?.endIndex.predecessor() {
-            let tail = url.substringFromIndex(start)
-            var end = tail.endIndex
-            for char in tail.characters.reverse() {
-                end = end.predecessor()
-                if char == "/" {
-                    break
-                }
-            }
-            end = end.predecessor()
-
-            switch tail.characters[end] {
-            case "m": // imgur.com/.*
-                return url + ".png"
-            case "a": // imgur.com/a/.*
-                break
-            case "y": // imgur.com/gallery/.*
-                break
-            default:
-                break
-            }
-        }
         
-        return nil
+        if !isSelf {
+            link = Link(link: url)
+        }
     }
 
 }

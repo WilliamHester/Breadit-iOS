@@ -88,7 +88,7 @@ class SubmissionViewController: UITableViewController, UIViewControllerPreviewin
             cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let submission = submissionStore.submissions[indexPath.row]
         let cell: SubmissionCellView
-        if submission.getPreviewImage() != nil {
+        if submission.link?.previewUrl != nil {
             cell = tableView.dequeueReusableCellWithIdentifier("SubmissionImageCellView",
                     forIndexPath: indexPath) as! SubmissionImageCellView
         } else {

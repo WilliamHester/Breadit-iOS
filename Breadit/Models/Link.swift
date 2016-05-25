@@ -54,12 +54,24 @@ class Link {
             guard let domain = url.host else {
                 return
             }
+            
             if domain.contains("reddit.com") {
                 generateRedditDetails()
+                return
             } else if domain.contains("imgur") {
                 generateImgurDetails()
+                return
             } else if domain.contains("youtube.com") || domain.contains("youtu.be") {
                 generateYouTubeDetails(url)
+                return
+            }
+            if let lastComponent = url.lastPathComponent {
+                if isDirectImage(lastComponent) {
+                	linkType = .Image(.Normal)
+                	previewUrl = self.url
+                } else if lastComponent.lowercaseString.hasSuffix(".gif") {
+                    linkType = .Image(.Gif)
+                }
             }
         }
     }
@@ -77,7 +89,7 @@ class Link {
             switch url.characters[lastSlash.predecessor()] {
             case "m": // imgur.com/.*
                 linkType = .Image(.ImgurImage)
-                previewUrl = url + ".png"
+                previewUrl = "https://imgur.com/\(id!)h.png"
             case "a": // imgur.com/a/.*
                 linkType = .Image(.ImgurAlbum)
             case "y": // imgur.com/gallery/.*
@@ -97,9 +109,16 @@ class Link {
             let index = self.url.indexOf("youtu.be/")
             self.id = self.url.substring((index?.advancedBy(9))!, length: 11)
         }
+        previewUrl = "http://img.youtube.com/vi/\(id!)/0.jpg";
     }
     
     private func generateRedditDetails() {
         linkType = .Reddit(.Subreddit)
+    }
+    
+    private func isDirectImage(urlEnd: String) -> Bool {
+        let urlEnd = urlEnd.lowercaseString
+        return urlEnd.hasSuffix("png") || urlEnd.hasSuffix("jpg") || urlEnd.hasSuffix("jpeg") ||
+            	urlEnd.hasSuffix("bmp")
     }
 }
