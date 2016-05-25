@@ -29,6 +29,7 @@
 		3D4EAE421CCB2E2E001C23AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D4EAE411CCB2E2E001C23AC /* Assets.xcassets */; };
 		3D4EAE451CCB2E2E001C23AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D4EAE431CCB2E2E001C23AC /* LaunchScreen.storyboard */; };
 		3D4EAE4D1CCBFFC1001C23AC /* RedditAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4EAE4C1CCBFFC1001C23AC /* RedditAPI.swift */; };
+		3D7274201CF556DD00358D79 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D72741F1CF556DD00358D79 /* String.swift */; };
 		3D9CBE261CCC86370004EACC /* SubmissionImageCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9CBE251CCC86370004EACC /* SubmissionImageCellView.swift */; };
 		3D9CBE281CCC9BF10004EACC /* Mango.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9CBE271CCC9BF10004EACC /* Mango.swift */; };
 		3D9CBE2C1CCD82900004EACC /* TextCommentCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9CBE2B1CCD82900004EACC /* TextCommentCellView.swift */; };
@@ -72,6 +73,7 @@
 		3D4EAE441CCB2E2E001C23AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3D4EAE461CCB2E2E001C23AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3D4EAE4C1CCBFFC1001C23AC /* RedditAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RedditAPI.swift; sourceTree = "<group>"; };
+		3D72741F1CF556DD00358D79 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		3D9CBE251CCC86370004EACC /* SubmissionImageCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionImageCellView.swift; sourceTree = "<group>"; };
 		3D9CBE271CCC9BF10004EACC /* Mango.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mango.swift; sourceTree = "<group>"; };
 		3D9CBE2B1CCD82900004EACC /* TextCommentCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextCommentCellView.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 				3D4AEF9A1CE3D4E8000ACEE4 /* Colors.swift */,
 				3D4AEF9C1CE41EE4000ACEE4 /* Theme.swift */,
 				3DD431371CE5404400892CBB /* NSURL.swift */,
+				3D72741F1CF556DD00358D79 /* String.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -383,6 +386,7 @@
 				5056FE9AC46822F4A2665389 /* SubmissionStore.swift in Sources */,
 				5056F90CD7C987E083B8A6D4 /* SubmissionCellView.swift in Sources */,
 				3D13BC9D1CD59AF6009193C4 /* CommentCellView.swift in Sources */,
+				3D7274201CF556DD00358D79 /* String.swift in Sources */,
 				3D13BC951CD54AAF009193C4 /* MangoWritten.swift in Sources */,
 				5056F6FD12FB503AA6314F94 /* Comment.swift in Sources */,
 				3DD431381CE5404400892CBB /* NSURL.swift in Sources */,

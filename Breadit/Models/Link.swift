@@ -65,18 +65,16 @@ class Link {
     }
     
     private func generateImgurDetails() {
-        if let start = url.rangeOfString("imgur.com")?.endIndex.predecessor() {
-            let tail = url.substringFromIndex(start)
-            var end = tail.endIndex
-            for char in tail.characters.reverse() {
-                end = end.predecessor()
-                if char == "/" {
-                    break
-                }
+        if url.rangeOfString("imgur.com/") != nil {
+            let lastSlash = url.lastIndexOf("/")!
+
+            if let dot = url.lastIndexOf(".") where dot > lastSlash {
+                id = url.substringWithRange(lastSlash.successor()..<dot)
+            } else {
+                id = url.substringFromIndex(lastSlash.successor())
             }
-            end = end.predecessor()
-            
-            switch tail.characters[end] {
+
+            switch url.characters[lastSlash.predecessor()] {
             case "m": // imgur.com/.*
                 linkType = .Image(.ImgurImage)
                 previewUrl = url + ".png"
