@@ -16,7 +16,8 @@ class SubmissionImageCellView: SubmissionCellView {
     
     var contentImage: UIImageView!
     var request: Request?
-    
+    weak var contentTappedDelegate: SubmissionCellDelegate?
+
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
@@ -30,6 +31,12 @@ class SubmissionImageCellView: SubmissionCellView {
                 v.heightAnchor.constraintEqualToConstant(SubmissionImageCellView.previewHeight).active = true
             } as! UIImageView
         }
+        let tapDetector = UITapGestureRecognizer(target: self,
+        		action: #selector(SubmissionImageCellView.contentTapped(_:)))
+        tapDetector.delegate = self
+        tapDetector.cancelsTouchesInView = true
+        contentImage.userInteractionEnabled = true
+        contentImage.addGestureRecognizer(tapDetector)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -53,5 +60,8 @@ class SubmissionImageCellView: SubmissionCellView {
             self.contentImage.image = response.result.value
         }
     }
-
+    
+    func contentTapped(sender: UITapGestureRecognizer) {
+        contentTappedDelegate?.contentTapped(submission)
+    }
 }

@@ -14,16 +14,22 @@ import SafariServices
 class CommentViewController: UITableViewController, BodyLabelDelegate,
 		UIViewControllerPreviewingDelegate {
 
-    var submission: Submission! {
+    var submission: Submission? {
         didSet {
             // Update the view.
-            self.configureView()
+            self.configureView(submission!.permalink)
+        }
+    }
+    var permalink: String? {
+        didSet {
+            self.configureView(permalink!)
         }
     }
     var comments = [Comment]()
 
-    func configureView() {
-        RedditAPI.getComments(submission.permalink) { _, comments in
+    func configureView(permalink: String) {
+        RedditAPI.getComments(permalink) { submission, comments in
+            self.submission = submission
             self.comments = comments
             self.tableView.reloadData()
         }
@@ -53,8 +59,6 @@ class CommentViewController: UITableViewController, BodyLabelDelegate,
                                 forCellReuseIdentifier: "TextCommentCellView")
         tableView.registerClass(MoreCommentCellView.self,
                                 forCellReuseIdentifier: "MoreCommentCellView")
-
-        self.configureView()
     }
 
     // MARK: - Table View
@@ -98,10 +102,10 @@ class CommentViewController: UITableViewController, BodyLabelDelegate,
     
     private func submissionCell(tableView: UITableView, indexPath: NSIndexPath) -> UITableViewCell {
         let cell: SubmissionCellView
-        if submission.link?.previewUrl != nil {
+        if submission!.link?.previewUrl != nil {
             cell = tableView.dequeueReusableCellWithIdentifier("SubmissionImageCellView",
            			forIndexPath: indexPath) as! SubmissionImageCellView
-        } else if submission.selftextHtml != nil {
+        } else if submission!.selftextHtml != nil {
             let selfPostView = tableView.dequeueReusableCellWithIdentifier("SubmissionSelfPostCellView")
                 	as! SubmissionSelfPostCellView
             cell = selfPostView
@@ -111,7 +115,7 @@ class CommentViewController: UITableViewController, BodyLabelDelegate,
 					forIndexPath: indexPath) as! SubmissionCellView
         }
         
-        cell.setSubmission(submission)
+        cell.setSubmission(submission!)
         return cell
     }
     
@@ -218,7 +222,7 @@ class CommentViewController: UITableViewController, BodyLabelDelegate,
     
     // MARK: BodyLabelDelegate
     func bodyLabel(link: Link) {
-        if let preview = getViewController(forLink: link) {
+        if let preview = LinkUtils.viewControllerFor(link) {
             if preview is SFSafariViewController {
                 parentViewController?.parentViewController?.presentViewController(preview, animated: true, completion: nil)
             } else if preview is UINavigationController {
@@ -227,45 +231,6 @@ class CommentViewController: UITableViewController, BodyLabelDelegate,
                 navigationController?.pushViewController(preview, animated: true)
             }
         }
-    }
-    
-    func getViewController(forLink link: Link) -> UIViewController? {
-        switch link.linkType {
-        case .Normal:
-            let preview = SFSafariViewController(URL: NSURL(string: link.url)!)
-            preview.modalTransitionStyle = .CoverVertical
-            return preview
-        case .YouTube:
-            let preview = YouTubePreviewViewController()
-            let navigation = UINavigationController(rootViewController: preview)
-            navigation.navigationBar.barStyle = .Black
-            navigation.modalTransitionStyle = .CoverVertical
-            preview.link = link
-            return navigation
-        case .Image(_):
-            let preview = PreviewViewController()
-            preview.modalPresentationStyle = .OverFullScreen
-            preview.imageUrl = link.previewUrl
-            return preview
-        case .Reddit(let redditType):
-            switch redditType {
-            case .Submission:
-                break
-            case .Subreddit:
-                let preview = SubmissionViewController()
-                preview.submissionStore = SubmissionStore(subredditDisplay: link.id!)
-                return preview
-            case .User:
-                break
-            case .RedditLive:
-                break
-            case .Messages:
-                break
-            case .Compose:
-                break
-            }
-        }
-        return nil
     }
 
     // MARK: - View Controller Previewing Delegate
@@ -276,7 +241,7 @@ class CommentViewController: UITableViewController, BodyLabelDelegate,
             return nil
         }
         if let (_, link) = bodyLabel.elementAtLocation(location) {
-            return getViewController(forLink: link)
+            return LinkUtils.viewControllerFor(link)
         }
         return nil
     }

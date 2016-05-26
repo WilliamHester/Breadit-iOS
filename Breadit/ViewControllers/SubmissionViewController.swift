@@ -11,7 +11,8 @@ import Alamofire
 import AlamofireImage
 import NSDate_TimeAgo
 
-class SubmissionViewController: UITableViewController, UIViewControllerPreviewingDelegate {
+class SubmissionViewController: UITableViewController, UIViewControllerPreviewingDelegate,
+		SubmissionCellDelegate {
 
     var canLoad = false
     var detailViewController: CommentViewController? = nil
@@ -89,8 +90,10 @@ class SubmissionViewController: UITableViewController, UIViewControllerPreviewin
         let submission = submissionStore.submissions[indexPath.row]
         let cell: SubmissionCellView
         if submission.link?.previewUrl != nil {
-            cell = tableView.dequeueReusableCellWithIdentifier("SubmissionImageCellView",
+            let imageCell = tableView.dequeueReusableCellWithIdentifier("SubmissionImageCellView",
                     forIndexPath: indexPath) as! SubmissionImageCellView
+            imageCell.contentTappedDelegate = self
+            cell = imageCell
         } else {
             cell = tableView.dequeueReusableCellWithIdentifier("SubmissionCellView",
                     forIndexPath: indexPath) as! SubmissionCellView
@@ -150,5 +153,13 @@ class SubmissionViewController: UITableViewController, UIViewControllerPreviewin
     func previewingContext(previewingContext: UIViewControllerPreviewing,
             commitViewController viewControllerToCommit: UIViewController) {
         showViewController(viewControllerToCommit, sender: self)
+    }
+    
+    // MARK: - SubmissionCellDelegate
+    
+    func contentTapped(submission: Submission) {
+        if let vc = LinkUtils.viewControllerFor(submission.link!) {
+        	navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }

@@ -85,6 +85,8 @@ class Link {
             } else {
                 id = url.substringFromIndex(lastSlash.successor())
             }
+            // Need to ensure that the id is only length 7
+            id = String(id!.utf8.prefix(7))
 
             switch url.characters[lastSlash.predecessor()] {
             case "m": // imgur.com/.*
@@ -113,7 +115,35 @@ class Link {
     }
     
     private func generateRedditDetails() {
-        linkType = .Reddit(.Subreddit)
+        if let range = url.rangeOfString("/r/") {
+            let endPart = url.substringFromIndex(range.endIndex)
+            if let nextSlash = endPart.indexOf("/") {
+                if nextSlash == endPart.length {
+                	id = endPart.substringToIndex(endPart.startIndex.advancedBy(nextSlash))
+                    linkType = .Reddit(.Subreddit)
+                } else {
+                    id = "/r/" + endPart
+                    linkType = .Reddit(.Submission)
+                }
+            } else {
+                id = endPart
+                linkType = .Reddit(.Subreddit)
+            }
+        } else if let range = url.rangeOfString("/live/") {
+            id = url.substringFromIndex(range.endIndex)
+            linkType = .Reddit(.RedditLive)
+        } else if let range = url.rangeOfString("/user/") {
+            id = url.substringFromIndex(range.endIndex)
+            linkType = .Reddit(.User)
+        } else if let range = url.rangeOfString("/u/") {
+            id = url.substringFromIndex(range.endIndex)
+            linkType = .Reddit(.User)
+        } else if url.hasSuffix(".com/") || url.hasSuffix(".com") {
+            id = ""
+            linkType = .Reddit(.Subreddit)
+        } else {
+            linkType = .Normal
+        }
     }
     
     private func isDirectImage(urlEnd: String) -> Bool {

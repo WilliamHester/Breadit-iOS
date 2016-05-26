@@ -16,6 +16,7 @@ class SubmissionCellView: UITableViewCell {
     var authorAndSubreddit: UILabel!
     var comments: UILabel!
     var stackView: UIStackView!
+    var submission: Submission!
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -76,6 +77,8 @@ class SubmissionCellView: UITableViewCell {
     }
     
     func setSubmission(submission: Submission) {
+        self.submission = submission
+        
         points.text = "\(submission.score) \(submission.score == 1 ? "point" : "points")"
         title.text = submission.title.decodeHTML()
         authorAndSubreddit.text = "\(submission.author) • " +
