@@ -14,12 +14,7 @@ import SafariServices
 class CommentViewController: UITableViewController, BodyLabelDelegate,
 		UIViewControllerPreviewingDelegate {
 
-    var submission: Submission? {
-        didSet {
-            // Update the view.
-            self.configureView(submission!.permalink)
-        }
-    }
+    var submission: Submission?
     var permalink: String? {
         didSet {
             self.configureView(permalink!)
@@ -29,11 +24,18 @@ class CommentViewController: UITableViewController, BodyLabelDelegate,
 
     func configureView(permalink: String) {
         RedditAPI.getComments(permalink) { submission, comments in
+            var modifiedIndexPaths = [NSIndexPath]()
+            self.tableView.beginUpdates()
             if self.submission == nil {
             	self.submission = submission
+                modifiedIndexPaths.append(NSIndexPath(forRow: 0, inSection: 0))
             }
             self.comments = comments
-            self.tableView.reloadData()
+            for i in 0..<comments.count {
+                modifiedIndexPaths.append(NSIndexPath(forRow: i, inSection: 1))
+            }
+            self.tableView.insertRowsAtIndexPaths(modifiedIndexPaths, withRowAnimation: .None)
+            self.tableView.endUpdates()
         }
     }
 

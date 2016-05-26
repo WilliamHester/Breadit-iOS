@@ -112,6 +112,7 @@ class SubmissionViewController: UITableViewController, UIViewControllerPreviewin
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let commentsController = CommentViewController()
         commentsController.submission = submissionStore.submissions[indexPath.row]
+        commentsController.permalink = submissionStore.submissions[indexPath.row].permalink
         navigationController?.pushViewController(commentsController, animated: true)
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }

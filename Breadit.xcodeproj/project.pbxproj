@@ -36,7 +36,6 @@
 		3DD431361CE53E0900892CBB /* YouTubePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD431351CE53E0900892CBB /* YouTubePreviewViewController.swift */; };
 		3DD431381CE5404400892CBB /* NSURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD431371CE5404400892CBB /* NSURL.swift */; };
 		3DEE00BD1CF5FEFE0079553D /* SubmissionCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEE00BC1CF5FEFE0079553D /* SubmissionCellDelegate.swift */; };
-		3DEE00BF1CF6056F0079553D /* LinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEE00BE1CF6056F0079553D /* LinkViewController.swift */; };
 		3DEE00C11CF606660079553D /* LinkUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEE00C01CF606660079553D /* LinkUtils.swift */; };
 		3DF4EE641CD3110100985184 /* TextComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF4EE631CD3110100985184 /* TextComment.swift */; };
 		3DFBFE101CE9823100DEE6D4 /* SubmissionSelfPostCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFBFE0F1CE9823100DEE6D4 /* SubmissionSelfPostCellView.swift */; };
@@ -83,7 +82,6 @@
 		3DD431351CE53E0900892CBB /* YouTubePreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YouTubePreviewViewController.swift; sourceTree = "<group>"; };
 		3DD431371CE5404400892CBB /* NSURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURL.swift; sourceTree = "<group>"; };
 		3DEE00BC1CF5FEFE0079553D /* SubmissionCellDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionCellDelegate.swift; sourceTree = "<group>"; };
-		3DEE00BE1CF6056F0079553D /* LinkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LinkViewController.swift; path = ../Views/LinkViewController.swift; sourceTree = "<group>"; };
 		3DEE00C01CF606660079553D /* LinkUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkUtils.swift; sourceTree = "<group>"; };
 		3DF4EE631CD3110100985184 /* TextComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextComment.swift; sourceTree = "<group>"; };
 		3DFBFE0F1CE9823100DEE6D4 /* SubmissionSelfPostCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionSelfPostCellView.swift; sourceTree = "<group>"; };
@@ -169,7 +167,6 @@
 		5056FC442F9ED6FFC75AE229 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				3DEE00BE1CF6056F0079553D /* LinkViewController.swift */,
 				5056FEF8C31C10C595281F16 /* SubmissionViewController.swift */,
 				5056FCE017B2DD0B1EC97D0B /* CommentViewController.swift */,
 				3D13BC9E1CD5B3DD009193C4 /* NavigationDrawerViewController.swift */,
@@ -369,7 +366,6 @@
 				3D13BC9F1CD5B3DD009193C4 /* NavigationDrawerViewController.swift in Sources */,
 				3D4AEF961CE2BF3C000ACEE4 /* Link.swift in Sources */,
 				3D4EAE4D1CCBFFC1001C23AC /* RedditAPI.swift in Sources */,
-				3DEE00BF1CF6056F0079553D /* LinkViewController.swift in Sources */,
 				3D4AEF9B1CE3D4E8000ACEE4 /* Colors.swift in Sources */,
 				3D4EAE391CCB2E2E001C23AC /* AppDelegate.swift in Sources */,
 				3D4A9A101CDAF2B700449959 /* Account.swift in Sources */,
