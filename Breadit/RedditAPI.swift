@@ -33,10 +33,14 @@ struct RedditAPI {
         }
     }
     
-    static func getComments(permalink: String, callback: (Submission, [Comment]) -> ()) {
+    static func getComments(permalink: String, callback: (Submission?, [Comment]) -> ()) {
         let request = RedditRequest(permalink)
         request.getJson { json in
-            let submission = Submission(json: json[0]["data"]["children"][0]["data"])
+            var submission: Submission? = nil
+            let submissionData = json[0]["data"]["children"][0]["data"]
+            if submissionData.exists() {
+                submission = Submission(json: submissionData)
+            }
 
             var comments = [Comment]()
             if let commentsJson = json[1]["data"]["children"].array {
