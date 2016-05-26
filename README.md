@@ -13,7 +13,7 @@ experience.
     - [ ] Loading state
 - [ ] Comments
     - [x] Hide children
-    - [ ] Author Flair
+    - [x] Author Flair
     - [ ] Upvote/downvote
     - [ ] Reply
     - [ ] Click links/3D Touch

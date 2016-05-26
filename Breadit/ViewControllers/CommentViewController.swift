@@ -29,7 +29,9 @@ class CommentViewController: UITableViewController, BodyLabelDelegate,
 
     func configureView(permalink: String) {
         RedditAPI.getComments(permalink) { submission, comments in
-            self.submission = submission
+            if self.submission == nil {
+            	self.submission = submission
+            }
             self.comments = comments
             self.tableView.reloadData()
         }
