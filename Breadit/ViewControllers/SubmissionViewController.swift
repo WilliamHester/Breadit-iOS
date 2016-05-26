@@ -65,14 +65,18 @@ class SubmissionViewController: UITableViewController, UIViewControllerPreviewin
         guard newCount > oldCount else {
             return
         }
+        self.canLoad = true
         
+        UIView.setAnimationsEnabled(false)
         tableView.beginUpdates()
         var indexPaths = [NSIndexPath]()
         for i in oldCount..<newCount {
             indexPaths.append(NSIndexPath(forRow: i, inSection: 0))
         }
-        tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
+        tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .None)
+        tableView.setContentOffset(tableView.contentOffset, animated: true)
         tableView.endUpdates()
+        UIView.setAnimationsEnabled(true)
     }
 
     // MARK: - Table View
