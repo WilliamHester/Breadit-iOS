@@ -23,7 +23,7 @@ class TextComment: Comment {
     let author_flair_text: String?
     let distinguished: String?
     let gilded: Int
-    let score: Int
+    var score: Int
     let created: Int
     let created_utc: Int
     let ups: Int
@@ -34,6 +34,11 @@ class TextComment: Comment {
     let stickied: Bool
     let likes: Bool?
     var replies: [Comment]? = [Comment]()
+    var voteStatus: VoteStatus {
+        willSet(newStatus) {
+            score -=  voteStatus.rawValue - newStatus.rawValue
+        }
+    }
     var hidden = false
 
     init(json: JSON, level: Int) {
@@ -57,6 +62,12 @@ class TextComment: Comment {
         self.score_hidden = json["score_hidden"].bool!
         self.stickied = json["stickied"].bool!
         self.likes = json["likes"].bool
+        
+        if let likes = likes {
+            voteStatus = likes ? .Upvoted : .Downvoted
+        } else {
+            voteStatus = .Neutral
+        }
 
         self.level = level
 

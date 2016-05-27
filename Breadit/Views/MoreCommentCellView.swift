@@ -8,10 +8,17 @@
 
 import UIKit
 
-class MoreCommentCellView: CommentCellView {
+class MoreCommentCellView: UITableViewCell {
+    
+    var paddingConstraint: NSLayoutConstraint!
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        backgroundColor = UIColor.clearColor()
+        selectedBackgroundView = uiView { v in
+            v.backgroundColor = Colors.secondaryColor
+        }
 
         contentView.uiLabel { v in
             v.text = "Load more comments..."

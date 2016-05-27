@@ -8,7 +8,7 @@ import UIKit
 import NSDate_TimeAgo
 import SwiftString
 
-class SubmissionCellView: UITableViewCell {
+class SubmissionCellView: SwipeVoteCellView {
 
     var points: UILabel!
     var nsfw: UILabel!
@@ -17,6 +17,18 @@ class SubmissionCellView: UITableViewCell {
     var comments: UILabel!
     var stackView: UIStackView!
     var submission: Submission!
+    private var inSetup = true
+    
+    override var voteStatus: VoteStatus {
+        didSet {
+            guard !inSetup else {
+                return
+            }
+            submission.voteStatus = voteStatus
+            points.text = "\(submission.score) \(submission.score == 1 ? "point" : "points")"
+            RedditAPI.vote(submission.name, voteStatus: voteStatus)
+        }
+    }
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -26,7 +38,7 @@ class SubmissionCellView: UITableViewCell {
             v.backgroundColor = UIColor.darkGrayColor()
         }
 
-        contentView.uiStackView { v in
+        swipableContent.uiStackView { v in
             self.stackView = v
             v.translatesAutoresizingMaskIntoConstraints = false
             v.axis = .Vertical
@@ -65,10 +77,10 @@ class SubmissionCellView: UITableViewCell {
                 v.textColor = Colors.secondaryTextColor
             }
         }.constrain { v in
-            v.leftAnchor.constraintEqualToAnchor(self.contentView.leftAnchor, constant: 8).active = true
-            v.rightAnchor.constraintEqualToAnchor(self.contentView.rightAnchor, constant: -8).active = true
-            self.contentView.topAnchor.constraintEqualToAnchor(v.topAnchor, constant: -8).active = true
-            self.contentView.bottomAnchor.constraintEqualToAnchor(v.bottomAnchor, constant: 8).active = true
+            v.leftAnchor.constraintEqualToAnchor(self.swipableContent.leftAnchor, constant: 8).active = true
+            v.rightAnchor.constraintEqualToAnchor(self.swipableContent.rightAnchor, constant: -8).active = true
+            self.swipableContent.topAnchor.constraintEqualToAnchor(v.topAnchor, constant: -8).active = true
+            self.swipableContent.bottomAnchor.constraintEqualToAnchor(v.bottomAnchor, constant: 8).active = true
         }
     }
 
@@ -77,7 +89,10 @@ class SubmissionCellView: UITableViewCell {
     }
     
     func setSubmission(submission: Submission) {
+        inSetup = true
         self.submission = submission
+        
+        voteStatus = submission.voteStatus
         
         points.text = "\(submission.score) \(submission.score == 1 ? "point" : "points")"
         title.text = submission.title.decodeHTML()
@@ -99,5 +114,6 @@ class SubmissionCellView: UITableViewCell {
 		comments.text = str
         
         nsfw.hidden = !submission.over18
+        inSetup = false
     }
 }

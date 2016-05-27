@@ -16,6 +16,8 @@ let redditColor = UIColor(rgb: 0xff8b24)
 let selectedRedditColor = UIColor(rgb: 0xffc999)
 let urlColor = UIColor(rgb: 0x0066ff)
 let selectedUrlColor = UIColor(rgb: 0xccccff)
+let upvoteColor = UIColor(rgb: 0xFF8B60)
+let downvoteColor = UIColor(rgb: 0x9494FF)
 
 class Colors {
     static var theme = Theme(backgroundColor: UIColor(rgb: 0x202020),

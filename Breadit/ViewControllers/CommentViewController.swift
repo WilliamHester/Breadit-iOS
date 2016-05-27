@@ -129,33 +129,13 @@ class CommentViewController: UITableViewController, BodyLabelDelegate,
     private func commentCell(tableView: UITableView, indexPath: NSIndexPath) -> UITableViewCell {
         let comment = comments[indexPath.row]
         
-        var cell: CommentCellView
+        var cell: UITableViewCell
         
         if let textComment = comment as? TextComment {
             let textCommentCell = tableView.dequeueReusableCellWithIdentifier("TextCommentCellView")
                 as! TextCommentCellView
-            textCommentCell.paddingConstraint.constant = CGFloat(comment.level * 8 + 8)
-            textCommentCell.author.text = textComment.author
-            let parsedText = HTMLParser(
-                escapedHtml: textComment.body_html,
-                font: textCommentCell.body.font!
-            )
-            textCommentCell.body.attributedText = parsedText.attributedString
+            textCommentCell.comment = textComment
             textCommentCell.body.delegate = self
-            
-            textCommentCell.pointsAndTime.text = "\(textComment.score) • " +
-            		"\(shortTimeFromNow(textComment))"
-            
-            if let flair = textComment.author_flair_text {
-                textCommentCell.hidden = false
-                textCommentCell.flair.text = flair
-            } else {
-                textCommentCell.flair.hidden = true
-            }
-            
-            if textComment.hidden {
-                textCommentCell.hide()
-            }
             
             if traitCollection.forceTouchCapability == .Available {
                 self.registerForPreviewingWithDelegate(self, sourceView: textCommentCell.body)
@@ -163,9 +143,10 @@ class CommentViewController: UITableViewController, BodyLabelDelegate,
             
             cell = textCommentCell
         } else {
-            cell = tableView.dequeueReusableCellWithIdentifier("MoreCommentCellView")!
+            let moreComments = tableView.dequeueReusableCellWithIdentifier("MoreCommentCellView")!
                 as! MoreCommentCellView
-            cell.paddingConstraint.constant = CGFloat(comment.level * 8 + 8)
+            moreComments.paddingConstraint.constant = CGFloat(comment.level * 8 + 8)
+            cell = moreComments
         }
         
         return cell
@@ -262,28 +243,5 @@ class CommentViewController: UITableViewController, BodyLabelDelegate,
         } else {
             navigationController?.pushViewController(viewControllerToCommit, animated: true)
         }
-    }
-    
-    private func shortTimeFromNow(textComment: TextComment) -> String {
-        let currentTime = Int(NSDate().timeIntervalSince1970)
-        let postTime = textComment.created_utc
-        let difference = max(currentTime - postTime, 0)
-        var time: String
-        if (difference / 31536000 > 0) {
-            time = "\(difference / 31536000)y"
-        } else if (difference / 2592000 > 0) {
-            time = "\(difference / 2592000)mo"
-        } else if (difference / 604800 > 0) {
-            time = "\(difference / 604800)w"
-        } else if (difference / 86400 > 0) {
-            time = "\(difference / 86400)d"
-        } else if (difference / 3600 > 0) {
-            time = "\(difference / 3600)h"
-        } else if (difference / 60 > 0) {
-            time = "\(difference / 60)m"
-        } else {
-            time = "\(difference)s"
-        }
-        return time
     }
 }

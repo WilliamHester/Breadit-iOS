@@ -16,10 +16,17 @@ struct RedditAPI {
     
     static var loginManager: LoginManager!
     static let realm = try! Realm()
+    
+    static func vote(id: String, voteStatus: VoteStatus) {
+        let direction = String(voteStatus.rawValue)
+        let request = RedditRequest("api/vote/", requestType: .POST,
+        		params: ["id": id, "dir": direction])
+        request.getJson {_ in}
+    }
 
     static func getSubmissions(subreddit: String, after: String = "", callback: ([Submission]) -> ()) {
         let subString = subreddit.length > 0 ? "r/" + subreddit : subreddit
-        let request = RedditRequest(subString, queries: ["after" : after])
+        let request = RedditRequest(subString, params: ["after" : after])
         var submissions = [Submission]()
         request.getJson { json in
             if let subs = json["data"]["children"].array {
@@ -38,7 +45,7 @@ struct RedditAPI {
         request.getJson { json in
             var submission: Submission? = nil
             let submissionData = json[0]["data"]["children"][0]["data"]
-            if submissionData.exists() {
+            if submissionData.dictionary != nil {
                 submission = Submission(json: submissionData)
             }
 
@@ -84,7 +91,7 @@ struct RedditAPI {
     static func getSubreddits(type: String, after: String, accumulator: [Subreddit], callback: ([Subreddit]) -> ()) {
         var subs = accumulator
         
-        let request = RedditRequest("subreddits/\(type)", queries: ["after": after])
+        let request = RedditRequest("subreddits/\(type)", params: ["after": after])
         request.getJson { json in
             if let subreddits = json["data"]["children"].array {
                 if subreddits.count == 0 {
@@ -183,8 +190,9 @@ struct RedditAPI {
         let queries: [String: String]
         let headers: [String: String]
         var attemptedRefresh = false
+        let requestType: Alamofire.Method
         
-        init(_ path: String, queries: [String: String] = [:],
+        init(_ path: String, requestType: Alamofire.Method = .GET, params: [String: String] = [:],
         		account: Account? = RedditAPI.loginManager.account) {
             if account != nil {
                 self.path = RedditRequest.oauthURL + path
@@ -193,12 +201,12 @@ struct RedditAPI {
                 self.path = RedditRequest.apiURL + path
                 self.headers = [:]
             }
-            
-            self.queries = queries
+            self.requestType = requestType
+            self.queries = params
         }
         
         func getJson(callback: (JSON) -> ()) {
-            Alamofire.request(.GET, path, parameters: queries, headers: headers)
+            Alamofire.request(requestType, path, parameters: queries, headers: headers)
                 .responseJSON { response in
                     if response.response?.statusCode == 401 && !self.attemptedRefresh {
                         self.attemptedRefresh = true

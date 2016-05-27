@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		3D13BC951CD54AAF009193C4 /* MangoWritten.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D13BC941CD54AAF009193C4 /* MangoWritten.swift */; };
 		3D13BC9B1CD5983C009193C4 /* MoreCommentCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D13BC9A1CD5983C009193C4 /* MoreCommentCellView.swift */; };
-		3D13BC9D1CD59AF6009193C4 /* CommentCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D13BC9C1CD59AF6009193C4 /* CommentCellView.swift */; };
 		3D13BC9F1CD5B3DD009193C4 /* NavigationDrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D13BC9E1CD5B3DD009193C4 /* NavigationDrawerViewController.swift */; };
 		3D13BCA31CD5EEDC009193C4 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D13BCA21CD5EEDC009193C4 /* NavigationViewController.swift */; };
 		3D13BCA51CD69524009193C4 /* HTMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D13BCA41CD69524009193C4 /* HTMLParser.swift */; };
@@ -33,6 +32,8 @@
 		3D9CBE261CCC86370004EACC /* SubmissionImageCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9CBE251CCC86370004EACC /* SubmissionImageCellView.swift */; };
 		3D9CBE281CCC9BF10004EACC /* Mango.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9CBE271CCC9BF10004EACC /* Mango.swift */; };
 		3D9CBE2C1CCD82900004EACC /* TextCommentCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9CBE2B1CCD82900004EACC /* TextCommentCellView.swift */; };
+		3DD3FC5C1CF7BFE90061BC4A /* SwipeVoteCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD3FC5B1CF7BFE90061BC4A /* SwipeVoteCellView.swift */; };
+		3DD3FC601CF7D0F70061BC4A /* VoteStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD3FC5F1CF7D0F70061BC4A /* VoteStatus.swift */; };
 		3DD431361CE53E0900892CBB /* YouTubePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD431351CE53E0900892CBB /* YouTubePreviewViewController.swift */; };
 		3DD431381CE5404400892CBB /* NSURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD431371CE5404400892CBB /* NSURL.swift */; };
 		3DEE00BD1CF5FEFE0079553D /* SubmissionCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEE00BC1CF5FEFE0079553D /* SubmissionCellDelegate.swift */; };
@@ -53,7 +54,6 @@
 /* Begin PBXFileReference section */
 		3D13BC941CD54AAF009193C4 /* MangoWritten.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MangoWritten.swift; sourceTree = "<group>"; };
 		3D13BC9A1CD5983C009193C4 /* MoreCommentCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreCommentCellView.swift; sourceTree = "<group>"; };
-		3D13BC9C1CD59AF6009193C4 /* CommentCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCellView.swift; sourceTree = "<group>"; };
 		3D13BC9E1CD5B3DD009193C4 /* NavigationDrawerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationDrawerViewController.swift; sourceTree = "<group>"; };
 		3D13BCA21CD5EEDC009193C4 /* NavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		3D13BCA41CD69524009193C4 /* HTMLParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTMLParser.swift; sourceTree = "<group>"; };
@@ -79,6 +79,8 @@
 		3D9CBE251CCC86370004EACC /* SubmissionImageCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionImageCellView.swift; sourceTree = "<group>"; };
 		3D9CBE271CCC9BF10004EACC /* Mango.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mango.swift; sourceTree = "<group>"; };
 		3D9CBE2B1CCD82900004EACC /* TextCommentCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextCommentCellView.swift; sourceTree = "<group>"; };
+		3DD3FC5B1CF7BFE90061BC4A /* SwipeVoteCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeVoteCellView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		3DD3FC5F1CF7D0F70061BC4A /* VoteStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoteStatus.swift; sourceTree = "<group>"; };
 		3DD431351CE53E0900892CBB /* YouTubePreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YouTubePreviewViewController.swift; sourceTree = "<group>"; };
 		3DD431371CE5404400892CBB /* NSURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURL.swift; sourceTree = "<group>"; };
 		3DEE00BC1CF5FEFE0079553D /* SubmissionCellDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionCellDelegate.swift; sourceTree = "<group>"; };
@@ -185,11 +187,11 @@
 				3D9CBE251CCC86370004EACC /* SubmissionImageCellView.swift */,
 				3D9CBE2B1CCD82900004EACC /* TextCommentCellView.swift */,
 				3D13BC9A1CD5983C009193C4 /* MoreCommentCellView.swift */,
-				3D13BC9C1CD59AF6009193C4 /* CommentCellView.swift */,
 				3D4DEE771CE17E6400DB4DAD /* BodyLabel.swift */,
 				3D4DEE791CE1836700DB4DAD /* BodyLabelDelegate.swift */,
 				3DFBFE0F1CE9823100DEE6D4 /* SubmissionSelfPostCellView.swift */,
 				3DEE00BC1CF5FEFE0079553D /* SubmissionCellDelegate.swift */,
+				3DD3FC5B1CF7BFE90061BC4A /* SwipeVoteCellView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -204,6 +206,7 @@
 				3D4A9A0F1CDAF2B700449959 /* Account.swift */,
 				3D4AEF951CE2BF3C000ACEE4 /* Link.swift */,
 				5056F7139AC0005D82CDC87D /* Subreddit.swift */,
+				3DD3FC5F1CF7D0F70061BC4A /* VoteStatus.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -385,7 +388,9 @@
 				3D4AEF991CE3CD1E000ACEE4 /* UIColor.swift in Sources */,
 				3D4A9A171CDAF99C00449959 /* Keys.swift in Sources */,
 				3D4DEE781CE17E6400DB4DAD /* BodyLabel.swift in Sources */,
+				3DD3FC5C1CF7BFE90061BC4A /* SwipeVoteCellView.swift in Sources */,
 				3DEE00BD1CF5FEFE0079553D /* SubmissionCellDelegate.swift in Sources */,
+				3DD3FC601CF7D0F70061BC4A /* VoteStatus.swift in Sources */,
 				3DEE00C11CF606660079553D /* LinkUtils.swift in Sources */,
 				3DFBFE101CE9823100DEE6D4 /* SubmissionSelfPostCellView.swift in Sources */,
 				5056F9EE31D841816201EEB7 /* CommentViewController.swift in Sources */,
@@ -393,7 +398,6 @@
 				3D4AEF9D1CE41EE4000ACEE4 /* Theme.swift in Sources */,
 				5056FE9AC46822F4A2665389 /* SubmissionStore.swift in Sources */,
 				5056F90CD7C987E083B8A6D4 /* SubmissionCellView.swift in Sources */,
-				3D13BC9D1CD59AF6009193C4 /* CommentCellView.swift in Sources */,
 				3D7274201CF556DD00358D79 /* String.swift in Sources */,
 				3D13BC951CD54AAF009193C4 /* MangoWritten.swift in Sources */,
 				5056F6FD12FB503AA6314F94 /* Comment.swift in Sources */,

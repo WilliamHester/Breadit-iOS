@@ -26,7 +26,6 @@ class Submission {
     var linkFlairText: String?
     var authorFlairText: String?
     var distinguished: String?
-    var likes: Bool?
     var edited: Bool?
     let archived: Bool
     var over18: Bool
@@ -44,6 +43,11 @@ class Submission {
     var numComments: Int
     var editedUTC: Int?
     var link: Link?
+    var voteStatus: VoteStatus {
+        willSet(newStatus) {
+            score -=  voteStatus.rawValue - newStatus.rawValue
+        }
+    }
 
     init(json: JSON) {
         domain = json["domain"].string!
@@ -61,7 +65,6 @@ class Submission {
         linkFlairText = json["link_flair_text"].string
         authorFlairText = json["author_flair_text"].string
         distinguished = json["distinguished"].string
-        likes = json["likes"].bool
         archived = json["archived"].bool!
         over18 = json["over_18"].bool!
         hidden = json["hidden"].bool!
@@ -79,6 +82,12 @@ class Submission {
         numComments = json["num_comments"].int!
         editedUTC = json["edited"].int
         editedUTC = editedUTC > 0 ? editedUTC : nil
+
+        if let likes = json["likes"].bool {
+            voteStatus = likes ? .Upvoted : .Downvoted
+        } else {
+            voteStatus = .Neutral
+        }
         
         if !isSelf {
             link = Link(link: url)
