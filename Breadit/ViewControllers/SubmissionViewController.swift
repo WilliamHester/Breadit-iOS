@@ -11,8 +11,7 @@ import Alamofire
 import AlamofireImage
 import NSDate_TimeAgo
 
-class SubmissionViewController: UITableViewController, UIViewControllerPreviewingDelegate,
-		SubmissionCellDelegate {
+class SubmissionViewController: ContentViewController {
 
     var canLoad = false
     var detailViewController: CommentViewController? = nil
@@ -45,13 +44,6 @@ class SubmissionViewController: UITableViewController, UIViewControllerPreviewin
                 forControlEvents: .ValueChanged)
         tableView.addSubview(refreshControl)
         tableView.sendSubviewToBack(refreshControl)
-        
-        tableView.registerClass(SubmissionCellView.self,
-				forCellReuseIdentifier: "SubmissionCellView")
-        tableView.registerClass(SubmissionImageCellView.self,
-        		forCellReuseIdentifier: "SubmissionImageCellView")
-        tableView.registerClass(SubmissionLinkCellView.self,
-				forCellReuseIdentifier: "SubmissionLinkCellView")
 
         if traitCollection.forceTouchCapability == .Available {
             self.registerForPreviewingWithDelegate(self, sourceView: view)
@@ -152,7 +144,7 @@ class SubmissionViewController: UITableViewController, UIViewControllerPreviewin
     
     // MARK: - View Controller Previewing Delegate
     
-    func previewingContext(previewingContext: UIViewControllerPreviewing,
+    override func previewingContext(previewingContext: UIViewControllerPreviewing,
             viewControllerForLocation location: CGPoint) -> UIViewController? {
         guard let indexPath = tableView.indexPathForRowAtPoint(location) else {
             return nil
@@ -167,18 +159,5 @@ class SubmissionViewController: UITableViewController, UIViewControllerPreviewin
         viewController.preferredContentSize = CGSize.zero
 
         return viewController
-    }
-    
-    func previewingContext(previewingContext: UIViewControllerPreviewing,
-            commitViewController viewControllerToCommit: UIViewController) {
-        showViewController(viewControllerToCommit, sender: self)
-    }
-    
-    // MARK: - SubmissionCellDelegate
-    
-    func contentTapped(submission: Submission) {
-        if let vc = LinkUtils.viewControllerFor(submission.link!) {
-        	navigationController?.pushViewController(vc, animated: true)
-        }
     }
 }

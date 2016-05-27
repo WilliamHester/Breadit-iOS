@@ -11,8 +11,7 @@ import Alamofire
 import AlamofireImage
 import SafariServices
 
-class CommentViewController: UITableViewController, BodyLabelDelegate,
-		UIViewControllerPreviewingDelegate, SubmissionCellDelegate {
+class CommentViewController: ContentViewController, BodyLabelDelegate {
 
     var submission: Submission?
     var permalink: String? {
@@ -55,20 +54,6 @@ class CommentViewController: UITableViewController, BodyLabelDelegate,
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 140
         tableView.separatorStyle = .None
-
-        
-        tableView.registerClass(SubmissionCellView.self,
-                forCellReuseIdentifier: "SubmissionCellView")
-        tableView.registerClass(SubmissionImageCellView.self,
-                forCellReuseIdentifier: "SubmissionImageCellView")
-        tableView.registerClass(SubmissionLinkCellView.self,
-                forCellReuseIdentifier: "SubmissionLinkCellView")
-        tableView.registerClass(SubmissionSelfPostCellView.self,
-                forCellReuseIdentifier: "SubmissionSelfPostCellView")
-        tableView.registerClass(TextCommentCellView.self,
-                forCellReuseIdentifier: "TextCommentCellView")
-        tableView.registerClass(MoreCommentCellView.self,
-                forCellReuseIdentifier: "MoreCommentCellView")
     }
 
     // MARK: - Table View
@@ -226,44 +211,21 @@ class CommentViewController: UITableViewController, BodyLabelDelegate,
         tableView.endUpdates()
     }
 
-    func contentTapped(submission: Submission) {
-
-    }
-    
     // MARK: BodyLabelDelegate
     func bodyLabel(link: Link) {
-        if let preview = LinkUtils.viewControllerFor(link) {
-            if preview is SFSafariViewController {
-                parentViewController?.parentViewController?.presentViewController(preview, animated: true, completion: nil)
-            } else if preview is UINavigationController {
-                presentViewController(preview, animated: true, completion: nil)
-            } else {
-                navigationController?.pushViewController(preview, animated: true)
-            }
-        }
+        showViewControllerFor(link)
     }
 
     // MARK: - View Controller Previewing Delegate
     
-    func previewingContext(previewingContext: UIViewControllerPreviewing,
+    override func previewingContext(previewingContext: UIViewControllerPreviewing,
                            viewControllerForLocation location: CGPoint) -> UIViewController? {
         guard let bodyLabel = previewingContext.sourceView as? BodyLabel else {
             return nil
         }
         if let (_, link) = bodyLabel.elementAtLocation(location) {
-            return LinkUtils.viewControllerFor(link)
+            return viewControllerFor(link)
         }
         return nil
-    }
-    
-    func previewingContext(previewingContext: UIViewControllerPreviewing,
-                           commitViewController viewControllerToCommit: UIViewController) {
-        if viewControllerToCommit is SFSafariViewController {
-            parentViewController?.parentViewController?.presentViewController(viewControllerToCommit, animated: true, completion: nil)
-        } else if viewControllerToCommit is UINavigationController {
-        	presentViewController(viewControllerToCommit, animated: true, completion: nil)
-        } else {
-            navigationController?.pushViewController(viewControllerToCommit, animated: true)
-        }
     }
 }
