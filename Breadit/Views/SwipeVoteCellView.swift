@@ -17,6 +17,7 @@ class SwipeVoteCellView: UITableViewCell {
     var contentLeftConstraint: NSLayoutConstraint!
     var contentRightConstraint: NSLayoutConstraint!
     var panStartPoint = CGPoint.zero
+    var canSwipe = false
 
     var voteStatus: VoteStatus = .Neutral {
         didSet {
@@ -88,18 +89,14 @@ class SwipeVoteCellView: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    override func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
-        return true
-    }
     
     override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
         if let panRecognizer = gestureRecognizer as? UIPanGestureRecognizer {
             let translation = panRecognizer.translationInView(superview)
-            return gestureRecognizer.locationInView(superview).x > 40 &&
+            return canSwipe && gestureRecognizer.locationInView(superview).x > 40 &&
                 	abs(translation.x) > abs(translation.y) * 2
         }
-        return false
+        return super.gestureRecognizerShouldBegin(gestureRecognizer)
     }
 
     func didPan(recognizer: UIPanGestureRecognizer) {

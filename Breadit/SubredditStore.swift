@@ -13,7 +13,7 @@ import Realm
 class SubredditStore {
 
     static var realm: Realm!
-    var loginManager: LoginManager!
+    var loginManager = LoginManager.singleton
 
     var subreddits = [Subreddit]() {
         didSet {

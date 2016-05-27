@@ -83,6 +83,11 @@ class SubmissionCellView: SwipeVoteCellView {
             self.swipableContent.bottomAnchor.constraintEqualToAnchor(v.bottomAnchor, constant: 8).active = true
         }
     }
+    
+    override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return gestureRecognizer is UITapGestureRecognizer ||
+            	super.gestureRecognizerShouldBegin(gestureRecognizer)
+    }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

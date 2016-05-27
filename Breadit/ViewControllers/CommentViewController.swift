@@ -21,6 +21,7 @@ class CommentViewController: UITableViewController, BodyLabelDelegate,
         }
     }
     var comments = [Comment]()
+    let loginManager = LoginManager.singleton
 
     func configureView(permalink: String) {
         RedditAPI.getComments(permalink) { submission, comments in
@@ -136,6 +137,12 @@ class CommentViewController: UITableViewController, BodyLabelDelegate,
                 as! TextCommentCellView
             textCommentCell.comment = textComment
             textCommentCell.body.delegate = self
+            
+            let currentTime = Int(NSDate().timeIntervalSince1970)
+            let timeDifference = currentTime - submission!.createdUTC
+
+            textCommentCell.canSwipe = loginManager.account != nil &&
+                    timeDifference < (30 * 6 * 24 * 3600)
             
             if traitCollection.forceTouchCapability == .Available {
                 self.registerForPreviewingWithDelegate(self, sourceView: textCommentCell.body)

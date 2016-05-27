@@ -14,7 +14,7 @@ import RealmSwift
 
 struct RedditAPI {
     
-    static var loginManager: LoginManager!
+    static var loginManager = LoginManager.singleton
     static let realm = try! Realm()
     
     static func vote(id: String, voteStatus: VoteStatus) {

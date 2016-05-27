@@ -29,6 +29,7 @@ class SubmissionViewController: UITableViewController, UIViewControllerPreviewin
             }
         }
     }
+    let loginManager = LoginManager.singleton
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,6 +103,11 @@ class SubmissionViewController: UITableViewController, UIViewControllerPreviewin
             cell = tableView.dequeueReusableCellWithIdentifier("SubmissionCellView",
                     forIndexPath: indexPath) as! SubmissionCellView
         }
+        
+        let currentTime = Int(NSDate().timeIntervalSince1970)
+        let timeDifference = currentTime - submission.createdUTC
+        
+        cell.canSwipe = loginManager.account != nil && timeDifference < 30 * 6 * 24 * 3600
 
         if indexPath.item > submissionStore.submissions.count - 5 && canLoad {
             submissionStore.loadSubmissions(onSubmissionsLoaded)

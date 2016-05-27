@@ -12,6 +12,12 @@ import RealmSwift
 
 struct LoginManager {
     
+    private static var instance = LoginManager()
+    
+    static var singleton: LoginManager {
+        return LoginManager.instance
+    }
+    
     var account: Account? {
         didSet {
             saveCurrentUser()

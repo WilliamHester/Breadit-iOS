@@ -19,9 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         
-        let loginManager = LoginManager()
-        RedditAPI.loginManager = loginManager
-        
         let submissions = SubmissionViewController()
         submissions.submissionStore = SubmissionStore(subredditDisplay: "breaditapp")
         let mainContent = UINavigationController(rootViewController: submissions)
@@ -34,7 +31,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let realm = try! Realm()
         let subredditStore = SubredditStore()
-        subredditStore.loginManager = loginManager
         SubredditStore.realm = realm
         navView.subredditStore = subredditStore
 
