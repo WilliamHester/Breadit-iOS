@@ -12,7 +12,7 @@ import AlamofireImage
 import SafariServices
 
 class CommentViewController: UITableViewController, BodyLabelDelegate,
-		UIViewControllerPreviewingDelegate {
+		UIViewControllerPreviewingDelegate, SubmissionCellDelegate {
 
     var submission: Submission?
     var permalink: String? {
@@ -58,15 +58,17 @@ class CommentViewController: UITableViewController, BodyLabelDelegate,
 
         
         tableView.registerClass(SubmissionCellView.self,
-                                forCellReuseIdentifier: "SubmissionCellView")
+                forCellReuseIdentifier: "SubmissionCellView")
         tableView.registerClass(SubmissionImageCellView.self,
-                                forCellReuseIdentifier: "SubmissionImageCellView")
+                forCellReuseIdentifier: "SubmissionImageCellView")
+        tableView.registerClass(SubmissionLinkCellView.self,
+                forCellReuseIdentifier: "SubmissionLinkCellView")
         tableView.registerClass(SubmissionSelfPostCellView.self,
-                                forCellReuseIdentifier: "SubmissionSelfPostCellView")
+                forCellReuseIdentifier: "SubmissionSelfPostCellView")
         tableView.registerClass(TextCommentCellView.self,
-                                forCellReuseIdentifier: "TextCommentCellView")
+                forCellReuseIdentifier: "TextCommentCellView")
         tableView.registerClass(MoreCommentCellView.self,
-                                forCellReuseIdentifier: "MoreCommentCellView")
+                forCellReuseIdentifier: "MoreCommentCellView")
     }
 
     // MARK: - Table View
@@ -111,8 +113,15 @@ class CommentViewController: UITableViewController, BodyLabelDelegate,
     private func submissionCell(tableView: UITableView, indexPath: NSIndexPath) -> UITableViewCell {
         let cell: SubmissionCellView
         if submission!.link?.previewUrl != nil {
-            cell = tableView.dequeueReusableCellWithIdentifier("SubmissionImageCellView",
+            let imageCell = tableView.dequeueReusableCellWithIdentifier("SubmissionImageCellView",
            			forIndexPath: indexPath) as! SubmissionImageCellView
+            imageCell.contentTappedDelegate = self
+            cell = imageCell
+        } else if submission!.link != nil {
+            let linkCell = tableView.dequeueReusableCellWithIdentifier("SubmissionLinkCellView",
+                    forIndexPath: indexPath) as! SubmissionLinkCellView
+            linkCell.contentTappedDelegate = self
+            cell = linkCell
         } else if submission!.selftextHtml != nil {
             let selfPostView = tableView.dequeueReusableCellWithIdentifier("SubmissionSelfPostCellView")
                 	as! SubmissionSelfPostCellView
@@ -155,6 +164,8 @@ class CommentViewController: UITableViewController, BodyLabelDelegate,
             moreComments.paddingConstraint.constant = CGFloat(comment.level * 8 + 8)
             cell = moreComments
         }
+        
+        cell.indentationLevel = comment.level
         
         return cell
     }
@@ -213,6 +224,10 @@ class CommentViewController: UITableViewController, BodyLabelDelegate,
         tableView.reloadRowsAtIndexPaths([NSIndexPath(forItem: index, inSection: 1)],
                 withRowAnimation: .Automatic)
         tableView.endUpdates()
+    }
+
+    func contentTapped(submission: Submission) {
+
     }
     
     // MARK: BodyLabelDelegate

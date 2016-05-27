@@ -44,11 +44,14 @@ class SubmissionViewController: UITableViewController, UIViewControllerPreviewin
         refreshControl.addTarget(self, action: #selector(SubmissionViewController.pullRefresh(_:)),
                 forControlEvents: .ValueChanged)
         tableView.addSubview(refreshControl)
+        tableView.sendSubviewToBack(refreshControl)
         
         tableView.registerClass(SubmissionCellView.self,
-                forCellReuseIdentifier: "SubmissionCellView")
+				forCellReuseIdentifier: "SubmissionCellView")
         tableView.registerClass(SubmissionImageCellView.self,
-                forCellReuseIdentifier: "SubmissionImageCellView")
+        		forCellReuseIdentifier: "SubmissionImageCellView")
+        tableView.registerClass(SubmissionLinkCellView.self,
+				forCellReuseIdentifier: "SubmissionLinkCellView")
 
         if traitCollection.forceTouchCapability == .Available {
             self.registerForPreviewingWithDelegate(self, sourceView: view)
@@ -99,6 +102,11 @@ class SubmissionViewController: UITableViewController, UIViewControllerPreviewin
                     forIndexPath: indexPath) as! SubmissionImageCellView
             imageCell.contentTappedDelegate = self
             cell = imageCell
+        } else if submission.link != nil {
+            let linkCell = tableView.dequeueReusableCellWithIdentifier("SubmissionLinkCellView",
+            		forIndexPath: indexPath) as! SubmissionLinkCellView
+            linkCell.contentTappedDelegate = self
+            cell = linkCell
         } else {
             cell = tableView.dequeueReusableCellWithIdentifier("SubmissionCellView",
                     forIndexPath: indexPath) as! SubmissionCellView

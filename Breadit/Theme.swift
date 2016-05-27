@@ -11,6 +11,7 @@ import UIKit
 struct Theme {
     let backgroundColor: UIColor
     let secondaryColor: UIColor
+    let borderColor: UIColor
     let textColor: UIColor
     let secondaryTextColor: UIColor
     let titleBarColor: UIColor

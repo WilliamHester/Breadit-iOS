@@ -21,11 +21,12 @@ let downvoteColor = UIColor(rgb: 0x9494FF)
 
 class Colors {
     static var theme = Theme(backgroundColor: UIColor(rgb: 0x202020),
-                             secondaryColor: UIColor(rgb: 0x2e2e2e),
-                             textColor: UIColor.whiteColor(),
-                             secondaryTextColor: UIColor(rgb: 0xa0a0a0),
-                             titleBarColor: UIColor.blackColor(),
-                             infoColor: UIColor(rgb: 0x6A98AF))
+            secondaryColor: UIColor(rgb: 0x2e2e2e),
+            borderColor: UIColor(rgb: 0x404040),
+            textColor: UIColor.whiteColor(),
+            secondaryTextColor: UIColor(rgb: 0xa0a0a0),
+            titleBarColor: UIColor.blackColor(),
+            infoColor: UIColor(rgb: 0x6A98AF))
 
     static var backgroundColor: UIColor {
         return theme.backgroundColor
@@ -33,6 +34,10 @@ class Colors {
     
     static var secondaryColor: UIColor {
         return theme.secondaryColor
+    }
+
+    static var borderColor: UIColor {
+        return theme.borderColor
     }
 
     static var textColor: UIColor {

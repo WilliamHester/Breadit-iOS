@@ -10,6 +10,7 @@ import Foundation
 
 class Link {
     let url: String
+    let domain: String?
     var previewUrl: String?
     var id: String?
     var linkType: LinkType = .Normal
@@ -49,12 +50,14 @@ class Link {
                 self.id = self.url.substringFromIndex(url.startIndex.advancedBy(3))
                 linkType = .Reddit(.Subreddit)
             }
+            self.domain = nil
         } else {
             let url = NSURL(string: link)!
             guard let domain = url.host else {
+                self.domain = nil
                 return
             }
-            
+            self.domain = domain
             if domain.contains("reddit.com") {
                 generateRedditDetails()
                 return

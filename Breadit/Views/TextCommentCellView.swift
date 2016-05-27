@@ -54,7 +54,7 @@ class TextCommentCellView: SwipeVoteCellView {
                 self.author = v.uiLabel { v in
                     v.fontSize = 10
                     v.textColor = Colors.infoColor
-                    v.setContentCompressionResistancePriority(249, forAxis: .Horizontal)
+                    v.setContentCompressionResistancePriority(752, forAxis: .Horizontal)
                     v.setContentHuggingPriority(251, forAxis: .Horizontal)
                 }
                 self.flair = v.uiLabel { v in
