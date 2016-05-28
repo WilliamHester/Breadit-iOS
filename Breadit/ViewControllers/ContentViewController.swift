@@ -66,30 +66,30 @@ class ContentViewController: UITableViewController, SubmissionCellDelegate,
     
     func viewControllerFor(link: Link) -> UIViewController? {
         switch link.linkType {
-        case .Normal:
-            let preview = SFSafariViewController(URL: NSURL(string: link.url)!)
-            preview.modalTransitionStyle = .CoverVertical
-            preview.modalPresentationStyle = .OverCurrentContext
-            return preview
         case .YouTube:
             let preview = YouTubePreviewViewController()
             preview.link = link
             return wrapInNavigationController(preview)
-        case .Image(_):
-            let preview = PreviewViewController()
-            preview.modalPresentationStyle = .OverFullScreen
-            preview.imageUrl = link.previewUrl
-            return preview
+        case .Image(let imageType):
+            if imageType != .ImgurAlbum {
+            	let preview = PreviewViewController()
+            	preview.modalPresentationStyle = .OverFullScreen
+            	preview.imageUrl = link.previewUrl
+            	return preview
+            }
+            fallthrough
+        case .Normal:
+            return SFSafariViewController(URL: NSURL(string: link.url)!)
         case .Reddit(let redditType):
             switch redditType {
             case .Submission:
                 let preview = CommentViewController()
                 preview.permalink = link.id!
-                return wrapInNavigationController(preview)
+                return preview
             case .Subreddit:
                 let preview = SubmissionViewController()
                 preview.submissionStore = SubmissionStore(subredditDisplay: link.id!)
-                return wrapInNavigationController(preview)
+                return preview
             case .User:
                 break
             case .RedditLive:
@@ -124,6 +124,12 @@ class ContentViewController: UITableViewController, SubmissionCellDelegate,
     }
     
     func showViewController(viewController: UIViewController) {
+        if !(viewController is SFSafariViewController) &&
+            	!(viewController is UINavigationController) &&
+            	!(viewController is PreviewViewController) {
+            navigationController?.pushViewController(viewController, animated: true)
+            return
+        }
         var rootViewController: UIViewController = self
         while rootViewController.parentViewController != nil {
             rootViewController = rootViewController.parentViewController!
