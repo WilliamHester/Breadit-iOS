@@ -9,7 +9,8 @@
 import UIKit
 import SafariServices
 
-class ContentViewController: UITableViewController, SubmissionCellDelegate, UIViewControllerPreviewingDelegate {
+class ContentViewController: UITableViewController, SubmissionCellDelegate,
+		UIViewControllerPreviewingDelegate, UIGestureRecognizerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,10 +27,35 @@ class ContentViewController: UITableViewController, SubmissionCellDelegate, UIVi
                 forCellReuseIdentifier: "TextCommentCellView")
         tableView.registerClass(MoreCommentCellView.self,
                 forCellReuseIdentifier: "MoreCommentCellView")
+
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action:
+            	#selector(ContentViewController.longPressed(_:)))
+        longPressRecognizer.cancelsTouchesInView = true
+        longPressRecognizer.delegate = self
+        tableView.addGestureRecognizer(longPressRecognizer)
     }
 
     func done(sender: AnyObject?) {
         dismissViewControllerAnimated(true, completion: nil)
+    }
+
+    func showActionsForRowAtIndexPath(indexPath: NSIndexPath) {
+
+    }
+
+    // MARK: - UIGestureRecognizerDelegate
+    
+    func longPressed(gestureRecognizer: UILongPressGestureRecognizer) {
+        let point = gestureRecognizer.locationInView(tableView)
+        guard let indexPath = tableView.indexPathForRowAtPoint(point) else {
+            return
+        }
+        switch gestureRecognizer.state {
+        case .Began:
+            showActionsForRowAtIndexPath(indexPath)
+        default:
+            break
+        }
     }
 
     // MARK: - SubmissionCellDelegate

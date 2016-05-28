@@ -24,6 +24,25 @@ struct RedditAPI {
         request.getJson {_ in}
     }
 
+    static func reply(name: String, text: String, parentLevel: Int = 0, callback: (TextComment?) -> ()) {
+        let request = RedditRequest("api/comment", requestType: .POST,
+                params: [
+                        "api_type": "json",
+                        "text": text,
+                        "thing_id": name
+                ])
+
+        request.getJson { json in
+            let commentJson = json["json"]["data"]["things"][0]["data"]
+            if commentJson.dictionary != nil {
+            	let comment = TextComment(json: commentJson, level: parentLevel + 1)
+                callback(comment)
+            } else {
+                callback(nil)
+            }
+        }
+    }
+
     static func getSubmissions(subreddit: String, after: String = "", callback: ([Submission]) -> ()) {
         let subString = subreddit.length > 0 ? "r/" + subreddit : subreddit
         let request = RedditRequest(subString, params: ["after" : after])
@@ -208,6 +227,9 @@ struct RedditAPI {
         func getJson(callback: (JSON) -> ()) {
             Alamofire.request(requestType, path, parameters: queries, headers: headers)
                 .responseJSON { response in
+                    if !response.result.isSuccess {
+                        print(response)
+                    }
                     if response.response?.statusCode == 401 && !self.attemptedRefresh {
                         self.attemptedRefresh = true
                         RedditAPI.refreshToken {

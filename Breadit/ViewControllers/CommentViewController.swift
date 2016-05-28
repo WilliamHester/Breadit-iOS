@@ -11,7 +11,7 @@ import Alamofire
 import AlamofireImage
 import SafariServices
 
-class CommentViewController: ContentViewController, BodyLabelDelegate {
+class CommentViewController: ContentViewController, BodyLabelDelegate, ReplyDelegate {
 
     var submission: Submission?
     var permalink: String? {
@@ -54,6 +54,44 @@ class CommentViewController: ContentViewController, BodyLabelDelegate {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 140
         tableView.separatorStyle = .None
+    }
+
+    override func showActionsForRowAtIndexPath(indexPath: NSIndexPath) {
+        if indexPath.section == 0 {
+            showSubmissionOptions(submission!)
+            return
+        }
+        if let comment = comments[indexPath.row] as? TextComment {
+            showCommentOptions(comment)
+        }
+    }
+    
+    private func showSubmissionOptions(submission: Submission) {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        alertController.addAction(UIAlertAction(title: "Reply", style: .Default) { _ in
+            let reply = ReplyViewController()
+            reply.modalPresentationStyle = .OverCurrentContext
+            reply.modalTransitionStyle = .CoverVertical
+            reply.delegate = self
+            reply.setSubmission(submission)
+            self.presentViewController(self.wrapInNavigationController(reply), animated: true, completion: nil)
+            })
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    private func showCommentOptions(comment: TextComment) {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        alertController.addAction(UIAlertAction(title: "Reply", style: .Default) { _ in
+            let reply = ReplyViewController()
+            reply.modalPresentationStyle = .OverCurrentContext
+            reply.modalTransitionStyle = .CoverVertical
+            reply.delegate = self
+            reply.setComment(comment)
+            self.presentViewController(self.wrapInNavigationController(reply), animated: true, completion: nil)
+        })
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        presentViewController(alertController, animated: true, completion: nil)
     }
 
     // MARK: - Table View
@@ -227,5 +265,34 @@ class CommentViewController: ContentViewController, BodyLabelDelegate {
             return viewControllerFor(link)
         }
         return nil
+    }
+    
+    // MARK: - ReplyDelegate
+    
+    func didReplyTo(name: String, withTextComment textComment: TextComment) {
+        if let submission = submission where submission.name == name {
+            comments.insert(textComment, atIndex: 0)
+            tableView.beginUpdates()
+            tableView.insertRowsAtIndexPaths([NSIndexPath(forItem: 0, inSection: 1)],
+            		withRowAnimation: .Automatic)
+            tableView.endUpdates()
+            return
+        }
+        var pos: Int? = nil
+        for (num, comment) in comments.enumerate() {
+            if let textComment = comment as? TextComment {
+                if textComment.name == name {
+                    pos = num
+                    break
+                }
+            }
+        }
+        if let position = pos {
+            comments.insert(textComment, atIndex: position + 1)
+            tableView.beginUpdates()
+            tableView.insertRowsAtIndexPaths([NSIndexPath(forItem: position + 1, inSection: 1)],
+                    withRowAnimation: .Automatic)
+            tableView.endUpdates()
+        }
     }
 }
