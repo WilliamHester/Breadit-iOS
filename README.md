@@ -6,21 +6,21 @@ experience.
 
 ## To-Do
 - [ ] Submissions
-    - [ ] Upvote/downvote
+    - [x] Upvote/downvote
     - [ ] Hide
-    - [ ] Reply
+    - [x] Reply
     - [ ] Sort
     - [ ] Loading state
 - [ ] Comments
     - [x] Hide children
     - [x] Author Flair
-    - [ ] Upvote/downvote
-    - [ ] Reply
-    - [ ] Click links/3D Touch
-        - [ ] Images
+    - [x] Upvote/downvote
+    - [x] Reply
+    - [x] Click links/3D Touch
+        - [x] Images
         - [x] YouTube
-        - [ ] Reddit (in-app)
-        - [ ] Other
+        - [x] Reddit (in-app)
+        - [x] Other
     - [ ] Loading state
 - [ ] Messages
     - [ ] Compose/Reply
