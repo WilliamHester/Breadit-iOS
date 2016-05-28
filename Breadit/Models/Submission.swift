@@ -59,7 +59,7 @@ class Submission {
         subredditId = json["subreddit_id"].string!
         postHint = json["post_hint"].string
         permalink = json["permalink"].string!
-        url = json["url"].string!
+        url = json["url"].string!.decodeHTML()
         title = json["title"].string!
         selftextHtml = json["selftext_html"].string
         linkFlairText = json["link_flair_text"].string

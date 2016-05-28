@@ -110,11 +110,12 @@ class Link {
         
         if let id = url.queries["v"] {
             self.id = id
+            previewUrl = "http://img.youtube.com/vi/\(id)/0.jpg";
         } else if url.host == "youtu.be" {
             let index = self.url.indexOf("youtu.be/")
             self.id = self.url.substring((index?.advancedBy(9))!, length: 11)
+            previewUrl = "http://img.youtube.com/vi/\(id!)/0.jpg";
         }
-        previewUrl = "http://img.youtube.com/vi/\(id!)/0.jpg";
     }
     
     private func generateRedditDetails() {
