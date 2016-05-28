@@ -43,9 +43,15 @@ struct RedditAPI {
         }
     }
 
-    static func getSubmissions(subreddit: String, after: String = "", callback: ([Submission]) -> ()) {
-        let subString = subreddit.length > 0 ? "r/" + subreddit : subreddit
-        let request = RedditRequest(subString, params: ["after" : after])
+    static func getSubmissions(place: String, query: String?, after: String?, callback: ([Submission]) -> ()) {
+        var params: [String: String] = [:]
+        if let query = query {
+            params["q"] = query
+        }
+        if let after = after {
+            params["after"] = after
+        }
+        let request = RedditRequest(place, params: params)
         var submissions = [Submission]()
         request.getJson { json in
             if let subs = json["data"]["children"].array {

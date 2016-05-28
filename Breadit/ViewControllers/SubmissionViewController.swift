@@ -18,7 +18,7 @@ class SubmissionViewController: ContentViewController {
     var submissionStore: SubmissionStore! {
         didSet {
             canLoad = true
-            let display = submissionStore.subredditDisplay
+            let display = submissionStore.display
             title = display == "" ? "Front Page" : display
             submissionStore.refreshSubmissions(onRefresh)
             

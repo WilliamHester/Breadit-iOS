@@ -37,6 +37,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = navVC
         window?.backgroundColor = Colors.backgroundColor
         window?.makeKeyAndVisible()
+        
+        UITextField.appearanceWhenContainedInInstancesOfClasses([UISearchBar.self]).defaultTextAttributes =
+            	[NSForegroundColorAttributeName: Colors.textColor]
 
         return true
     }

@@ -8,12 +8,13 @@
 
 import UIKit
 
-class NavigationViewController: UITableViewController {
+class NavigationViewController: UITableViewController, UISearchBarDelegate {
     
     private static let places = ["Home", "Inbox", "Account", "Friends", "Submit", "Settings"]
     
     var delegate: NavigationDelegate?
     var subredditStore: SubredditStore!
+    var searchBar: UISearchBar!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,8 +27,35 @@ class NavigationViewController: UITableViewController {
         
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "default")
         
+        setUpSearchView()
+        
         subredditStore.loadSubreddits {
             self.tableView.reloadData()
+        }
+    }
+    
+    private func setUpSearchView() {
+        searchBar = UISearchBar()
+        searchBar.autoresizingMask = .FlexibleWidth
+        searchBar.searchBarStyle = .Minimal
+        searchBar.tintColor = Colors.secondaryTextColor
+        searchBar.sizeToFit()
+        
+        searchBar.delegate = self
+        
+        tableView.tableHeaderView = searchBar
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        var text = searchBar.text!
+        if let range = text.rangeOfString("/r/") where range.startIndex == text.startIndex {
+            text.replaceRange(range, with: "")
+            delegate?.didNavigateTo(.Subreddit(text))
+        } else if let range = text.rangeOfString("r/") where range.startIndex == text.startIndex {
+            text.replaceRange(range, with: "")
+            delegate?.didNavigateTo(.Subreddit(text))
+        } else {
+            delegate?.didNavigateTo(.Search(text))
         }
     }
     
@@ -85,10 +113,20 @@ class NavigationViewController: UITableViewController {
         return cell!
     }
     
+    func stopSearching() {
+        if searchBar.isFirstResponder() {
+        	searchBar.resignFirstResponder()
+        }
+    }
+    
+    override func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        stopSearching()
+    }
 }
 
 enum NavigationPlace {
     case Subreddit(String)
+    case Search(String)
     case Inbox
     case Account
     case Friends

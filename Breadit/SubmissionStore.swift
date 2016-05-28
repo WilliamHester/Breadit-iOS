@@ -9,20 +9,30 @@ class SubmissionStore {
 
     var submissions = [Submission]()
     var failedLoad = false
-    let subredditDisplay: String
+    let urlPart: String
+    let display: String
+    var searchQuery: String? = nil
+    
+    init(searchQuery: String) {
+        display = "Search"
+        urlPart = "search"
+        self.searchQuery = searchQuery
+    }
     
     init(subredditDisplay: String) {
-        self.subredditDisplay = subredditDisplay
+        display = subredditDisplay
+        urlPart = subredditDisplay.length == 0 ? "" : "r/" + subredditDisplay
+        self.searchQuery = ""
     }
 
     func loadSubmissions(onLoad: (Int, Int) -> ()) {
-        let after: String
-        if let first = submissions.last {
-            after = first.name
+        let after: String?
+        if let last = submissions.last {
+            after = last.name
         } else {
-            after = ""
+            after = nil
         }
-        RedditAPI.getSubmissions(subredditDisplay, after: after) { submissions in
+        RedditAPI.getSubmissions(urlPart, query: searchQuery, after: after) { submissions in
             let oldCount = self.submissions.count
             self.submissions += submissions
             if submissions.count == 0 {
@@ -33,7 +43,7 @@ class SubmissionStore {
     }
     
     func refreshSubmissions(onLoad: (Bool) -> ()) {
-        RedditAPI.getSubmissions(subredditDisplay) { submissions in
+        RedditAPI.getSubmissions(urlPart, query: searchQuery, after: nil) { submissions in
             var same = true
             for (i, submission) in submissions.enumerate() {
                 if i >= self.submissions.count {

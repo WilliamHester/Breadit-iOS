@@ -22,6 +22,11 @@ class NavigationDrawerViewController: UIViewController, UIGestureRecognizerDeleg
     var contentLeftConstraint: NSLayoutConstraint!
     var startTranslation: CGFloat = 0
     var isOpen: Bool = false {
+        willSet {
+            if isOpen {
+                drawerController.stopSearching()
+            }
+        }
         didSet {
             animateDrawer(0.3)
             content.userInteractionEnabled = !isOpen
@@ -225,6 +230,15 @@ class NavigationDrawerViewController: UIViewController, UIGestureRecognizerDeleg
     
     func didNavigateTo(place: NavigationPlace) {
         switch place {
+        case .Search(let query):
+            var vc: SubmissionViewController
+            if let submissionVC = contentController.childViewControllers[0] as? SubmissionViewController {
+                vc = submissionVC
+            } else {
+                vc = SubmissionViewController()
+                contentController = UINavigationController(rootViewController: vc)
+            }
+            vc.submissionStore = SubmissionStore(searchQuery: query)
         case .Subreddit(let displayName):
             var vc: SubmissionViewController
             if let submissionVC = contentController.childViewControllers[0] as? SubmissionViewController {
