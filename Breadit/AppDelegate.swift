@@ -26,8 +26,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let navVC = NavigationDrawerViewController(
             contentViewController: mainContent,
             drawerViewController: navView)
-        mainContent.navigationBar.barStyle = .BlackTranslucent
-        mainContent.navigationBar.tintColor = Colors.secondaryTextColor
+        UINavigationBar.appearance().barStyle = .Black
+        UINavigationBar.appearance().translucent = false
+        UINavigationBar.appearance().barTintColor = UIColor(rgb: 0x26384a)
+        UINavigationBar.appearance().tintColor = Colors.secondaryTextColor
 
         let realm = try! Realm()
         let subredditStore = SubredditStore()

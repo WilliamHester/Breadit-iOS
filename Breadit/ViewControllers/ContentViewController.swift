@@ -106,9 +106,7 @@ class ContentViewController: UITableViewController, SubmissionCellDelegate,
     func wrapInNavigationController(viewController: UIViewController) -> UIViewController {
         let navigation = UINavigationController(rootViewController: viewController)
         navigation.modalTransitionStyle = .CoverVertical
-        navigation.navigationBar.barStyle = .BlackTranslucent
-        navigation.navigationBar.tintColor = Colors.secondaryTextColor
-        
+
         let menuButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done,
                 target: viewController,
                 action: #selector(ContentViewController.done(_:)))

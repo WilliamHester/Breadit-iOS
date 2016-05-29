@@ -69,7 +69,10 @@ class Link {
                 return
             }
             if let lastComponent = url.lastPathComponent {
-                if isDirectImage(lastComponent) {
+                if domain == "i.reddituploads.com" {
+                    linkType = .Image(.Normal)
+                    previewUrl = self.url
+                } else if isDirectImage(lastComponent) {
                 	linkType = .Image(.Normal)
                 	previewUrl = self.url
                 } else if lastComponent.lowercaseString.hasSuffix(".gif") {

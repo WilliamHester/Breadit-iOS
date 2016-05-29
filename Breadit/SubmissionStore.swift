@@ -14,7 +14,7 @@ class SubmissionStore {
     var searchQuery: String? = nil
     
     init(searchQuery: String) {
-        display = "Search"
+        display = searchQuery
         urlPart = "search"
         self.searchQuery = searchQuery
     }

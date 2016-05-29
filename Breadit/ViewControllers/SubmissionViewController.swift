@@ -44,10 +44,18 @@ class SubmissionViewController: ContentViewController {
                 forControlEvents: .ValueChanged)
         tableView.addSubview(refreshControl)
         tableView.sendSubviewToBack(refreshControl)
+        
+        let button = UIBarButtonItem(barButtonSystemItem: .Organize, target: self,
+        		action: #selector(SubmissionViewController.sort(_:)))
+        navigationItem.setRightBarButtonItem(button, animated: false)
 
         if traitCollection.forceTouchCapability == .Available {
             self.registerForPreviewingWithDelegate(self, sourceView: view)
         }
+    }
+    
+    func sort(obj: AnyObject?) {
+        print("clicked")
     }
     
     // MARK: - Submission loading
