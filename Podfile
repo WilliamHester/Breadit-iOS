@@ -10,5 +10,7 @@ target 'Breadit' do
     pod 'SwiftString'
     pod 'Fuzi', '~> 0.3.0'
     pod 'youtube-ios-player-helper', '~> 0.1.6'
+    pod 'FLAnimatedImage', '~> 1.0'
+    pod 'Player'
 end
 

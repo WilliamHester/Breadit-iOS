@@ -86,8 +86,10 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-Breadit/Alamofire.framework"
   install_framework "Pods-Breadit/AlamofireImage.framework"
+  install_framework "Pods-Breadit/FLAnimatedImage.framework"
   install_framework "Pods-Breadit/Fuzi.framework"
   install_framework "Pods-Breadit/NSDate_TimeAgo.framework"
+  install_framework "Pods-Breadit/Player.framework"
   install_framework "Pods-Breadit/Realm.framework"
   install_framework "Pods-Breadit/RealmSwift.framework"
   install_framework "Pods-Breadit/SwiftString.framework"
@@ -97,8 +99,10 @@ fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-Breadit/Alamofire.framework"
   install_framework "Pods-Breadit/AlamofireImage.framework"
+  install_framework "Pods-Breadit/FLAnimatedImage.framework"
   install_framework "Pods-Breadit/Fuzi.framework"
   install_framework "Pods-Breadit/NSDate_TimeAgo.framework"
+  install_framework "Pods-Breadit/Player.framework"
   install_framework "Pods-Breadit/Realm.framework"
   install_framework "Pods-Breadit/RealmSwift.framework"
   install_framework "Pods-Breadit/SwiftString.framework"

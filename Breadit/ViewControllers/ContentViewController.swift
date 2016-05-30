@@ -71,6 +71,21 @@ class ContentViewController: UITableViewController, SubmissionCellDelegate,
             preview.link = link
             return wrapInNavigationController(preview)
         case .Image(let imageType):
+            if imageType == .Gif {
+                let preview = GifViewController()
+                preview.imageUrl = link.url
+                preview.modalPresentationStyle = .OverFullScreen
+                return preview
+            }
+            if imageType == .ImgurImage && (link.url.hasSuffix(".gifv") || link.url.hasSuffix(".gif")) {
+                let preview = GifvViewController()
+                preview.imageUrl = link.url
+                if let range = preview.imageUrl.rangeOfString(".gif") {
+                    preview.imageUrl.replaceRange(range, with: ".mp4")
+                }
+                preview.modalPresentationStyle = .OverFullScreen
+                return preview
+            }
             if imageType != .ImgurAlbum {
             	let preview = PreviewViewController()
             	preview.modalPresentationStyle = .OverFullScreen
@@ -122,9 +137,7 @@ class ContentViewController: UITableViewController, SubmissionCellDelegate,
     }
     
     func showViewController(viewController: UIViewController) {
-        if !(viewController is SFSafariViewController) &&
-            	!(viewController is UINavigationController) &&
-            	!(viewController is PreviewViewController) {
+        if viewController is ContentViewController {
             navigationController?.pushViewController(viewController, animated: true)
             return
         }

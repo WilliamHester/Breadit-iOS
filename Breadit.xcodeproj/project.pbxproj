@@ -37,6 +37,8 @@
 		3DD3FC621CF7F9530061BC4A /* SubmissionLinkCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD3FC611CF7F9530061BC4A /* SubmissionLinkCellView.swift */; };
 		3DD3FC641CF8E02E0061BC4A /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD3FC631CF8E02E0061BC4A /* ContentViewController.swift */; };
 		3DD3FC691CF9212A0061BC4A /* ReplyDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD3FC681CF9212A0061BC4A /* ReplyDelegate.swift */; };
+		3DD3FC6B1CFBD0570061BC4A /* GifvViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD3FC6A1CFBD0570061BC4A /* GifvViewController.swift */; };
+		3DD3FC6D1CFBFE250061BC4A /* GifViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD3FC6C1CFBFE250061BC4A /* GifViewController.swift */; };
 		3DD431361CE53E0900892CBB /* YouTubePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD431351CE53E0900892CBB /* YouTubePreviewViewController.swift */; };
 		3DD431381CE5404400892CBB /* NSURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD431371CE5404400892CBB /* NSURL.swift */; };
 		3DEE00BD1CF5FEFE0079553D /* SubmissionCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEE00BC1CF5FEFE0079553D /* SubmissionCellDelegate.swift */; };
@@ -87,6 +89,8 @@
 		3DD3FC611CF7F9530061BC4A /* SubmissionLinkCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionLinkCellView.swift; sourceTree = "<group>"; };
 		3DD3FC631CF8E02E0061BC4A /* ContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		3DD3FC681CF9212A0061BC4A /* ReplyDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyDelegate.swift; sourceTree = "<group>"; };
+		3DD3FC6A1CFBD0570061BC4A /* GifvViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifvViewController.swift; sourceTree = "<group>"; };
+		3DD3FC6C1CFBFE250061BC4A /* GifViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifViewController.swift; sourceTree = "<group>"; };
 		3DD431351CE53E0900892CBB /* YouTubePreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YouTubePreviewViewController.swift; sourceTree = "<group>"; };
 		3DD431371CE5404400892CBB /* NSURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURL.swift; sourceTree = "<group>"; };
 		3DEE00BC1CF5FEFE0079553D /* SubmissionCellDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionCellDelegate.swift; sourceTree = "<group>"; };
@@ -192,6 +196,8 @@
 				3DD431351CE53E0900892CBB /* YouTubePreviewViewController.swift */,
 				3DD3FC631CF8E02E0061BC4A /* ContentViewController.swift */,
 				5056F0D0C245B0B5B456C4A6 /* ReplyViewController.swift */,
+				3DD3FC6A1CFBD0570061BC4A /* GifvViewController.swift */,
+				3DD3FC6C1CFBFE250061BC4A /* GifViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -396,6 +402,7 @@
 				3D1CC7091CE57216006F4CFD /* SubredditStore.swift in Sources */,
 				3D9CBE261CCC86370004EACC /* SubmissionImageCellView.swift in Sources */,
 				3DD3FC621CF7F9530061BC4A /* SubmissionLinkCellView.swift in Sources */,
+				3DD3FC6B1CFBD0570061BC4A /* GifvViewController.swift in Sources */,
 				3DF4EE641CD3110100985184 /* TextComment.swift in Sources */,
 				3D13BCA51CD69524009193C4 /* HTMLParser.swift in Sources */,
 				3D4A9A141CDAF6BF00449959 /* LoginViewController.swift in Sources */,
@@ -420,6 +427,7 @@
 				3D13BC951CD54AAF009193C4 /* MangoWritten.swift in Sources */,
 				5056F6FD12FB503AA6314F94 /* Comment.swift in Sources */,
 				3DD431381CE5404400892CBB /* NSURL.swift in Sources */,
+				3DD3FC6D1CFBFE250061BC4A /* GifViewController.swift in Sources */,
 				5056F522FCC477BEE6475337 /* MoreComment.swift in Sources */,
 				3DD3FC691CF9212A0061BC4A /* ReplyDelegate.swift in Sources */,
 				5056F83AAD6949AB33478950 /* Subreddit.swift in Sources */,

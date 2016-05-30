@@ -2,8 +2,10 @@ PODS:
   - Alamofire (3.4.0)
   - AlamofireImage (2.4.0):
     - Alamofire (~> 3.3)
+  - FLAnimatedImage (1.0.12)
   - Fuzi (0.3.1)
   - NSDate+TimeAgo (1.0.6)
+  - Player (0.1.1)
   - Realm (1.0.0):
     - Realm/Headers (= 1.0.0)
   - Realm/Headers (1.0.0)
@@ -16,8 +18,10 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 3.3)
   - AlamofireImage (~> 2.0)
+  - FLAnimatedImage (~> 1.0)
   - Fuzi (~> 0.3.0)
   - NSDate+TimeAgo (from `https://github.com/kevinlawler/NSDate-TimeAgo.git`)
+  - Player
   - RealmSwift
   - SwiftString
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
@@ -40,8 +44,10 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: c19a627cefd6a95f840401c49ab1f124e07f54ee
   AlamofireImage: 87408b652e0f5ae5fe364035f15aea8b9b24c77e
+  FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   Fuzi: 25118b725a1637f1676f63ae1acbba1f30a5dd6c
   NSDate+TimeAgo: 35601c619b2d59290055e4fe76e61d97677a2360
+  Player: 575e1e8cde1e6b7cd62d6d6bc06e492d02e62b9e
   Realm: e15cd8e7c11d3e576f628ba0b7cb855269b4991c
   RealmSwift: 3229306d020d96f83b335f87a0dcbf2cef0e6a2b
   SwiftString: ec9c31c55b2aa147a1154f5f5f8483dc71e3165f
