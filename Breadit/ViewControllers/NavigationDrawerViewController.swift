@@ -115,6 +115,18 @@ class NavigationDrawerViewController: UIViewController, UIGestureRecognizerDeleg
         tapGestureRecognizer.delegate = self
         tapGestureRecognizer.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGestureRecognizer)
+        
+        setScrollsToTop(view.subviews[0], set: false)
+        setScrollsToTop(view.subviews[1], set: true)
+    }
+    
+    func setScrollsToTop(view: UIView, set: Bool) {
+        if let scrollView = view as? UIScrollView {
+            scrollView.scrollsToTop = set
+        }
+        for subView in view.subviews {
+            setScrollsToTop(subView, set: set)
+        }
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
