@@ -51,8 +51,7 @@ class Link {
                 linkType = .Reddit(.Subreddit)
             }
             self.domain = nil
-        } else {
-            let url = NSURL(string: link)!
+        } else if let url = NSURL(string: link) {
             guard let domain = url.host else {
                 self.domain = nil
                 return
@@ -79,6 +78,8 @@ class Link {
                     linkType = .Image(.Gif)
                 }
             }
+        } else {
+            self.domain = ""
         }
     }
     
