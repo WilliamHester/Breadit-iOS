@@ -118,6 +118,7 @@ class CommentViewController: ContentViewController, BodyLabelDelegate, ReplyDele
     override func tableView(tableView: UITableView,
     		didSelectRowAtIndexPath indexPath: NSIndexPath) {
         guard indexPath.section == 1 else {
+            tableView.deselectRowAtIndexPath(indexPath, animated: false)
             return
         }
         let comment = comments[indexPath.row]
@@ -154,6 +155,11 @@ class CommentViewController: ContentViewController, BodyLabelDelegate, ReplyDele
             cell = tableView.dequeueReusableCellWithIdentifier("SubmissionCellView",
 					forIndexPath: indexPath) as! SubmissionCellView
         }
+        
+        let currentTime = Int(NSDate().timeIntervalSince1970)
+        let timeDifference = currentTime - submission!.createdUTC
+        cell.canSwipe = loginManager.account != nil &&
+            timeDifference < (30 * 6 * 24 * 3600)
         
         cell.setSubmission(submission!)
         return cell
