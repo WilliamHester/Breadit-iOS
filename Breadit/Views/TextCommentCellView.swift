@@ -114,7 +114,9 @@ class TextCommentCellView: SwipeVoteCellView {
         if let flairText = comment.author_flair_text {
             hidden = false
             flair.text = flairText
+            flair.hidden = false
         } else {
+            flair.text = ""
             flair.hidden = true
         }
         
