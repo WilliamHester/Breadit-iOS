@@ -178,8 +178,7 @@ class NavigationDrawerViewController: UIViewController, UIGestureRecognizerDeleg
     func moveDrawer(gestureRecognizer: UIPanGestureRecognizer) {
         switch (gestureRecognizer.state) {
         case .Began:
-            startTranslation = gestureRecognizer.locationInView(view).x
-            fallthrough
+            startTranslation = contentLeftConstraint.constant
         case .Changed:
             moveDrawerBy(gestureRecognizer.translationInView(view).x)
         case .Ended:
