@@ -28,6 +28,7 @@ class CommentViewController: ContentViewController, BodyLabelDelegate, ReplyDele
                 return
             }
             var modifiedIndexPaths = [NSIndexPath]()
+            UIView.setAnimationsEnabled(false)
             self.tableView.beginUpdates()
             if self.submission == nil {
             	self.submission = submission
@@ -39,6 +40,7 @@ class CommentViewController: ContentViewController, BodyLabelDelegate, ReplyDele
             }
             self.tableView.insertRowsAtIndexPaths(modifiedIndexPaths, withRowAnimation: .None)
             self.tableView.endUpdates()
+            UIView.setAnimationsEnabled(true)
         }
     }
 
@@ -225,9 +227,9 @@ class CommentViewController: ContentViewController, BodyLabelDelegate, ReplyDele
         comment.replies = hiddenComments
 
         tableView.beginUpdates()
-        tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
+        tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: .Fade)
         tableView.reloadRowsAtIndexPaths([NSIndexPath(forItem: index, inSection: 1)],
-    			withRowAnimation: .Automatic)
+    			withRowAnimation: .Fade)
         tableView.endUpdates()
         
         if comments.count < index + 1 {
@@ -249,9 +251,9 @@ class CommentViewController: ContentViewController, BodyLabelDelegate, ReplyDele
         comment.replies = nil
 
         tableView.beginUpdates()
-        tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
+        tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Fade)
         tableView.reloadRowsAtIndexPaths([NSIndexPath(forItem: index, inSection: 1)],
-                withRowAnimation: .Automatic)
+                withRowAnimation: .Fade)
         tableView.endUpdates()
     }
 
