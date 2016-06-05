@@ -94,6 +94,7 @@ class HTMLParser {
             style.setParagraphStyle(NSParagraphStyle.defaultParagraphStyle())
             style.firstLineHeadIndent = 6.0
             style.headIndent = 14.0
+            style.paragraphSpacing = 6.0
             return [NSParagraphStyleAttributeName: style]
         case "p":
             let style = NSMutableParagraphStyle()
