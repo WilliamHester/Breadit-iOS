@@ -9,9 +9,11 @@ import SwiftyJSON
 class Comment {
     let level: Int
     let parentId: String
+    let name: String
 
     init(json: JSON, level: Int) {
         self.level = level
         self.parentId = json["parent_id"].string!
+        self.name = json["name"].string!
     }
 }

@@ -16,7 +16,6 @@ class TextComment: Comment {
     let author: String
     let body: String
     let body_html: String
-    let name: String
     let author_flair_text: String?
     let distinguished: String?
     let gilded: Int
@@ -44,7 +43,6 @@ class TextComment: Comment {
         self.author = json["author"].string!
         self.body = json["body"].string!
         self.body_html = json["body_html"].string!
-        self.name = json["name"].string!
         self.author_flair_text = json["author_flair_text"].string
         self.distinguished = json["distinguished"].string
         self.gilded = json["gilded"].int!

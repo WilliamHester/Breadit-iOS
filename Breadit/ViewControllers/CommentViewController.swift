@@ -21,6 +21,7 @@ class CommentViewController: ContentViewController, BodyLabelDelegate, ReplyDele
     }
     var comments = [Comment]()
     let loginManager = LoginManager.singleton
+    var loadedMoreComments = Set<String>()
 
     func configureView(permalink: String) {
         RedditAPI.getComments(permalink) { submission, comments in
@@ -204,6 +205,10 @@ class CommentViewController: ContentViewController, BodyLabelDelegate, ReplyDele
     // MARK: - Reddit operations
 
     private func loadMoreComments(comment: MoreComment, index: Int) {
+        guard !loadedMoreComments.contains(comment.name) else {
+            return
+        }
+        loadedMoreComments.insert(comment.name)
         RedditAPI.getMoreComments(comment, forSubmission: submission!) { comments in
             var indexPaths = [NSIndexPath]()
             for i in index..<index + comments.count {
