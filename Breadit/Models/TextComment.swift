@@ -10,13 +10,10 @@ import Foundation
 import SwiftyJSON
 
 class TextComment: Comment {
-    
-    var level: Int
 
     let subreddit_id: String
     let id: String
     let author: String
-    let parent_id: String
     let body: String
     let body_html: String
     let name: String
@@ -41,11 +38,10 @@ class TextComment: Comment {
     }
     var hidden = false
 
-    init(json: JSON, level: Int) {
+    override init(json: JSON, level: Int) {
         self.subreddit_id = json["subreddit_id"].string!
         self.id = json["id"].string!
         self.author = json["author"].string!
-        self.parent_id = json["parent_id"].string!
         self.body = json["body"].string!
         self.body_html = json["body_html"].string!
         self.name = json["name"].string!
@@ -69,8 +65,6 @@ class TextComment: Comment {
             voteStatus = .Neutral
         }
 
-        self.level = level
-
         if json["replies"].string == nil {
             for jsonData in json["replies"]["data"]["children"].array! {
                 if jsonData["kind"] == "more" {
@@ -80,5 +74,7 @@ class TextComment: Comment {
                 }
             }
         }
+
+        super.init(json: json, level: level)
     }
 }

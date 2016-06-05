@@ -4,7 +4,14 @@
 //
 
 import Foundation
+import SwiftyJSON
 
-protocol Comment {
-    var level: Int { get set }
+class Comment {
+    let level: Int
+    let parentId: String
+
+    init(json: JSON, level: Int) {
+        self.level = level
+        self.parentId = json["parent_id"].string!
+    }
 }

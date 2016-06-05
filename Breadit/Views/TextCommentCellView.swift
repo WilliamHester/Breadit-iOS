@@ -105,7 +105,7 @@ class TextCommentCellView: SwipeVoteCellView {
         author.text = comment.author
         let parsedText = HTMLParser(
             escapedHtml: comment.body_html,
-            font: body.font!
+            font: UIFont.systemFontOfSize(10)
         )
         body.attributedText = parsedText.attributedString
         

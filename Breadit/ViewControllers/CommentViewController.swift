@@ -204,7 +204,18 @@ class CommentViewController: ContentViewController, BodyLabelDelegate, ReplyDele
     // MARK: - Reddit operations
 
     private func loadMoreComments(comment: MoreComment, index: Int) {
-
+        RedditAPI.getMoreComments(comment, forSubmission: submission!) { comments in
+            var indexPaths = [NSIndexPath]()
+            for i in index..<index + comments.count {
+                indexPaths.append(NSIndexPath(forRow: i, inSection: 1))
+            }
+            self.comments.removeAtIndex(index)
+            self.comments.insertContentsOf(comments, at: index)
+            self.tableView.beginUpdates()
+            self.tableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: index, inSection: 1)], withRowAnimation: .Fade)
+            self.tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Fade)
+            self.tableView.endUpdates()
+        }
     }
 
     private func collapseComment(comment: TextComment, index: Int) {

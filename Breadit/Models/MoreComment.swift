@@ -7,18 +7,16 @@ import Foundation
 import SwiftyJSON
 
 class MoreComment: Comment {
-    
-    var level: Int = 0
 
     let children: [String]
 
-    init(json: JSON, level: Int) {
-        self.level = level
+    override init(json: JSON, level: Int) {
         if let names = json["children"].arrayObject as? [String] {
             self.children = names
         } else {
             self.children = []
         }
+        super.init(json: json, level: level)
     }
 
 }
