@@ -73,8 +73,8 @@ class SubmissionViewController: ContentViewController {
             indexPaths.append(NSIndexPath(forRow: i, inSection: 0))
         }
         tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .None)
-        tableView.setContentOffset(tableView.contentOffset, animated: true)
         tableView.endUpdates()
+        tableView.setContentOffset(tableView.contentOffset, animated: true)
         UIView.setAnimationsEnabled(true)
     }
 
