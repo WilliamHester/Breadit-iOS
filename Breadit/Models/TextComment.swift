@@ -9,7 +9,7 @@
 import Foundation
 import SwiftyJSON
 
-class TextComment: Comment {
+class TextComment: Comment, Votable {
 
     let subreddit_id: String
     let id: String

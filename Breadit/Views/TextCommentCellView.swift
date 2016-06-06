@@ -25,7 +25,7 @@ class TextCommentCellView: SwipeVoteCellView {
             }
             comment.voteStatus = voteStatus
             pointsAndTime.text = "\(comment.score) • \(shortTimeFromNow(comment))"
-            RedditAPI.vote(comment.name, voteStatus: voteStatus)
+            RedditAPI.vote(comment)
         }
     }
     

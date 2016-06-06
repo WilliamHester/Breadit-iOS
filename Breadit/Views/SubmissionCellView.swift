@@ -26,7 +26,7 @@ class SubmissionCellView: SwipeVoteCellView {
             }
             submission.voteStatus = voteStatus
             points.text = "\(submission.score) \(submission.score == 1 ? "point" : "points")"
-            RedditAPI.vote(submission.name, voteStatus: voteStatus)
+            RedditAPI.vote(submission)
         }
     }
 

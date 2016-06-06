@@ -17,10 +17,10 @@ struct RedditAPI {
     static var loginManager = LoginManager.singleton
     static let realm = try! Realm()
     
-    static func vote(id: String, voteStatus: VoteStatus) {
-        let direction = String(voteStatus.rawValue)
+    static func vote(votable: Votable) {
+        let direction = String(votable.voteStatus.rawValue)
         let request = RedditRequest("api/vote/", requestType: .POST,
-                params: ["id": id, "dir": direction])
+                params: ["id": votable.name, "dir": direction])
         request.getJson {_ in}
     }
 

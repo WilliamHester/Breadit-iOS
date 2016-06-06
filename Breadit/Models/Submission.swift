@@ -9,7 +9,7 @@
 import Foundation
 import SwiftyJSON
 
-class Submission {
+class Submission: Votable {
 
     let domain: String
     let subreddit: String
