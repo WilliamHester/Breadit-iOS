@@ -5,6 +5,8 @@
 
 import Foundation
 
-protocol VotableDelegate: class {
-    func vote(status: VoteStatus, forVotable votable: Votable)
+enum SwipeVoteType {
+    case Right
+    case Left
+    case None
 }

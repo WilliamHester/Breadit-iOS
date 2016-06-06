@@ -10,6 +10,9 @@ import UIKit
 
 class SwipeVoteCellView: UITableViewCell {
 
+    weak var delegate: ContentDelegate?
+    var votable: Votable!
+
     var left: UIView!
     var right: UIView!
     var back: UIView!
@@ -18,21 +21,6 @@ class SwipeVoteCellView: UITableViewCell {
     var contentRightConstraint: NSLayoutConstraint!
     var panStartPoint = CGPoint.zero
     var canSwipe = false
-
-    var voteStatus: VoteStatus = .Neutral {
-        didSet {
-            if voteStatus == .Upvoted {
-                left.backgroundColor = upvoteColor
-                right.backgroundColor = Colors.backgroundColor
-            } else if voteStatus == .Downvoted {
-                left.backgroundColor = Colors.backgroundColor
-                right.backgroundColor = downvoteColor
-            } else {
-                left.backgroundColor = Colors.backgroundColor
-                right.backgroundColor = Colors.backgroundColor
-            }
-        }
-    }
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -134,12 +122,12 @@ class SwipeVoteCellView: UITableViewCell {
         contentRightConstraint.constant = -2
 
         let deltaX = finishPoint.x - self.panStartPoint.x;
-        if deltaX > 50 && voteStatus != .Upvoted {
-			voteStatus = .Upvoted
-        } else if deltaX < -50 && voteStatus != .Downvoted {
-            voteStatus = .Downvoted
+        if deltaX > 50 {
+			delegate?.vote(.Right, forVotable: votable, inView: self)
+        } else if deltaX < -50 {
+            delegate?.vote(.Left, forVotable: votable, inView: self)
         } else {
-            voteStatus = .Neutral
+            delegate?.vote(.None, forVotable: votable, inView: self)
         }
         UIView.animateWithDuration(0.2) {
             self.contentView.layoutIfNeeded()

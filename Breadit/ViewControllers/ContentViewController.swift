@@ -10,23 +10,17 @@ import UIKit
 import SafariServices
 
 class ContentViewController: UITableViewController, SubmissionCellDelegate,
-		UIViewControllerPreviewingDelegate, UIGestureRecognizerDelegate {
+		UIViewControllerPreviewingDelegate, UIGestureRecognizerDelegate,
+        ContentDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.registerClass(SubmissionCellView.self,
-                forCellReuseIdentifier: "SubmissionCellView")
-        tableView.registerClass(SubmissionImageCellView.self,
-                forCellReuseIdentifier: "SubmissionImageCellView")
-        tableView.registerClass(SubmissionLinkCellView.self,
-                forCellReuseIdentifier: "SubmissionLinkCellView")
-        tableView.registerClass(SubmissionSelfPostCellView.self,
-                forCellReuseIdentifier: "SubmissionSelfPostCellView")
-        tableView.registerClass(TextCommentCellView.self,
-                forCellReuseIdentifier: "TextCommentCellView")
-        tableView.registerClass(MoreCommentCellView.self,
-                forCellReuseIdentifier: "MoreCommentCellView")
+        tableView.registerClass(SubmissionCellView.self, forCellReuseIdentifier: "SubmissionCellView")
+        tableView.registerClass(SubmissionImageCellView.self, forCellReuseIdentifier: "SubmissionImageCellView")
+        tableView.registerClass(SubmissionLinkCellView.self, forCellReuseIdentifier: "SubmissionLinkCellView")
+        tableView.registerClass(TextCommentCellView.self, forCellReuseIdentifier: "TextCommentCellView")
+        tableView.registerClass(MoreCommentCellView.self, forCellReuseIdentifier: "MoreCommentCellView")
 
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action:
             	#selector(ContentViewController.longPressed(_:)))
@@ -158,5 +152,192 @@ class ContentViewController: UITableViewController, SubmissionCellDelegate,
     func previewingContext(previewingContext: UIViewControllerPreviewing,
                            commitViewController viewControllerToCommit: UIViewController) {
         showViewController(viewControllerToCommit)
+    }
+
+    // MARK: - VotableDelegate
+
+    func contentTapped(link: Link) {
+        showViewControllerFor(link)
+    }
+
+    func vote(swipe: SwipeVoteType, forVotable votable: Votable, inView view: SwipeVoteCellView) {
+        guard swipe != .None else {
+            setUpVotableView(view, forVotable: votable)
+            return
+        }
+
+        if swipe == .Right {
+            if votable.voteStatus == .Upvoted {
+                votable.voteStatus = .Neutral
+            } else {
+                votable.voteStatus = .Upvoted
+            }
+        } else if swipe == .Left {
+            if votable.voteStatus == .Downvoted {
+                votable.voteStatus = .Neutral
+            } else {
+                votable.voteStatus = .Downvoted
+            }
+        }
+
+        setUpVotableView(view, forVotable: votable)
+
+        if let textCommentCell = view as? TextCommentCellView {
+            textCommentCell.points.text = "\(votable.score) • \(shortTimeFromNow(votable))"
+        } else if let submissionCell = view as? SubmissionCellView {
+            submissionCell.points.text = "\(votable.score) \(votable.score == 1 ? "point" : "points")"
+        }
+
+        RedditAPI.vote(votable)
+    }
+
+    func reusableRowForSubmission(submission: Submission, atIndexPath indexPath: NSIndexPath) -> SubmissionCellView {
+        if submission.link?.previewUrl != nil {
+            return tableView.dequeueReusableCellWithIdentifier("SubmissionImageCellView",
+                    forIndexPath: indexPath) as! SubmissionCellView
+        } else if submission.link != nil {
+            let linkCell = tableView.dequeueReusableCellWithIdentifier("SubmissionLinkCellView",
+                    forIndexPath: indexPath) as! SubmissionLinkCellView
+            setUpLinkCellView(linkCell, forSubmission: submission)
+            return linkCell
+        } else {
+            return tableView.dequeueReusableCellWithIdentifier("SubmissionCellView",
+                    forIndexPath: indexPath) as! SubmissionCellView
+        }
+    }
+
+    func setUpRowForSubmission(submission: Submission, atIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = reusableRowForSubmission(submission, atIndexPath: indexPath)
+
+        setUpSubmissionView(cell, forSubmission: submission)
+
+        return cell
+    }
+
+    // MARK: - Custom UITableViewCells
+
+    func setUpSubmissionView(view: SubmissionCellView, forSubmission submission: Submission) {
+        view.delegate = self
+        view.submission = submission
+        setUpVotableView(view, forVotable: submission)
+
+        view.canSwipe = votableCanSwipe(submission)
+        view.nsfw.hidden = !submission.over18
+        view.points.text = "\(submission.score) \(submission.score == 1 ? "point" : "points")"
+        view.title.text = submission.title.decodeHTML()
+        view.authorAndSubreddit.text = "\(submission.author) • " +
+                "/r/\(submission.subreddit.lowercaseString) • " +
+                submission.domain
+
+        let edited: String
+        if let editedTime = submission.editedUTC {
+            edited = " (edited \(NSDate(timeIntervalSince1970: Double(editedTime)).timeAgo()))"
+        } else {
+            edited = ""
+        }
+
+        let str: String = String(submission.numComments) + " " +
+                (submission.numComments == 1 ? "comment" : "comments") + " " +
+                NSDate(timeIntervalSince1970: Double(submission.createdUTC)).timeAgo() +
+                edited
+        view.comments.text = str
+    }
+
+    func setUpLinkCellView(view: SubmissionLinkCellView, forSubmission submission: Submission) {
+        view.linkDescription.text = submission.link!.domain
+    }
+
+    func setUpRowForComment(comment: Comment, atIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell: UITableViewCell
+        if let textComment = comment as? TextComment {
+            let textCommentCell = tableView.dequeueReusableCellWithIdentifier("TextCommentCellView")
+                    as! TextCommentCellView
+            setUpTextCommentView(textCommentCell, forComment: textComment)
+            cell = textCommentCell
+        } else {
+            let moreComments = tableView.dequeueReusableCellWithIdentifier("MoreCommentCellView")
+                    as! MoreCommentCellView
+            setUpMoreCommentView(moreComments, forComment: comment)
+            cell = moreComments
+        }
+        return cell
+    }
+
+    func setUpTextCommentView(view: TextCommentCellView, forComment comment: TextComment) {
+        view.canSwipe = votableCanSwipe(comment)
+        setUpVotableView(view, forVotable: comment)
+
+        view.comment = comment
+        view.body.delegate = self
+        if traitCollection.forceTouchCapability == .Available {
+            self.registerForPreviewingWithDelegate(self, sourceView: view.body)
+        }
+
+        view.paddingConstraint.constant = CGFloat(comment.level * 8 + 8)
+        view.author.text = comment.author
+
+        view.points.text = "\(comment.score) • \(shortTimeFromNow(comment))"
+
+        if let flairText = comment.authorFlairText {
+            view.flair.text = flairText
+            view.flair.hidden = false
+        } else {
+            view.flair.text = ""
+            view.flair.hidden = true
+        }
+
+        if comment.hidden {
+            view.body.attributedText = NSMutableAttributedString(string: "Comment hidden",
+                    attributes: [
+                            NSForegroundColorAttributeName: Colors.secondaryTextColor,
+                    ])
+        } else {
+            view.body.attributedText =
+                    HTMLParser(escapedHtml: comment.bodyHTML, font: UIFont.systemFontOfSize(10)).attributedString
+        }
+    }
+
+    func setUpVotableView(view: SwipeVoteCellView, forVotable votable: Votable) {
+        if votable.voteStatus == .Upvoted {
+            view.left.backgroundColor = upvoteColor
+            view.right.backgroundColor = Colors.backgroundColor
+        } else if votable.voteStatus == .Downvoted {
+            view.left.backgroundColor = Colors.backgroundColor
+            view.right.backgroundColor = downvoteColor
+        } else {
+            view.left.backgroundColor = Colors.backgroundColor
+            view.right.backgroundColor = Colors.backgroundColor
+        }
+    }
+
+    func setUpMoreCommentView(view: MoreCommentCellView, forComment comment: Comment) {
+        view.paddingConstraint.constant = CGFloat(comment.level * 8 + 8)
+    }
+
+    private func votableCanSwipe(votable: Votable) -> Bool {
+        return LoginManager.singleton.account != nil && !votable.archived
+    }
+
+    private func shortTimeFromNow(votable: Votable) -> String {
+        let currentTime = Int(NSDate().timeIntervalSince1970)
+        let postTime = votable.createdUTC
+        let difference = max(currentTime - postTime, 0)
+        var time: String
+        if (difference / 31536000 > 0) {
+            time = "\(difference / 31536000)y"
+        } else if (difference / 2592000 > 0) {
+            time = "\(difference / 2592000)mo"
+        } else if (difference / 604800 > 0) {
+            time = "\(difference / 604800)w"
+        } else if (difference / 86400 > 0) {
+            time = "\(difference / 86400)d"
+        } else if (difference / 3600 > 0) {
+            time = "\(difference / 3600)h"
+        } else if (difference / 60 > 0) {
+            time = "\(difference / 60)m"
+        } else {
+            time = "\(difference)s"
+        }
+        return time
     }
 }

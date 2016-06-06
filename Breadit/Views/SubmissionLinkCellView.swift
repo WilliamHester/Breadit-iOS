@@ -19,8 +19,18 @@ class SubmissionLinkCellView: SubmissionCellView {
     var linkDescription: UILabel!
     var thumbnailWidth: NSLayoutConstraint!
     var request: Request?
-    
-    weak var contentTappedDelegate: SubmissionCellDelegate?
+
+    override var submission: Submission! {
+        didSet {
+            request = Alamofire.request(.GET, submission.thumbnail).responseImage { response in
+                if response.result.isSuccess {
+                    self.thumbnailImage.image = response.result.value
+                } else {
+                    self.thumbnailWidth.constant = 0
+                }
+            }
+        }
+    }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -57,8 +67,7 @@ class SubmissionLinkCellView: SubmissionCellView {
 
         linkContent.heightAnchor.constraintEqualToAnchor(thumbnailImage.heightAnchor).active = true
         
-        let tapDetector = UITapGestureRecognizer(target: self,
-        		action: #selector(SubmissionLinkCellView.contentTapped(_:)))
+        let tapDetector = UITapGestureRecognizer(target: self, action: #selector(contentTapped(_:)))
         tapDetector.delegate = self
         tapDetector.cancelsTouchesInView = true
         linkContent.userInteractionEnabled = true
@@ -80,21 +89,7 @@ class SubmissionLinkCellView: SubmissionCellView {
         }
     }
     
-    override func setSubmission(submission: Submission) {
-        super.setSubmission(submission)
-
-        linkDescription.text = submission.link!.domain
-        
-        request = Alamofire.request(.GET, submission.thumbnail).responseImage { response in
-            if response.result.isSuccess {
-            	self.thumbnailImage.image = response.result.value
-            } else {
-                self.thumbnailWidth.constant = 0
-            }
-        }
-    }
-    
     func contentTapped(gestureDetector: UITapGestureRecognizer) {
-        contentTappedDelegate?.contentTapped(submission)
+        delegate?.contentTapped(submission.link!)
     }
 }

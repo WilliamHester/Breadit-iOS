@@ -9,29 +9,16 @@
 import UIKit
 
 class TextCommentCellView: SwipeVoteCellView {
-    
     var paddingConstraint: NSLayoutConstraint!
 
     var author: UILabel!
     var flair: UILabel!
-    var pointsAndTime: UILabel!
+    var points: UILabel!
     var body: BodyLabel!
-    private var inSetup = true
-    
-    override var voteStatus: VoteStatus {
-        didSet {
-            guard !inSetup else {
-                return
-            }
-            comment.voteStatus = voteStatus
-            pointsAndTime.text = "\(comment.score) • \(shortTimeFromNow(comment))"
-            RedditAPI.vote(comment)
-        }
-    }
     
     var comment: TextComment! {
         didSet {
-            updateContent()
+            votable = comment
         }
     }
 
@@ -63,7 +50,7 @@ class TextCommentCellView: SwipeVoteCellView {
                     v.setContentCompressionResistancePriority(750, forAxis: .Horizontal)
                     v.setContentHuggingPriority(251, forAxis: .Horizontal)
                 }
-                self.pointsAndTime = v.uiLabel { v in
+                self.points = v.uiLabel { v in
                     v.fontSize = 10
                     v.textColor = Colors.secondaryTextColor
                     v.textAlignment = .Right
@@ -92,71 +79,4 @@ class TextCommentCellView: SwipeVoteCellView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-        flair.text = ""
-    }
-    
-    func updateContent() {
-        inSetup = true
-        paddingConstraint.constant = CGFloat(comment.level * 8 + 8)
-        author.text = comment.author
-        let parsedText = HTMLParser(
-            escapedHtml: comment.body_html,
-            font: UIFont.systemFontOfSize(10)
-        )
-        body.attributedText = parsedText.attributedString
-        
-        pointsAndTime.text = "\(comment.score) • \(shortTimeFromNow(comment))"
-        
-        if let flairText = comment.author_flair_text {
-            hidden = false
-            flair.text = flairText
-            flair.hidden = false
-        } else {
-            flair.text = ""
-            flair.hidden = true
-        }
-        
-        if comment.hidden {
-            hide()
-        }
-        
-        voteStatus = comment.voteStatus
-        
-        inSetup = false
-    }
-
-    private func shortTimeFromNow(textComment: TextComment) -> String {
-        let currentTime = Int(NSDate().timeIntervalSince1970)
-        let postTime = textComment.created_utc
-        let difference = max(currentTime - postTime, 0)
-        var time: String
-        if (difference / 31536000 > 0) {
-            time = "\(difference / 31536000)y"
-        } else if (difference / 2592000 > 0) {
-            time = "\(difference / 2592000)mo"
-        } else if (difference / 604800 > 0) {
-            time = "\(difference / 604800)w"
-        } else if (difference / 86400 > 0) {
-            time = "\(difference / 86400)d"
-        } else if (difference / 3600 > 0) {
-            time = "\(difference / 3600)h"
-        } else if (difference / 60 > 0) {
-            time = "\(difference / 60)m"
-        } else {
-            time = "\(difference)s"
-        }
-        return time
-    }
-    
-    func hide() {
-        body.attributedText = NSMutableAttributedString(string: "Comment hidden",
-        		attributes: [
-                    NSForegroundColorAttributeName: Colors.secondaryTextColor,
-            	])
-    }
-
 }

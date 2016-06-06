@@ -11,9 +11,9 @@ import Alamofire
 import AlamofireImage
 import SafariServices
 
-class CommentViewController: ContentViewController, BodyLabelDelegate, ReplyDelegate {
+class CommentViewController: ContentViewController, ReplyDelegate {
 
-    var submission: Submission?
+    var submission: Submission!
     var permalink: String? {
         didSet {
             self.configureView(permalink!)
@@ -57,11 +57,13 @@ class CommentViewController: ContentViewController, BodyLabelDelegate, ReplyDele
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 140
         tableView.separatorStyle = .None
+
+        tableView.registerClass(SubmissionSelfPostCellView.self, forCellReuseIdentifier: "SubmissionSelfPostCellView")
     }
 
     override func showActionsForRowAtIndexPath(indexPath: NSIndexPath) {
         if indexPath.section == 0 {
-            showSubmissionOptions(submission!)
+            showSubmissionOptions(submission)
             return
         }
         if let comment = comments[indexPath.row] as? TextComment {
@@ -113,9 +115,9 @@ class CommentViewController: ContentViewController, BodyLabelDelegate, ReplyDele
     override func tableView(tableView: UITableView,
                             cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            return submissionCell(tableView, indexPath: indexPath)
+            return setUpRowForSubmission(submission, atIndexPath: indexPath)
         }
-        return commentCell(tableView, indexPath: indexPath)
+        return setUpRowForComment(comments[indexPath.row], atIndexPath: indexPath)
     }
 
     override func tableView(tableView: UITableView,
@@ -136,71 +138,6 @@ class CommentViewController: ContentViewController, BodyLabelDelegate, ReplyDele
         }
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
     }
-    
-    private func submissionCell(tableView: UITableView, indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: SubmissionCellView
-        if submission!.link?.previewUrl != nil {
-            let imageCell = tableView.dequeueReusableCellWithIdentifier("SubmissionImageCellView",
-           			forIndexPath: indexPath) as! SubmissionImageCellView
-            imageCell.contentTappedDelegate = self
-            cell = imageCell
-        } else if submission!.link != nil {
-            let linkCell = tableView.dequeueReusableCellWithIdentifier("SubmissionLinkCellView",
-                    forIndexPath: indexPath) as! SubmissionLinkCellView
-            linkCell.contentTappedDelegate = self
-            cell = linkCell
-        } else if submission!.selftextHtml != nil {
-            let selfPostView = tableView.dequeueReusableCellWithIdentifier("SubmissionSelfPostCellView")
-                	as! SubmissionSelfPostCellView
-            cell = selfPostView
-            selfPostView.contentBody.delegate = self
-        } else {
-            cell = tableView.dequeueReusableCellWithIdentifier("SubmissionCellView",
-					forIndexPath: indexPath) as! SubmissionCellView
-        }
-        
-        let currentTime = Int(NSDate().timeIntervalSince1970)
-        let timeDifference = currentTime - submission!.createdUTC
-        cell.canSwipe = loginManager.account != nil &&
-            timeDifference < (30 * 6 * 24 * 3600)
-        
-        cell.setSubmission(submission!)
-        return cell
-    }
-    
-    private func commentCell(tableView: UITableView, indexPath: NSIndexPath) -> UITableViewCell {
-        let comment = comments[indexPath.row]
-        
-        var cell: UITableViewCell
-        
-        if let textComment = comment as? TextComment {
-            let textCommentCell = tableView.dequeueReusableCellWithIdentifier("TextCommentCellView")
-                as! TextCommentCellView
-            textCommentCell.comment = textComment
-            textCommentCell.body.delegate = self
-            
-            let currentTime = Int(NSDate().timeIntervalSince1970)
-            let timeDifference = currentTime - submission!.createdUTC
-
-            textCommentCell.canSwipe = loginManager.account != nil &&
-                    timeDifference < (30 * 6 * 24 * 3600)
-            
-            if traitCollection.forceTouchCapability == .Available {
-                self.registerForPreviewingWithDelegate(self, sourceView: textCommentCell.body)
-            }
-            
-            cell = textCommentCell
-        } else {
-            let moreComments = tableView.dequeueReusableCellWithIdentifier("MoreCommentCellView")!
-                as! MoreCommentCellView
-            moreComments.paddingConstraint.constant = CGFloat(comment.level * 8 + 8)
-            cell = moreComments
-        }
-        
-        cell.indentationLevel = comment.level
-        
-        return cell
-    }
 
     // MARK: - Reddit operations
 
@@ -209,7 +146,7 @@ class CommentViewController: ContentViewController, BodyLabelDelegate, ReplyDele
             return
         }
         loadedMoreComments.insert(comment.name)
-        RedditAPI.getMoreComments(comment, forSubmission: submission!) { comments in
+        RedditAPI.getMoreComments(comment, forSubmission: submission) { comments in
             var indexPaths = [NSIndexPath]()
             for i in index..<index + comments.count {
                 indexPaths.append(NSIndexPath(forRow: i, inSection: 1))
@@ -294,7 +231,7 @@ class CommentViewController: ContentViewController, BodyLabelDelegate, ReplyDele
     // MARK: - ReplyDelegate
     
     func didReplyTo(name: String, withTextComment textComment: TextComment) {
-        if let submission = submission where submission.name == name {
+        if submission.name == name {
             comments.insert(textComment, atIndex: 0)
             tableView.beginUpdates()
             tableView.insertRowsAtIndexPaths([NSIndexPath(forItem: 0, inSection: 1)],
@@ -318,5 +255,18 @@ class CommentViewController: ContentViewController, BodyLabelDelegate, ReplyDele
                     withRowAnimation: .Automatic)
             tableView.endUpdates()
         }
+    }
+
+    // MARK: - ContentViewController
+
+    override func reusableRowForSubmission(submission: Submission, atIndexPath indexPath: NSIndexPath) -> SubmissionCellView {
+        if submission.selftextHtml != nil {
+            let cell = tableView.dequeueReusableCellWithIdentifier("SubmissionSelfPostCellView")
+                    as! SubmissionSelfPostCellView
+            cell.contentBody.attributedText = HTMLParser(escapedHtml: submission.selftextHtml!,
+                    font: cell.contentBody.font!).attributedString
+            return cell
+        }
+        return super.reusableRowForSubmission(submission, atIndexPath: indexPath)
     }
 }

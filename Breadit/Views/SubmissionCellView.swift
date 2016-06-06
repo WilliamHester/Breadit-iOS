@@ -16,17 +16,9 @@ class SubmissionCellView: SwipeVoteCellView {
     var authorAndSubreddit: UILabel!
     var comments: UILabel!
     var stackView: UIStackView!
-    var submission: Submission!
-    private var inSetup = true
-    
-    override var voteStatus: VoteStatus {
+    var submission: Submission! {
         didSet {
-            guard !inSetup else {
-                return
-            }
-            submission.voteStatus = voteStatus
-            points.text = "\(submission.score) \(submission.score == 1 ? "point" : "points")"
-            RedditAPI.vote(submission)
+            votable = submission
         }
     }
 
@@ -85,40 +77,10 @@ class SubmissionCellView: SwipeVoteCellView {
     }
     
     override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return gestureRecognizer is UITapGestureRecognizer ||
-            	super.gestureRecognizerShouldBegin(gestureRecognizer)
+        return gestureRecognizer is UITapGestureRecognizer || super.gestureRecognizerShouldBegin(gestureRecognizer)
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func setSubmission(submission: Submission) {
-        inSetup = true
-        self.submission = submission
-        
-        voteStatus = submission.voteStatus
-        
-        points.text = "\(submission.score) \(submission.score == 1 ? "point" : "points")"
-        title.text = submission.title.decodeHTML()
-        authorAndSubreddit.text = "\(submission.author) • " +
-            "/r/\(submission.subreddit.lowercaseString) • " +
-            submission.domain
-        
-        let edited: String
-        if let editedTime = submission.editedUTC {
-            edited = " (edited \(NSDate(timeIntervalSince1970: Double(editedTime)).timeAgo()))"
-        } else {
-            edited = ""
-        }
-        
-        let str: String = String(submission.numComments) + " " +
-            (submission.numComments == 1 ? "comment" : "comments") + " " +
-            NSDate(timeIntervalSince1970: Double(submission.createdUTC)).timeAgo() +
-            edited
-		comments.text = str
-        
-        nsfw.hidden = !submission.over18
-        inSetup = false
     }
 }

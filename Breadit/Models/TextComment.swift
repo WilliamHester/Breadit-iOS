@@ -15,13 +15,13 @@ class TextComment: Comment, Votable {
     let id: String
     let author: String
     let body: String
-    let body_html: String
-    let author_flair_text: String?
+    let bodyHTML: String
+    let authorFlairText: String?
     let distinguished: String?
     let gilded: Int
     var score: Int
     let created: Int
-    let created_utc: Int
+    let createdUTC: Int
     let ups: Int
     let edited: Int?
     let saved: Bool
@@ -42,13 +42,13 @@ class TextComment: Comment, Votable {
         self.id = json["id"].string!
         self.author = json["author"].string!
         self.body = json["body"].string!
-        self.body_html = json["body_html"].string!
-        self.author_flair_text = json["author_flair_text"].string
+        self.bodyHTML = json["body_html"].string!
+        self.authorFlairText = json["author_flair_text"].string
         self.distinguished = json["distinguished"].string
         self.gilded = json["gilded"].int!
         self.score = json["score"].int!
         self.created = json["created"].int!
-        self.created_utc = json["created_utc"].int!
+        self.createdUTC = json["created_utc"].int!
         self.ups = json["ups"].int!
         self.edited = json["edited"].int
         self.saved = json["saved"].bool!

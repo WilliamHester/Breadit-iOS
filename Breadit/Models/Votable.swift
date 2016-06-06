@@ -8,4 +8,7 @@ import Foundation
 protocol Votable: class {
     var name: String { get }
     var voteStatus: VoteStatus { get set }
+    var score: Int { get set }
+    var createdUTC: Int { get }
+    var archived: Bool { get }
 }

@@ -11,7 +11,7 @@ import UIKit
 class BodyLabel: UILabel {
 
     // MARK: - public properties
-    weak var delegate: BodyLabelDelegate?
+    weak var delegate: ContentDelegate?
 
     @IBInspectable var lineSpacing: Float = 0 {
         didSet {
@@ -118,7 +118,7 @@ class BodyLabel: UILabel {
             }
 
             if let delegate = delegate {
-                delegate.bodyLabel(selectedElement.link)
+                delegate.contentTapped(selectedElement.link)
             }
         
             self.updateAttributesWhenSelected(false)

@@ -34,11 +34,4 @@ class SubmissionSelfPostCellView: SubmissionCellView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    override func setSubmission(submission: Submission) {
-        super.setSubmission(submission)
-        
-        contentBody.attributedText = HTMLParser(escapedHtml: submission.selftextHtml!,
-        		font: contentBody.font!).attributedString
-    }
 }

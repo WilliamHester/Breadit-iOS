@@ -16,7 +16,15 @@ class SubmissionImageCellView: SubmissionCellView {
     
     var contentImage: UIImageView!
     var request: Request?
-    weak var contentTappedDelegate: SubmissionCellDelegate?
+
+    // TODO: Look into moving this logic to the actual ViewController
+    override var submission: Submission! {
+        didSet {
+            request = Alamofire.request(.GET, submission.link!.previewUrl!).responseImage { response in
+                self.contentImage.image = response.result.value
+            }
+        }
+    }
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -31,8 +39,7 @@ class SubmissionImageCellView: SubmissionCellView {
                 v.heightAnchor.constraintEqualToConstant(SubmissionImageCellView.previewHeight).active = true
             } as! UIImageView
         }
-        let tapDetector = UITapGestureRecognizer(target: self,
-        		action: #selector(SubmissionImageCellView.contentTapped(_:)))
+        let tapDetector = UITapGestureRecognizer(target: self, action: #selector(contentTapped(_:)))
         tapDetector.delegate = self
         tapDetector.cancelsTouchesInView = true
         contentImage.userInteractionEnabled = true
@@ -53,15 +60,7 @@ class SubmissionImageCellView: SubmissionCellView {
         }
     }
     
-    override func setSubmission(submission: Submission) {
-        super.setSubmission(submission)
-
-        request = Alamofire.request(.GET, submission.link!.previewUrl!).responseImage { response in
-            self.contentImage.image = response.result.value
-        }
-    }
-    
     func contentTapped(sender: UITapGestureRecognizer) {
-        contentTappedDelegate?.contentTapped(submission)
+        delegate?.contentTapped(submission.link!)
     }
 }
