@@ -90,6 +90,9 @@ class SubmissionViewController: ContentViewController {
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let submission = submissionStore.submissions[indexPath.row]
+        if indexPath.row + 5 > submissionStore.submissions.count {
+            submissionStore.loadSubmissions(onSubmissionsLoaded)
+        }
         return setUpRowForSubmission(submission, atIndexPath: indexPath)
     }
     
