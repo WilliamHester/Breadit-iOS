@@ -267,6 +267,7 @@ class ContentViewController: UITableViewController, SubmissionCellDelegate,
         view.canSwipe = votableCanSwipe(comment)
         setUpVotableView(view, forVotable: comment)
 
+        view.delegate = self
         view.comment = comment
         view.body.delegate = self
         if traitCollection.forceTouchCapability == .Available {
