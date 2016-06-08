@@ -294,7 +294,7 @@ class ContentViewController: UITableViewController, SubmissionCellDelegate,
                     ])
         } else {
             view.body.attributedText =
-                    HTMLParser(escapedHtml: comment.bodyHTML, font: UIFont.systemFontOfSize(10)).attributedString
+                    HTMLParser(escapedHtml: comment.bodyHTML, font: UIFont.systemFontOfSize(13)).attributedString
         }
     }
 

@@ -264,7 +264,7 @@ class CommentViewController: ContentViewController, ReplyDelegate {
             let cell = tableView.dequeueReusableCellWithIdentifier("SubmissionSelfPostCellView")
                     as! SubmissionSelfPostCellView
             cell.contentBody.attributedText = HTMLParser(escapedHtml: submission.selftextHtml!,
-                    font: cell.contentBody.font!).attributedString
+                    font: UIFont.systemFontOfSize(13.0)).attributedString
             cell.contentBody.delegate = self
             return cell
         }
