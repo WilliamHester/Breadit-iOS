@@ -104,6 +104,31 @@ struct RedditAPI {
             callback(submission, resultComments)
         }
     }
+
+    static func getUser(username: String, after: String?, callback: [Votable] -> ()) {
+        let params: [String: String]
+        if let after = after {
+            params = ["after": after]
+        } else {
+            params = [:]
+        }
+        let request = RedditRequest("user/\(username)", params: params)
+        request.getJson { json in
+            if let items = json["data"]["children"].array {
+                var votables = [Votable]()
+                for item in items {
+                    if item["kind"].string == "t1" {
+                        votables.append(TextComment(json: item["data"], level: 0))
+                    } else if item["kind"].string == "t3" {
+                        votables.append(Submission(json: item["data"]))
+                    }
+                }
+                callback(votables)
+            } else {
+                callback([])
+            }
+        }
+    }
     
     static func getMoreComments(moreComment: MoreComment, forSubmission submission: Submission, callback: ([Comment] -> ())) {
         var children = ""

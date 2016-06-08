@@ -5,14 +5,14 @@
 
 import Foundation
 
-class SubmissionStore {
+class SubmissionStore: ListingStore {
 
-    var submissions = [Submission]()
+    var content = [Votable]()
     var failedLoad = false
     let urlPart: String
     let display: String
     var searchQuery: String? = nil
-    
+
     init(searchQuery: String) {
         display = searchQuery
         urlPart = "search"
@@ -20,43 +20,48 @@ class SubmissionStore {
     }
     
     init(subredditDisplay: String) {
-        display = subredditDisplay
+        display = subredditDisplay == "" ? "Front Page" : subredditDisplay
         urlPart = subredditDisplay.length == 0 ? "" : "r/" + subredditDisplay
         self.searchQuery = ""
     }
 
-    func loadSubmissions(onLoad: (Int, Int) -> ()) {
+    func loadContent(onLoad: (Int, Int) -> ()) {
         let after: String?
-        if let last = submissions.last {
+        if let last = content.last {
             after = last.name
         } else {
             after = nil
         }
         RedditAPI.getSubmissions(urlPart, query: searchQuery, after: after) { submissions in
-            let oldCount = self.submissions.count
-            self.submissions += submissions
+            let oldCount = self.content.count
+            for sub in submissions {
+                self.content.append(sub)
+            }
             if submissions.count == 0 {
                 self.failedLoad = true
             }
-            onLoad(oldCount, self.submissions.count)
+            onLoad(oldCount, self.content.count)
         }
     }
     
-    func refreshSubmissions(onLoad: (Bool) -> ()) {
+    func refreshContent(onLoad: (Bool) -> ()) {
         RedditAPI.getSubmissions(urlPart, query: searchQuery, after: nil) { submissions in
             var same = true
             for (i, submission) in submissions.enumerate() {
-                if i >= self.submissions.count {
+                if i >= self.content.count {
                     same = false
                     break
                 }
-                if submission.name != self.submissions[i].name {
+                if submission.name != self.content[i].name {
                     same = false
                     break
                 }
             }
             if !same {
-                self.submissions = submissions
+                self.content = [Votable]()
+                for sub in submissions {
+                    self.content.append(sub)
+                }
             }
             onLoad(!same)
         }

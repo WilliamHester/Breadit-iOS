@@ -18,6 +18,7 @@ class TextComment: Comment, Votable {
     let bodyHTML: String
     let authorFlairText: String?
     let distinguished: String?
+    let linkURL: String?
     let gilded: Int
     var score: Int
     let created: Int
@@ -45,6 +46,7 @@ class TextComment: Comment, Votable {
         self.bodyHTML = json["body_html"].string!
         self.authorFlairText = json["author_flair_text"].string
         self.distinguished = json["distinguished"].string
+        self.linkURL = json["link_url"].string
         self.gilded = json["gilded"].int!
         self.score = json["score"].int!
         self.created = json["created"].int!
@@ -56,7 +58,7 @@ class TextComment: Comment, Votable {
         self.score_hidden = json["score_hidden"].bool!
         self.stickied = json["stickied"].bool!
         self.likes = json["likes"].bool
-        
+
         if let likes = likes {
             voteStatus = likes ? .Upvoted : .Downvoted
         } else {

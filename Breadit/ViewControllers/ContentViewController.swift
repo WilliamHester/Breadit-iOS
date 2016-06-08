@@ -99,11 +99,13 @@ class ContentViewController: UITableViewController, SubmissionCellDelegate,
                 preview.permalink = link.id!
                 return preview
             case .Subreddit:
-                let preview = SubmissionViewController()
-                preview.submissionStore = SubmissionStore(subredditDisplay: link.id!)
+                let preview = ListingViewController()
+                preview.listingStore = SubmissionStore(subredditDisplay: link.id!)
                 return preview
             case .User:
-                break
+                let preview = ListingViewController()
+                preview.listingStore = UserStore(username: link.id!)
+                return preview
             case .RedditLive:
                 break
             case .Messages:

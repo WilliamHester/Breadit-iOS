@@ -242,23 +242,23 @@ class NavigationDrawerViewController: UIViewController, UIGestureRecognizerDeleg
     func didNavigateTo(place: NavigationPlace) {
         switch place {
         case .Search(let query):
-            var vc: SubmissionViewController
-            if let submissionVC = contentController.childViewControllers[0] as? SubmissionViewController {
+            var vc: ListingViewController
+            if let submissionVC = contentController.childViewControllers[0] as? ListingViewController {
                 vc = submissionVC
             } else {
-                vc = SubmissionViewController()
+                vc = ListingViewController()
                 contentController = UINavigationController(rootViewController: vc)
             }
-            vc.submissionStore = SubmissionStore(searchQuery: query)
+            vc.listingStore = SubmissionStore(searchQuery: query)
         case .Subreddit(let displayName):
-            var vc: SubmissionViewController
-            if let submissionVC = contentController.childViewControllers[0] as? SubmissionViewController {
+            var vc: ListingViewController
+            if let submissionVC = contentController.childViewControllers[0] as? ListingViewController {
                 vc = submissionVC
             } else {
-                vc = SubmissionViewController()
+                vc = ListingViewController()
                 contentController = UINavigationController(rootViewController: vc)
             }
-            vc.submissionStore = SubmissionStore(subredditDisplay: displayName)
+            vc.listingStore = SubmissionStore(subredditDisplay: displayName)
         case .Account:
             break
         case .Friends:

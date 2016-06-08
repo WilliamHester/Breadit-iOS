@@ -19,8 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         
-        let submissions = SubmissionViewController()
-        submissions.submissionStore = SubmissionStore(subredditDisplay: "breaditapp")
+        let submissions = ListingViewController()
+        submissions.listingStore = SubmissionStore(subredditDisplay: "breaditapp")
         let mainContent = UINavigationController(rootViewController: submissions)
         let navView = NavigationViewController()
         let navVC = NavigationDrawerViewController(

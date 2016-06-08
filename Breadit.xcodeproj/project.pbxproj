@@ -38,6 +38,7 @@
 		3DD431381CE5404400892CBB /* NSURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD431371CE5404400892CBB /* NSURL.swift */; };
 		3DF4EE641CD3110100985184 /* TextComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF4EE631CD3110100985184 /* TextComment.swift */; };
 		3DFBFE101CE9823100DEE6D4 /* SubmissionSelfPostCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFBFE0F1CE9823100DEE6D4 /* SubmissionSelfPostCellView.swift */; };
+		5056F0289F7E092A7EDD62E7 /* UserStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056F2198C39405A31754129 /* UserStore.swift */; };
 		5056F48919494D0441E8F71A /* HTMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056FC1ABDFE459FA9AE46D3 /* HTMLParser.swift */; };
 		5056F49868F1111FB7DE4B24 /* SubmissionCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056FFCCB2203A89EF090E01 /* SubmissionCellDelegate.swift */; };
 		5056F522FCC477BEE6475337 /* MoreComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056F72C1DF74F499B250156 /* MoreComment.swift */; };
@@ -50,6 +51,7 @@
 		5056F8F8C234C697A676DF09 /* Submission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056FD916A6AA73ED01BA73C /* Submission.swift */; };
 		5056F90CD7C987E083B8A6D4 /* SubmissionCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056F484BCF5AB43FB1FF8EE /* SubmissionCellView.swift */; };
 		5056F9EE31D841816201EEB7 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056FCE017B2DD0B1EC97D0B /* CommentViewController.swift */; };
+		5056FA22AD5DE6BEF25D53B2 /* ListingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056F2380B078A77A4749246 /* ListingStore.swift */; };
 		5056FAC17711B5BAF4A0F743 /* Votable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056F82F03D256ABCD0CD239 /* Votable.swift */; };
 		5056FB904EBA0C97A06CEE0F /* RedditAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056F2C4866B1FFA11C3A0F9 /* RedditAPI.swift */; };
 		5056FDEA45100C58662C4555 /* SwipeVoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056F7E66A96286D4EBC9047 /* SwipeVoteView.swift */; };
@@ -94,6 +96,8 @@
 		3DFBFE0F1CE9823100DEE6D4 /* SubmissionSelfPostCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionSelfPostCellView.swift; sourceTree = "<group>"; };
 		5056F0D0C245B0B5B456C4A6 /* ReplyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyViewController.swift; sourceTree = "<group>"; };
 		5056F0D310373F50E8C0A593 /* SubmissionStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionStore.swift; sourceTree = "<group>"; };
+		5056F2198C39405A31754129 /* UserStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserStore.swift; sourceTree = "<group>"; };
+		5056F2380B078A77A4749246 /* ListingStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListingStore.swift; sourceTree = "<group>"; };
 		5056F2C4866B1FFA11C3A0F9 /* RedditAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RedditAPI.swift; sourceTree = "<group>"; };
 		5056F484BCF5AB43FB1FF8EE /* SubmissionCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionCellView.swift; sourceTree = "<group>"; };
 		5056F67C1AE1D4773CF5FB29 /* ContentDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentDelegate.swift; sourceTree = "<group>"; };
@@ -211,6 +215,8 @@
 			children = (
 				5056F0D310373F50E8C0A593 /* SubmissionStore.swift */,
 				5056F69B187BA3D3AEEB1EF7 /* SubredditStore.swift */,
+				5056F2198C39405A31754129 /* UserStore.swift */,
+				5056F2380B078A77A4749246 /* ListingStore.swift */,
 			);
 			path = Presenters;
 			sourceTree = "<group>";
@@ -464,6 +470,8 @@
 				5056F8C40A09C5797FEBC604 /* ContentDelegate.swift in Sources */,
 				5056FE12B574DDE5A1D8F14D /* SwipeVoteType.swift in Sources */,
 				5056FDEA45100C58662C4555 /* SwipeVoteView.swift in Sources */,
+				5056F0289F7E092A7EDD62E7 /* UserStore.swift in Sources */,
+				5056FA22AD5DE6BEF25D53B2 /* ListingStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

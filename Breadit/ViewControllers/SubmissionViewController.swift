@@ -11,24 +11,21 @@ import Alamofire
 import AlamofireImage
 import NSDate_TimeAgo
 
-class SubmissionViewController: ContentViewController {
+class ListingViewController: ContentViewController {
 
     var canLoad = false
-    var detailViewController: CommentViewController? = nil
-    var submissionStore: SubmissionStore! {
+    var listingStore: ListingStore! {
         didSet {
             canLoad = true
-            let display = submissionStore.display
-            title = display == "" ? "Front Page" : display
-            submissionStore.refreshSubmissions(onRefresh)
-            
+            title = listingStore.display
+            listingStore.refreshContent(onRefresh)
+
             if tableView != nil {
                 tableView.reloadData()
                 tableView.setContentOffset(tableView.contentOffset, animated: false)
             }
         }
     }
-    let loginManager = LoginManager.singleton
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,18 +37,14 @@ class SubmissionViewController: ContentViewController {
         tableView.separatorColor = Colors.secondaryColor
         
         let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(SubmissionViewController.pullRefresh(_:)),
+        refreshControl.addTarget(self, action: #selector(ListingViewController.pullRefresh(_:)),
                 forControlEvents: .ValueChanged)
         tableView.addSubview(refreshControl)
         tableView.sendSubviewToBack(refreshControl)
         
         let button = UIBarButtonItem(barButtonSystemItem: .Organize, target: self,
-        		action: #selector(SubmissionViewController.sort(_:)))
+        		action: #selector(ListingViewController.sort(_:)))
         navigationItem.setRightBarButtonItem(button, animated: false)
-
-        if traitCollection.forceTouchCapability == .Available {
-            self.registerForPreviewingWithDelegate(self, sourceView: view)
-        }
     }
     
     func sort(obj: AnyObject?) {
@@ -60,7 +53,7 @@ class SubmissionViewController: ContentViewController {
     
     // MARK: - Submission loading
 
-    private func onSubmissionsLoaded(oldCount: Int, _ newCount: Int) {
+    private func onContentLoaded(oldCount: Int, _ newCount: Int) {
         guard newCount > oldCount else {
             return
         }
@@ -85,39 +78,62 @@ class SubmissionViewController: ContentViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return submissionStore.submissions.count
+        return listingStore.content.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let submission = submissionStore.submissions[indexPath.row]
-        if indexPath.row + 5 > submissionStore.submissions.count && canLoad {
-            submissionStore.loadSubmissions(onSubmissionsLoaded)
+        if indexPath.row + 5 > listingStore.content.count && canLoad {
+            listingStore.loadContent(onContentLoaded)
             canLoad = false
         }
-        return setUpRowForSubmission(submission, atIndexPath: indexPath)
+
+        if let textComment = listingStore.content[indexPath.row] as? TextComment {
+            return setUpRowForComment(textComment, atIndexPath: indexPath)
+        } else if let submission = listingStore.content[indexPath.row] as? Submission {
+            return setUpRowForSubmission(submission, atIndexPath: indexPath)
+        }
+
+        // Very bad, but should never happen
+        return UITableViewCell()
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let commentsController = CommentViewController()
-        commentsController.submission = submissionStore.submissions[indexPath.row]
-        commentsController.permalink = submissionStore.submissions[indexPath.row].permalink
+        setUpCommentViewController(commentsController, forVotable: listingStore.content[indexPath.row])
         navigationController?.pushViewController(commentsController, animated: true)
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
     func onRefresh(refreshed: Bool) {
         if refreshed {
-        	self.tableView.reloadData()
+            self.tableView.reloadData()
         }
     }
-    
 
     func pullRefresh(sender: UIRefreshControl) {
-        submissionStore.refreshSubmissions { refreshed in
+        listingStore.refreshContent { refreshed in
             self.onRefresh(refreshed)
             sender.endRefreshing()
             self.canLoad = refreshed
         }
+    }
+
+    func setUpCommentViewController(vc: CommentViewController, forVotable votable: Votable) -> Bool {
+        if let textComment = votable as? TextComment {
+            guard let linkURL = textComment.linkURL else {
+                return false
+            }
+            let link = Link(link: linkURL)
+            if let linkID = link.id {
+                vc.permalink = linkID
+            } else {
+                return false
+            }
+        } else if let submission = votable as? Submission {
+            vc.permalink = submission.permalink
+            vc.submission = submission
+        }
+        return true
     }
     
     // MARK: - View Controller Previewing Delegate
@@ -132,7 +148,10 @@ class SubmissionViewController: ContentViewController {
         previewingContext.sourceRect = viewRectInTableView
 
         let viewController = CommentViewController()
-        viewController.submission = submissionStore.submissions[indexPath.row]
+
+        guard setUpCommentViewController(viewController, forVotable: listingStore.content[indexPath.row]) else {
+            return nil
+        }
         
         viewController.preferredContentSize = CGSize.zero
 
