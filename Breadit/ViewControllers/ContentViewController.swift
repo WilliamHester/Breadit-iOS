@@ -6,10 +6,11 @@
 //  Copyright © 2016 William Hester. All rights reserved.
 //
 
-import UIKit
-import SafariServices
 import Alamofire
 import AlamofireImage
+import UIKit
+import SafariServices
+import SwiftString
 
 class ContentViewController: UITableViewController, SubmissionCellDelegate,
 		UIViewControllerPreviewingDelegate, UIGestureRecognizerDelegate,
@@ -197,14 +198,7 @@ class ContentViewController: UITableViewController, SubmissionCellDelegate,
         if submission.link?.previewUrl != nil {
             let imageCell = tableView.dequeueReusableCellWithIdentifier("SubmissionImageCellView",
                     forIndexPath: indexPath) as! SubmissionImageCellView
-            if let request = imageCell.request {
-                request.cancel()
-                imageCell.request = nil
-            }
-            imageCell.request = Alamofire.request(.GET, submission.link!.previewUrl!).responseImage { response in
-                imageCell.contentImage.image = response.result.value
-                imageCell.request = nil
-            }
+            setUpImageCellView(imageCell, forSubmission: submission)
             return imageCell
         } else if submission.link != nil {
             let linkCell = tableView.dequeueReusableCellWithIdentifier("SubmissionLinkCellView",
@@ -252,6 +246,18 @@ class ContentViewController: UITableViewController, SubmissionCellDelegate,
                 NSDate(timeIntervalSince1970: Double(submission.createdUTC)).timeAgo() +
                 edited
         view.comments.text = str
+    }
+
+    func setUpImageCellView(view: SubmissionImageCellView, forSubmission submission: Submission) {
+        if let request = view.request {
+            request.cancel()
+            view.request = nil
+        }
+        view.delegate = self
+        view.request = Alamofire.request(.GET, submission.link!.previewUrl!).responseImage { response in
+            view.contentImage.image = response.result.value
+            view.request = nil
+        }
     }
 
     func setUpLinkCellView(view: SubmissionLinkCellView, forSubmission submission: Submission) {
