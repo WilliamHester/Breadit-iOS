@@ -8,6 +8,8 @@
 
 import UIKit
 import SafariServices
+import Alamofire
+import AlamofireImage
 
 class ContentViewController: UITableViewController, SubmissionCellDelegate,
 		UIViewControllerPreviewingDelegate, UIGestureRecognizerDelegate,
@@ -160,7 +162,7 @@ class ContentViewController: UITableViewController, SubmissionCellDelegate,
         showViewControllerFor(link)
     }
 
-    func vote(swipe: SwipeVoteType, forVotable votable: Votable, inView view: SwipeVoteCellView) {
+    func vote(swipe: SwipeVoteType, forVotable votable: Votable, inView view: SwipeVoteView) {
         guard swipe != .None else {
             setUpVotableView(view, forVotable: votable)
             return
@@ -182,9 +184,9 @@ class ContentViewController: UITableViewController, SubmissionCellDelegate,
 
         setUpVotableView(view, forVotable: votable)
 
-        if let textCommentCell = view as? TextCommentCellView {
+        if let textCommentCell = view.superview?.superview as? TextCommentCellView {
             textCommentCell.points.text = "\(votable.score) • \(shortTimeFromNow(votable))"
-        } else if let submissionCell = view as? SubmissionCellView {
+        } else if let submissionCell = view.superview?.superview as? SubmissionCellView {
             submissionCell.points.text = "\(votable.score) \(votable.score == 1 ? "point" : "points")"
         }
 
@@ -193,8 +195,17 @@ class ContentViewController: UITableViewController, SubmissionCellDelegate,
 
     func reusableRowForSubmission(submission: Submission, atIndexPath indexPath: NSIndexPath) -> SubmissionCellView {
         if submission.link?.previewUrl != nil {
-            return tableView.dequeueReusableCellWithIdentifier("SubmissionImageCellView",
-                    forIndexPath: indexPath) as! SubmissionCellView
+            let imageCell = tableView.dequeueReusableCellWithIdentifier("SubmissionImageCellView",
+                    forIndexPath: indexPath) as! SubmissionImageCellView
+            if let request = imageCell.request {
+                request.cancel()
+                imageCell.request = nil
+            }
+            imageCell.request = Alamofire.request(.GET, submission.link!.previewUrl!).responseImage { response in
+                imageCell.contentImage.image = response.result.value
+                imageCell.request = nil
+            }
+            return imageCell
         } else if submission.link != nil {
             let linkCell = tableView.dequeueReusableCellWithIdentifier("SubmissionLinkCellView",
                     forIndexPath: indexPath) as! SubmissionLinkCellView
@@ -217,11 +228,11 @@ class ContentViewController: UITableViewController, SubmissionCellDelegate,
     // MARK: - Custom UITableViewCells
 
     func setUpSubmissionView(view: SubmissionCellView, forSubmission submission: Submission) {
-        view.delegate = self
+        view.swipableView.delegate = self
         view.submission = submission
-        setUpVotableView(view, forVotable: submission)
+        setUpVotableView(view.swipableView, forVotable: submission)
 
-        view.canSwipe = votableCanSwipe(submission)
+        view.swipableView.canSwipe = votableCanSwipe(submission)
         view.nsfw.hidden = !submission.over18
         view.points.text = "\(submission.score) \(submission.score == 1 ? "point" : "points")"
         view.title.text = submission.title.decodeHTML()
@@ -245,6 +256,21 @@ class ContentViewController: UITableViewController, SubmissionCellDelegate,
 
     func setUpLinkCellView(view: SubmissionLinkCellView, forSubmission submission: Submission) {
         view.linkDescription.text = submission.link!.domain
+        view.delegate = self
+
+        if let request = view.request {
+            request.cancel()
+            view.request = nil
+        }
+
+        view.request = Alamofire.request(.GET, submission.thumbnail).responseImage { response in
+            view.request = nil
+            if response.result.isSuccess {
+                view.thumbnailImage.image = response.result.value
+            } else {
+                view.thumbnailWidth.constant = 0
+            }
+        }
     }
 
     func setUpRowForComment(comment: Comment, atIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -264,11 +290,12 @@ class ContentViewController: UITableViewController, SubmissionCellDelegate,
     }
 
     func setUpTextCommentView(view: TextCommentCellView, forComment comment: TextComment) {
-        view.canSwipe = votableCanSwipe(comment)
-        setUpVotableView(view, forVotable: comment)
+        setUpVotableView(view.swipableView, forVotable: comment)
 
-        view.delegate = self
-        view.comment = comment
+        view.swipableView.canSwipe = votableCanSwipe(comment)
+        view.swipableView.delegate = self
+        view.swipableView.votable = comment
+
         view.body.delegate = self
         if traitCollection.forceTouchCapability == .Available {
             self.registerForPreviewingWithDelegate(self, sourceView: view.body)
@@ -298,7 +325,7 @@ class ContentViewController: UITableViewController, SubmissionCellDelegate,
         }
     }
 
-    func setUpVotableView(view: SwipeVoteCellView, forVotable votable: Votable) {
+    func setUpVotableView(view: SwipeVoteView, forVotable votable: Votable) {
         if votable.voteStatus == .Upvoted {
             view.left.backgroundColor = upvoteColor
             view.right.backgroundColor = Colors.backgroundColor

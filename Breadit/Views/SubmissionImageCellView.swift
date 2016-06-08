@@ -13,18 +13,11 @@ import AlamofireImage
 class SubmissionImageCellView: SubmissionCellView {
     
     private static let previewHeight: CGFloat = 150
+
+    weak var delegate: ContentDelegate!
     
     var contentImage: UIImageView!
     var request: Request?
-
-    // TODO: Look into moving this logic to the actual ViewController
-    override var submission: Submission! {
-        didSet {
-            request = Alamofire.request(.GET, submission.link!.previewUrl!).responseImage { response in
-                self.contentImage.image = response.result.value
-            }
-        }
-    }
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

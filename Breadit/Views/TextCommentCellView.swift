@@ -8,19 +8,15 @@
 
 import UIKit
 
-class TextCommentCellView: SwipeVoteCellView {
+class TextCommentCellView: UITableViewCell {
+
     var paddingConstraint: NSLayoutConstraint!
 
     var author: UILabel!
     var flair: UILabel!
     var points: UILabel!
     var body: BodyLabel!
-    
-    var comment: TextComment! {
-        didSet {
-            votable = comment
-        }
-    }
+    var swipableView: SwipeVoteView!
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -30,7 +26,15 @@ class TextCommentCellView: SwipeVoteCellView {
             v.backgroundColor = Colors.secondaryColor
         }
 
-        swipableContent.uiStackView { v in
+        swipableView = SwipeVoteView()
+        contentView.addSubview(swipableView)
+
+        contentView.leftAnchor.constraintEqualToAnchor(swipableView.leftAnchor).active = true
+        contentView.rightAnchor.constraintEqualToAnchor(swipableView.rightAnchor).active = true
+        contentView.bottomAnchor.constraintEqualToAnchor(swipableView.bottomAnchor).active = true
+        contentView.topAnchor.constraintEqualToAnchor(swipableView.topAnchor).active = true
+
+        swipableView.uiStackView { v in
             v.translatesAutoresizingMaskIntoConstraints = false
             v.axis = .Vertical
             v.spacing = 4
@@ -68,11 +72,12 @@ class TextCommentCellView: SwipeVoteCellView {
             }
             v.addChild(self.body)
         }.constrain { v in
-            self.paddingConstraint = v.leftAnchor.constraintEqualToAnchor(self.swipableContent.leftAnchor, constant: 4)
+            self.paddingConstraint = v.leftAnchor.constraintEqualToAnchor(self.swipableView.content.leftAnchor,
+                    constant: 4)
             self.paddingConstraint.active = true
-            v.rightAnchor.constraintEqualToAnchor(self.swipableContent.rightAnchor, constant: -4).active = true
-            self.swipableContent.topAnchor.constraintEqualToAnchor(v.topAnchor, constant: -4).active = true
-            self.swipableContent.bottomAnchor.constraintEqualToAnchor(v.bottomAnchor, constant: 4).active = true
+            v.rightAnchor.constraintEqualToAnchor(self.swipableView.content.rightAnchor, constant: -4).active = true
+            self.swipableView.content.topAnchor.constraintEqualToAnchor(v.topAnchor, constant: -4).active = true
+            self.swipableView.content.bottomAnchor.constraintEqualToAnchor(v.bottomAnchor, constant: 4).active = true
         }
     }
     

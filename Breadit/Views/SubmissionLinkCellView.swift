@@ -14,23 +14,13 @@ class SubmissionLinkCellView: SubmissionCellView {
     
     private static let previewHeight: CGFloat = 150
 
+    weak var delegate: ContentDelegate!
+
     var linkContent: UIView!
     var thumbnailImage: UIImageView!
     var linkDescription: UILabel!
     var thumbnailWidth: NSLayoutConstraint!
     var request: Request?
-
-    override var submission: Submission! {
-        didSet {
-            request = Alamofire.request(.GET, submission.thumbnail).responseImage { response in
-                if response.result.isSuccess {
-                    self.thumbnailImage.image = response.result.value
-                } else {
-                    self.thumbnailWidth.constant = 0
-                }
-            }
-        }
-    }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

@@ -28,7 +28,6 @@
 		3D9CBE261CCC86370004EACC /* SubmissionImageCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9CBE251CCC86370004EACC /* SubmissionImageCellView.swift */; };
 		3D9CBE281CCC9BF10004EACC /* Mango.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9CBE271CCC9BF10004EACC /* Mango.swift */; };
 		3D9CBE2C1CCD82900004EACC /* TextCommentCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9CBE2B1CCD82900004EACC /* TextCommentCellView.swift */; };
-		3DD3FC5C1CF7BFE90061BC4A /* SwipeVoteCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD3FC5B1CF7BFE90061BC4A /* SwipeVoteCellView.swift */; };
 		3DD3FC601CF7D0F70061BC4A /* VoteStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD3FC5F1CF7D0F70061BC4A /* VoteStatus.swift */; };
 		3DD3FC621CF7F9530061BC4A /* SubmissionLinkCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD3FC611CF7F9530061BC4A /* SubmissionLinkCellView.swift */; };
 		3DD3FC641CF8E02E0061BC4A /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD3FC631CF8E02E0061BC4A /* ContentViewController.swift */; };
@@ -53,6 +52,7 @@
 		5056F9EE31D841816201EEB7 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056FCE017B2DD0B1EC97D0B /* CommentViewController.swift */; };
 		5056FAC17711B5BAF4A0F743 /* Votable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056F82F03D256ABCD0CD239 /* Votable.swift */; };
 		5056FB904EBA0C97A06CEE0F /* RedditAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056F2C4866B1FFA11C3A0F9 /* RedditAPI.swift */; };
+		5056FDEA45100C58662C4555 /* SwipeVoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056F7E66A96286D4EBC9047 /* SwipeVoteView.swift */; };
 		5056FE12B574DDE5A1D8F14D /* SwipeVoteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056FA49040AC8EA4577AEEB /* SwipeVoteType.swift */; };
 		5056FE9C6037E39C526863A4 /* SubredditStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056F69B187BA3D3AEEB1EF7 /* SubredditStore.swift */; };
 		B6021B0FA50AD19ACB487910 /* Pods_Breadit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9C646CBF9733815AE70102B /* Pods_Breadit.framework */; };
@@ -82,7 +82,6 @@
 		3D9CBE251CCC86370004EACC /* SubmissionImageCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionImageCellView.swift; sourceTree = "<group>"; };
 		3D9CBE271CCC9BF10004EACC /* Mango.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mango.swift; sourceTree = "<group>"; };
 		3D9CBE2B1CCD82900004EACC /* TextCommentCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextCommentCellView.swift; sourceTree = "<group>"; };
-		3DD3FC5B1CF7BFE90061BC4A /* SwipeVoteCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeVoteCellView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		3DD3FC5F1CF7D0F70061BC4A /* VoteStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoteStatus.swift; sourceTree = "<group>"; };
 		3DD3FC611CF7F9530061BC4A /* SubmissionLinkCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionLinkCellView.swift; sourceTree = "<group>"; };
 		3DD3FC631CF8E02E0061BC4A /* ContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
@@ -102,6 +101,7 @@
 		5056F7139AC0005D82CDC87D /* Subreddit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subreddit.swift; sourceTree = "<group>"; };
 		5056F72C1DF74F499B250156 /* MoreComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreComment.swift; sourceTree = "<group>"; };
 		5056F7AAA2F11CFCDFA0E5F9 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		5056F7E66A96286D4EBC9047 /* SwipeVoteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeVoteView.swift; sourceTree = "<group>"; };
 		5056F82F03D256ABCD0CD239 /* Votable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Votable.swift; sourceTree = "<group>"; };
 		5056FA49040AC8EA4577AEEB /* SwipeVoteType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeVoteType.swift; sourceTree = "<group>"; };
 		5056FC1ABDFE459FA9AE46D3 /* HTMLParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTMLParser.swift; sourceTree = "<group>"; };
@@ -242,8 +242,8 @@
 				3D13BC9A1CD5983C009193C4 /* MoreCommentCellView.swift */,
 				3D4DEE771CE17E6400DB4DAD /* BodyLabel.swift */,
 				3DFBFE0F1CE9823100DEE6D4 /* SubmissionSelfPostCellView.swift */,
-				3DD3FC5B1CF7BFE90061BC4A /* SwipeVoteCellView.swift */,
 				3DD3FC611CF7F9530061BC4A /* SubmissionLinkCellView.swift */,
+				5056F7E66A96286D4EBC9047 /* SwipeVoteView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -440,7 +440,6 @@
 				3D4AEF991CE3CD1E000ACEE4 /* UIColor.swift in Sources */,
 				3D4A9A171CDAF99C00449959 /* Keys.swift in Sources */,
 				3D4DEE781CE17E6400DB4DAD /* BodyLabel.swift in Sources */,
-				3DD3FC5C1CF7BFE90061BC4A /* SwipeVoteCellView.swift in Sources */,
 				3DD3FC601CF7D0F70061BC4A /* VoteStatus.swift in Sources */,
 				3DFBFE101CE9823100DEE6D4 /* SubmissionSelfPostCellView.swift in Sources */,
 				5056F9EE31D841816201EEB7 /* CommentViewController.swift in Sources */,
@@ -464,6 +463,7 @@
 				5056FAC17711B5BAF4A0F743 /* Votable.swift in Sources */,
 				5056F8C40A09C5797FEBC604 /* ContentDelegate.swift in Sources */,
 				5056FE12B574DDE5A1D8F14D /* SwipeVoteType.swift in Sources */,
+				5056FDEA45100C58662C4555 /* SwipeVoteView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
