@@ -265,6 +265,7 @@ class CommentViewController: ContentViewController, ReplyDelegate {
                     as! SubmissionSelfPostCellView
             cell.contentBody.attributedText = HTMLParser(escapedHtml: submission.selftextHtml!,
                     font: cell.contentBody.font!).attributedString
+            cell.contentBody.delegate = self
             return cell
         }
         return super.reusableRowForSubmission(submission, atIndexPath: indexPath)
