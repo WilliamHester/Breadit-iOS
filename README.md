@@ -32,6 +32,7 @@ experience.
     - [ ] Navigate
 - [ ] Multireddits
 - [ ] Users
+    - [x] View content
     - [ ] Loading state
 - [ ] Accounts
     - [ ] Friends
