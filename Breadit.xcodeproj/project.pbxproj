@@ -42,7 +42,7 @@
 		5056F48919494D0441E8F71A /* HTMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056FC1ABDFE459FA9AE46D3 /* HTMLParser.swift */; };
 		5056F49868F1111FB7DE4B24 /* SubmissionCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056FFCCB2203A89EF090E01 /* SubmissionCellDelegate.swift */; };
 		5056F522FCC477BEE6475337 /* MoreComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056F72C1DF74F499B250156 /* MoreComment.swift */; };
-		5056F646C416ADAA6764C5AD /* SubmissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056FEF8C31C10C595281F16 /* SubmissionViewController.swift */; };
+		5056F646C416ADAA6764C5AD /* ListingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056FEF8C31C10C595281F16 /* ListingViewController.swift */; };
 		5056F66B98BD841F08CEFA30 /* ReplyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056F0D0C245B0B5B456C4A6 /* ReplyViewController.swift */; };
 		5056F6FD12FB503AA6314F94 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056F7AAA2F11CFCDFA0E5F9 /* Comment.swift */; };
 		5056F71FD95BF6DA26A95B9B /* SubmissionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056F0D310373F50E8C0A593 /* SubmissionStore.swift */; };
@@ -54,9 +54,11 @@
 		5056FA22AD5DE6BEF25D53B2 /* ListingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056F2380B078A77A4749246 /* ListingStore.swift */; };
 		5056FAC17711B5BAF4A0F743 /* Votable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056F82F03D256ABCD0CD239 /* Votable.swift */; };
 		5056FB904EBA0C97A06CEE0F /* RedditAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056F2C4866B1FFA11C3A0F9 /* RedditAPI.swift */; };
+		5056FC23E6ABD5868FBB9CBE /* SubmissionCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056F1A635A31F44197958C3 /* SubmissionCommentView.swift */; };
 		5056FDEA45100C58662C4555 /* SwipeVoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056F7E66A96286D4EBC9047 /* SwipeVoteView.swift */; };
 		5056FE12B574DDE5A1D8F14D /* SwipeVoteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056FA49040AC8EA4577AEEB /* SwipeVoteType.swift */; };
 		5056FE9C6037E39C526863A4 /* SubredditStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056F69B187BA3D3AEEB1EF7 /* SubredditStore.swift */; };
+		5056FFB2D265AAEC5153789B /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5056FC0A4438CE4C36979DA8 /* UserViewController.swift */; };
 		B6021B0FA50AD19ACB487910 /* Pods_Breadit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9C646CBF9733815AE70102B /* Pods_Breadit.framework */; };
 /* End PBXBuildFile section */
 
@@ -96,6 +98,7 @@
 		3DFBFE0F1CE9823100DEE6D4 /* SubmissionSelfPostCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionSelfPostCellView.swift; sourceTree = "<group>"; };
 		5056F0D0C245B0B5B456C4A6 /* ReplyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyViewController.swift; sourceTree = "<group>"; };
 		5056F0D310373F50E8C0A593 /* SubmissionStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionStore.swift; sourceTree = "<group>"; };
+		5056F1A635A31F44197958C3 /* SubmissionCommentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionCommentView.swift; sourceTree = "<group>"; };
 		5056F2198C39405A31754129 /* UserStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserStore.swift; sourceTree = "<group>"; };
 		5056F2380B078A77A4749246 /* ListingStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListingStore.swift; sourceTree = "<group>"; };
 		5056F2C4866B1FFA11C3A0F9 /* RedditAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RedditAPI.swift; sourceTree = "<group>"; };
@@ -108,10 +111,11 @@
 		5056F7E66A96286D4EBC9047 /* SwipeVoteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeVoteView.swift; sourceTree = "<group>"; };
 		5056F82F03D256ABCD0CD239 /* Votable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Votable.swift; sourceTree = "<group>"; };
 		5056FA49040AC8EA4577AEEB /* SwipeVoteType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeVoteType.swift; sourceTree = "<group>"; };
+		5056FC0A4438CE4C36979DA8 /* UserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 		5056FC1ABDFE459FA9AE46D3 /* HTMLParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTMLParser.swift; sourceTree = "<group>"; };
 		5056FCE017B2DD0B1EC97D0B /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		5056FD916A6AA73ED01BA73C /* Submission.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Submission.swift; sourceTree = "<group>"; };
-		5056FEF8C31C10C595281F16 /* SubmissionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionViewController.swift; sourceTree = "<group>"; };
+		5056FEF8C31C10C595281F16 /* ListingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListingViewController.swift; sourceTree = "<group>"; };
 		5056FFCCB2203A89EF090E01 /* SubmissionCellDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SubmissionCellDelegate.swift; path = Views/SubmissionCellDelegate.swift; sourceTree = "<group>"; };
 		81F3F02BD989F1F0A6A87972 /* Pods-Breadit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Breadit.release.xcconfig"; path = "Pods/Target Support Files/Pods-Breadit/Pods-Breadit.release.xcconfig"; sourceTree = "<group>"; };
 		AB6D9F07FB930788218F5A5A /* Pods-Breadit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Breadit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Breadit/Pods-Breadit.debug.xcconfig"; sourceTree = "<group>"; };
@@ -224,7 +228,7 @@
 		5056FC442F9ED6FFC75AE229 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				5056FEF8C31C10C595281F16 /* SubmissionViewController.swift */,
+				5056FEF8C31C10C595281F16 /* ListingViewController.swift */,
 				5056FCE017B2DD0B1EC97D0B /* CommentViewController.swift */,
 				3D13BC9E1CD5B3DD009193C4 /* NavigationDrawerViewController.swift */,
 				3D13BCA21CD5EEDC009193C4 /* NavigationViewController.swift */,
@@ -235,6 +239,7 @@
 				5056F0D0C245B0B5B456C4A6 /* ReplyViewController.swift */,
 				3DD3FC6A1CFBD0570061BC4A /* GifvViewController.swift */,
 				3DD3FC6C1CFBFE250061BC4A /* GifViewController.swift */,
+				5056FC0A4438CE4C36979DA8 /* UserViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -250,6 +255,7 @@
 				3DFBFE0F1CE9823100DEE6D4 /* SubmissionSelfPostCellView.swift */,
 				3DD3FC611CF7F9530061BC4A /* SubmissionLinkCellView.swift */,
 				5056F7E66A96286D4EBC9047 /* SwipeVoteView.swift */,
+				5056F1A635A31F44197958C3 /* SubmissionCommentView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -441,7 +447,7 @@
 				3D4A9A141CDAF6BF00449959 /* LoginViewController.swift in Sources */,
 				3DD431361CE53E0900892CBB /* YouTubePreviewViewController.swift in Sources */,
 				3D13BCA71CD69EA6009193C4 /* PreviewViewController.swift in Sources */,
-				5056F646C416ADAA6764C5AD /* SubmissionViewController.swift in Sources */,
+				5056F646C416ADAA6764C5AD /* ListingViewController.swift in Sources */,
 				3D13BCA31CD5EEDC009193C4 /* NavigationViewController.swift in Sources */,
 				3D4AEF991CE3CD1E000ACEE4 /* UIColor.swift in Sources */,
 				3D4A9A171CDAF99C00449959 /* Keys.swift in Sources */,
@@ -472,6 +478,8 @@
 				5056FDEA45100C58662C4555 /* SwipeVoteView.swift in Sources */,
 				5056F0289F7E092A7EDD62E7 /* UserStore.swift in Sources */,
 				5056FA22AD5DE6BEF25D53B2 /* ListingStore.swift in Sources */,
+				5056FC23E6ABD5868FBB9CBE /* SubmissionCommentView.swift in Sources */,
+				5056FFB2D265AAEC5153789B /* UserViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -103,7 +103,7 @@ class ContentViewController: UITableViewController, SubmissionCellDelegate,
                 preview.listingStore = SubmissionStore(subredditDisplay: link.id!)
                 return preview
             case .User:
-                let preview = ListingViewController()
+                let preview = UserViewController()
                 preview.listingStore = UserStore(username: link.id!)
                 return preview
             case .RedditLive:

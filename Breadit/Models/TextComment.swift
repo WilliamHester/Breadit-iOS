@@ -19,6 +19,9 @@ class TextComment: Comment, Votable {
     let authorFlairText: String?
     let distinguished: String?
     let linkURL: String?
+    var submissionTitle: String?
+    var submissionAuthor: String?
+    var subredditDisplay: String?
     let gilded: Int
     var score: Int
     let created: Int
@@ -58,6 +61,9 @@ class TextComment: Comment, Votable {
         self.score_hidden = json["score_hidden"].bool!
         self.stickied = json["stickied"].bool!
         self.likes = json["likes"].bool
+        self.submissionTitle = json["link_title"].string
+        self.submissionAuthor = json["link_author"].string
+        self.subredditDisplay = json["subreddit"].string
 
         if let likes = likes {
             voteStatus = likes ? .Upvoted : .Downvoted
