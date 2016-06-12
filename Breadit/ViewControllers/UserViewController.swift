@@ -31,9 +31,9 @@ class UserViewController: ListingViewController {
     }
 
     func setUpSubmissionCommentView(cell: SubmissionCommentCellView, forComment comment: TextComment) {
-        cell.submissionAuthor.text = comment.submissionAuthor!
+        cell.submissionAuthor.text = "/u/\(comment.submissionAuthor!)"
         cell.submissionTitle.text = comment.submissionTitle!
-        cell.submissionSubreddit.text = comment.subredditDisplay!
+        cell.submissionSubreddit.text = "/r/\(comment.subredditDisplay!)"
     }
 
 }

@@ -11,6 +11,7 @@ import UIKit
 class TextCommentCellView: UITableViewCell {
 
     var paddingConstraint: NSLayoutConstraint!
+    var contentTopAnchor: NSLayoutConstraint!
 
     var author: UILabel!
     var flair: UILabel!
@@ -32,7 +33,8 @@ class TextCommentCellView: UITableViewCell {
         contentView.leftAnchor.constraintEqualToAnchor(swipableView.leftAnchor).active = true
         contentView.rightAnchor.constraintEqualToAnchor(swipableView.rightAnchor).active = true
         contentView.bottomAnchor.constraintEqualToAnchor(swipableView.bottomAnchor).active = true
-        contentView.topAnchor.constraintEqualToAnchor(swipableView.topAnchor).active = true
+        contentTopAnchor = contentView.topAnchor.constraintEqualToAnchor(swipableView.topAnchor)
+        contentTopAnchor.active = true
 
         swipableView.uiStackView { v in
             v.translatesAutoresizingMaskIntoConstraints = false
