@@ -31,9 +31,18 @@ class UserViewController: ListingViewController {
     }
 
     func setUpSubmissionCommentView(cell: SubmissionCommentCellView, forComment comment: TextComment) {
-        cell.submissionAuthor.text = "/u/\(comment.submissionAuthor!)"
-        cell.submissionTitle.text = comment.submissionTitle!
-        cell.submissionSubreddit.text = "/r/\(comment.subredditDisplay!)"
+        let string = NSMutableAttributedString(string: comment.submissionTitle!, attributes: [
+                NSFontAttributeName: UIFont.italicSystemFontOfSize(13)
+        ])
+        string.appendAttributedString(NSAttributedString(string: " by "))
+        string.appendAttributedString(NSAttributedString(string: "/u/\(comment.submissionAuthor!)", attributes: [
+                NSForegroundColorAttributeName: Colors.infoColor
+        ]))
+        string.appendAttributedString(NSAttributedString(string: " in "))
+        string.appendAttributedString(NSAttributedString(string: "/r/\(comment.subredditDisplay!)", attributes: [
+                NSForegroundColorAttributeName: Colors.infoColor
+        ]))
+        cell.submissionTitle.attributedText = string
     }
 
 }
