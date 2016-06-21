@@ -164,7 +164,7 @@ class CommentViewController: ContentViewController, ReplyDelegate {
         comment.hidden = true
         var hiddenComments = [Comment]()
         var indexPaths = [NSIndexPath]()
-        var end = index + 1
+        var end = comments.count
         for i in index + 1..<comments.count {
             if comments[i].level > comment.level {
                 hiddenComments.append(comments[i])
@@ -174,7 +174,7 @@ class CommentViewController: ContentViewController, ReplyDelegate {
                 break
             }
         }
-        if index + 1 < end {
+        if index + 1 <= end {
         	comments.removeRange(index + 1..<end)
         }
         comment.replies = hiddenComments
