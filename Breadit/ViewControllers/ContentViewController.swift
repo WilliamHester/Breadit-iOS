@@ -83,7 +83,7 @@ class ContentViewController: UITableViewController, SubmissionCellDelegate,
                 preview.modalPresentationStyle = .OverFullScreen
                 return preview
             }
-            if imageType != .ImgurAlbum {
+            if imageType != .ImgurAlbum && imageType != .ImgurGallery {
             	let preview = PreviewViewController()
             	preview.modalPresentationStyle = .OverFullScreen
             	preview.imageUrl = link.previewUrl
